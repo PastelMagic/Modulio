@@ -1,0 +1,10 @@
+(module HOLE3_2MM (layer F.Cu) (tedit 4C1FDFC3)
+  (fp_text reference HOLE3_2MM (at 0 -3.048) (layer F.SilkS) hide
+    (effects (font (thickness 0.3048)))
+  )
+  (fp_text value VAL** (at 0 3.048) (layer F.SilkS) hide
+    (effects (font (thickness 0.3048)))
+  )
+  (fp_circle (center 0 0) (end 1.99898 1.524) (layer F.SilkS) (width 0.381))
+  (pad "" np_thru_hole circle (at 0 0) (size 3.2 3.2) (drill 3.2) (layers))
+)

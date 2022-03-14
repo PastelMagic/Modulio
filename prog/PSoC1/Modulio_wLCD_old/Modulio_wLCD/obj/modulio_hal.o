@@ -1,0 +1,133 @@
+XH
+H 1 areas 12 global symbols
+M modulio_hal.c
+S _I2CHW_1_fSendRepeatStart Ref0000
+S _I2CHW_1_fWrite Ref0000
+S _I2CHW_1_EnableInt Ref0000
+S _Delay50uTimes Ref0000
+S __r0 Ref0000
+S __r1 Ref0000
+S _I2CHW_1_bRead Ref0000
+S _I2CHW_1_EnableMstr Ref0000
+S _I2CHW_1_fSendStart Ref0000
+S _I2CHW_1_Start Ref0000
+S _I2CHW_1_SendStop Ref0000
+A text size DC flags 0
+dbfile ..\..\lib_modulio\modulio_hal.c
+dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\lib_modulio\Modulio_PSOC1.h
+dbfunc e MI2C_fSendStart 0 fc
+dbsym l stat 0 c
+dbsym l fRW FFFFFFFB c
+dbsym l bSlaveAddr FFFFFFFC c
+dbline FFFFFFFF 0
+dbline 20 4
+dbline 22 4
+dbline 23 14
+dbline 24 19
+dbline 25 1E
+dbline 26 21
+dbline FFFFFFFE 26
+dbline 0 29
+dbfunc e MI2C_fSendRepStart 2A fc
+dbsym l stat 0 c
+dbsym l fRW FFFFFFFB c
+dbsym l bSlaveAddr FFFFFFFC c
+dbline FFFFFFFF 2A
+dbline 36 2E
+dbline 38 2E
+dbline 39 3E
+dbline 3A 43
+dbline 3B 48
+dbline 3C 4B
+dbline FFFFFFFE 50
+dbline 0 53
+dbfunc e MI2C_SendStop 54 fV
+dbline FFFFFFFF 54
+dbline 49 54
+dbline 4A 54
+dbline FFFFFFFE 59
+dbline 0 59
+dbfunc e MI2C_fWrite 5A fc
+dbsym l stat 0 c
+dbsym l bData FFFFFFFC c
+dbline FFFFFFFF 5A
+dbline 57 5E
+dbline 59 5E
+dbline 5A 6A
+dbline 5B 6F
+dbline 5C 74
+dbline 5D 77
+dbline FFFFFFFE 7C
+dbline 0 7F
+dbfunc e MI2C_bRead 80 fc
+dbsym l data 0 c
+dbsym l fACK FFFFFFFC c
+dbline FFFFFFFF 80
+dbline 73 84
+dbline 75 84
+dbline 76 90
+dbline FFFFFFFE 92
+dbline 0 95
+dbfunc e MI2C_WaitMills 96 fV
+dbsym l delay FFFFFFFB s
+dbline FFFFFFFF 96
+dbline 89 98
+dbline 8A 98
+dbline 8B A2
+dbline 8B A4
+dbline 8C A4
+dbline 8D AB
+dbline 8B AB
+dbline 8E CC
+dbline FFFFFFFE CC
+dbline 0 CD
+dbfunc e MI2C_Startup CE fV
+dbline FFFFFFFF CE
+dbline 9B CE
+dbline 9C CE
+dbline 9D D0
+dbline 9E D4
+dbline 9F D7
+dbline FFFFFFFE DB
+dbline 0 DB
+S _MI2C_fWrite Def005A
+S _MI2C_WaitMills Def0096
+S _MI2C_bRead Def0080
+S _MI2C_Startup Def00CE
+S _MI2C_fSendStart Def0000
+S _MI2C_fSendRepStart Def002A
+S _MI2C_SendStop Def0054
+T 00 00 10 4F 38 01 10 52 FB 08 52 FC 20 7C 00 00
+R 00 00 00 00 02 0E 00 08
+T 00 0E 20 62 D0 00 00 54 00 3D 00 00 B0 06 56 00
+R 00 00 00 00 43 05 00 04
+T 00 1B 01 80 04 56 00 00 52 00 62 D0 00 00 38 FF
+R 00 00 00 00 43 0C 00 04
+T 00 28 20 7F 10 4F 38 01 10 52 FB 08 52 FC 20 7C
+R 00 00 00 00
+T 00 36 00 00 20 62 D0 00 00 54 00 3D 00 00 B0 06
+R 00 00 00 00 02 02 00 00 43 07 00 04
+T 00 43 56 00 01 80 04 56 00 00 52 00 62 D0 00 00
+R 00 00 00 00 43 0E 00 04
+T 00 50 38 FF 20 7F 10 7C 00 00 20 7F 10 4F 38 01
+R 00 00 00 00 02 08 00 0A
+T 00 5E 10 52 FC 7C 00 00 20 62 D0 00 00 54 00 3D
+R 00 00 00 00 02 06 00 01 43 0B 00 04
+T 00 6B 00 00 B0 06 56 00 01 80 04 56 00 00 52 00
+R 00 00 00 00
+T 00 79 62 D0 00 00 38 FF 20 7F 10 4F 38 01 10 52
+R 00 00 00 00 43 04 00 04
+T 00 86 FC 7C 00 00 20 62 D0 00 00 54 00 52 00 38
+R 00 00 00 00 02 04 00 06 43 09 00 04
+T 00 93 FF 20 7F 10 4F 3D FB 00 B0 06 3D FC 00 A0
+R 00 00 00 00
+T 00 A1 2B 80 08 10 50 14 7C 00 00 20 62 D0 00 00
+R 00 00 00 00 02 09 00 03 43 0E 00 04
+T 00 AE 52 FC 11 01 53 00 00 52 FB 19 00 53 00 00
+R 00 00 00 00 03 07 00 05 03 0E 00 04
+T 00 BA 51 00 00 54 FC 51 00 00 54 FB 3C 00 00 00
+R 00 00 00 00 03 03 00 05 03 08 00 04 03 0D 00 04
+T 00 C5 BF DE 3C 00 00 00 BF D9 20 7F 71 01 10 7C
+R 00 00 00 00 03 05 00 05
+T 00 D2 00 00 7C 00 00 7C 00 00 20 7F
+R 00 00 00 00 02 02 00 09 02 05 00 07 02 08 00 02

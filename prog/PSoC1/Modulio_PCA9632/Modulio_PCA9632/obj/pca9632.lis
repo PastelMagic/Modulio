@@ -1,0 +1,541 @@
+ 0000                   cpu LMM
+                        .module pca9632.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ..\..\lib_modulio\pca9632.c
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V7\PSoC1\lib_modulio\pca9632.c
+ 0000                   .dbfunc s PCA9632_DRVMode _PCA9632_DRVMode fc
+ 0000                   .dbstruct 0 12 MI2CADRS_STRUC
+ 0000                   .dbfield 0 BSW_ADRS c
+ 0000                   .dbfield 1 BSW_CH c
+ 0000                   .dbfield 2 DEV_ADRS c
+ 0000                   .dbfield 3 OPTION_1 c
+ 0000                   .dbfield 4 WriteBytes pfc
+ 0000                   .dbfield 6 WriteByte pfc
+ 0000                   .dbfield 8 ReadBytes pfc
+ 0000                   .dbfield 10 ReadByte pfc
+ 0000                   .dbend
+ 0000                   .dbstruct 0 22 PCA9632_STRUC
+ 0000                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 0000                   .dbfield 12 Start pfc
+ 0000                   .dbfield 14 DRVMode pfc
+ 0000                   .dbfield 16 LEDMode pfc
+ 0000                   .dbfield 18 Bright pfc
+ 0000                   .dbfield 20 DimmBlink pfc
+ 0000                   .dbend
+ 0000           ;           stat -> X+0
+ 0000           ;           mode -> X-6
+ 0000           ;              p -> X-5
+ 0000           _PCA9632_DRVMode:
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 3801              add SP,1
+ 0004                   .dbline 14
+ 0004           ; //---------------------------------------
+ 0004           ; //- PCA9632 4-Channel LED Driver      -
+ 0004           ; //-                                   -
+ 0004           ; //---------------------------------------
+ 0004           ; //
+ 0004           ; #define       EXTERN
+ 0004           ; #include "Modulio.h"
+ 0004           ; #undef EXTERN
+ 0004           ; #include "PCA9632.h"
+ 0004           ; 
+ 0004           ; 
+ 0004           ; 
+ 0004           ; static UINT8 PCA9632_DRVMode(PCA9632 *p, UINT8 mode)
+ 0004           ; {
+ 0004                   .dbline 16
+ 0004           ;       UINT8 stat;
+ 0004           ;       stat = (p->madrs).WriteByte(&(p->madrs), 0x01, mode); // MODE2
+ 0004 10                push X
+ 0005 52FA              mov A,[X-6]
+ 0007 08                push A
+ 0008 5000              mov A,0
+ 000A 08                push A
+ 000B 5001              mov A,1
+ 000D 08                push A
+ 000E 52FB              mov A,[X-5]
+ 0010 08                push A
+ 0011 52FC              mov A,[X-4]
+ 0013 08                push A
+ 0014 62D000            mov REG[0xd0],>__r0
+ 0017 52FC              mov A,[X-4]
+ 0019 0106              add A,6
+ 001B 5300              mov [__r1],A
+ 001D 52FB              mov A,[X-5]
+ 001F 0900              adc A,0
+ 0021 60D4              mov REG[0xd4],A
+ 0023 3E00              mvi A,[__r1]
+ 0025 5300              mov [__r0],A
+ 0027 3E00              mvi A,[__r1]
+ 0029 5C                mov X,A
+ 002A 5100              mov A,[__r0]
+ 002C 7C0000            xcall __plcall
+ 002F 38FB              add SP,-5
+ 0031 62D000            mov REG[0xd0],>__r0
+ 0034 20                pop X
+ 0035 5400              mov [X+0],A
+ 0037                   .dbline 17
+ 0037           ;       return(stat);
+ 0037 5200              mov A,[X+0]
+ 0039                   .dbline -2
+ 0039           L1:
+ 0039 38FF              add SP,-1
+ 003B 20                pop X
+ 003C                   .dbline 0 ; func end
+ 003C 7F                ret
+ 003D                   .dbsym l stat 0 c
+ 003D                   .dbsym l mode -6 c
+ 003D                   .dbsym l p -5 pS[PCA9632_STRUC]
+ 003D                   .dbend
+ 003D                   .dbfunc s PCA9632_LEDMode _PCA9632_LEDMode fc
+ 003D           ;           stat -> X+0
+ 003D           ;           mode -> X-6
+ 003D           ;              p -> X-5
+ 003D           _PCA9632_LEDMode:
+ 003D                   .dbline -1
+ 003D 10                push X
+ 003E 4F                mov X,SP
+ 003F 3801              add SP,1
+ 0041                   .dbline 24
+ 0041           ; }
+ 0041           ; 
+ 0041           ; //
+ 0041           ; // LED Mode control
+ 0041           ; //
+ 0041           ; static UINT8 PCA9632_LEDMode(PCA9632 *p, UINT8 mode)
+ 0041           ; {
+ 0041                   .dbline 26
+ 0041           ;       UINT8 stat;
+ 0041           ;       stat = (p->madrs).WriteByte(&(p->madrs), 0x08, mode); // LED output mode
+ 0041 10                push X
+ 0042 52FA              mov A,[X-6]
+ 0044 08                push A
+ 0045 5000              mov A,0
+ 0047 08                push A
+ 0048 5008              mov A,8
+ 004A 08                push A
+ 004B 52FB              mov A,[X-5]
+ 004D 08                push A
+ 004E 52FC              mov A,[X-4]
+ 0050 08                push A
+ 0051 62D000            mov REG[0xd0],>__r0
+ 0054 52FC              mov A,[X-4]
+ 0056 0106              add A,6
+ 0058 5300              mov [__r1],A
+ 005A 52FB              mov A,[X-5]
+ 005C 0900              adc A,0
+ 005E 60D4              mov REG[0xd4],A
+ 0060 3E00              mvi A,[__r1]
+ 0062 5300              mov [__r0],A
+ 0064 3E00              mvi A,[__r1]
+ 0066 5C                mov X,A
+ 0067 5100              mov A,[__r0]
+ 0069 7C0000            xcall __plcall
+ 006C 38FB              add SP,-5
+ 006E 62D000            mov REG[0xd0],>__r0
+ 0071 20                pop X
+ 0072 5400              mov [X+0],A
+ 0074                   .dbline 27
+ 0074           ;       return(stat);
+ 0074 5200              mov A,[X+0]
+ 0076                   .dbline -2
+ 0076           L2:
+ 0076 38FF              add SP,-1
+ 0078 20                pop X
+ 0079                   .dbline 0 ; func end
+ 0079 7F                ret
+ 007A                   .dbsym l stat 0 c
+ 007A                   .dbsym l mode -6 c
+ 007A                   .dbsym l p -5 pS[PCA9632_STRUC]
+ 007A                   .dbend
+ 007A                   .dbfunc s PCA9632_Start _PCA9632_Start fc
+ 007A           ;           stat -> X+0
+ 007A           ;        ledmode -> X-7
+ 007A           ;        drvmode -> X-6
+ 007A           ;              p -> X-5
+ 007A           _PCA9632_Start:
+ 007A                   .dbline -1
+ 007A 10                push X
+ 007B 4F                mov X,SP
+ 007C 3801              add SP,1
+ 007E                   .dbline 32
+ 007E           ; }
+ 007E           ; 
+ 007E           ; 
+ 007E           ; static UINT8 PCA9632_Start(PCA9632 *p, UINT8 drvmode, UINT8 ledmode)
+ 007E           ; {
+ 007E                   .dbline 34
+ 007E           ;       UINT8 stat;
+ 007E           ;       stat = (p->madrs).WriteByte(&(p->madrs), 0x00, 0); // MODE1
+ 007E 10                push X
+ 007F 5000              mov A,0
+ 0081 08                push A
+ 0082 08                push A
+ 0083 08                push A
+ 0084 52FB              mov A,[X-5]
+ 0086 08                push A
+ 0087 52FC              mov A,[X-4]
+ 0089 08                push A
+ 008A 62D000            mov REG[0xd0],>__r0
+ 008D 52FC              mov A,[X-4]
+ 008F 0106              add A,6
+ 0091 5300              mov [__r1],A
+ 0093 52FB              mov A,[X-5]
+ 0095 0900              adc A,0
+ 0097 60D4              mov REG[0xd4],A
+ 0099 3E00              mvi A,[__r1]
+ 009B 5300              mov [__r0],A
+ 009D 3E00              mvi A,[__r1]
+ 009F 5C                mov X,A
+ 00A0 5100              mov A,[__r0]
+ 00A2 7C0000            xcall __plcall
+ 00A5 38FB              add SP,-5
+ 00A7 62D000            mov REG[0xd0],>__r0
+ 00AA 20                pop X
+ 00AB 5400              mov [X+0],A
+ 00AD                   .dbline 35
+ 00AD           ;       if (stat == MI2C_WRITE_ERR)
+ 00AD 3D00FF            cmp [X+0],-1
+ 00B0 B005              jnz L4
+ 00B2                   .dbline 36
+ 00B2           ;               return(stat);
+ 00B2 5200              mov A,[X+0]
+ 00B4 8030              xjmp L3
+ 00B6           L4:
+ 00B6                   .dbline 37
+ 00B6           ;       stat = PCA9632_DRVMode(p, drvmode);     // MODE2
+ 00B6 52FA              mov A,[X-6]
+ 00B8 08                push A
+ 00B9 52FB              mov A,[X-5]
+ 00BB 08                push A
+ 00BC 52FC              mov A,[X-4]
+ 00BE 08                push A
+ 00BF 9F3F              xcall _PCA9632_DRVMode
+ 00C1 38FD              add SP,-3
+ 00C3 62D000            mov REG[0xd0],>__r0
+ 00C6 5400              mov [X+0],A
+ 00C8                   .dbline 38
+ 00C8           ;       if (stat == MI2C_WRITE_ERR)
+ 00C8 3D00FF            cmp [X+0],-1
+ 00CB B005              jnz L6
+ 00CD                   .dbline 39
+ 00CD           ;               return(stat);
+ 00CD 5200              mov A,[X+0]
+ 00CF 8015              xjmp L3
+ 00D1           L6:
+ 00D1                   .dbline 40
+ 00D1           ;       stat = PCA9632_LEDMode(p, ledmode);     // LED OUTPUT MODE
+ 00D1 52F9              mov A,[X-7]
+ 00D3 08                push A
+ 00D4 52FB              mov A,[X-5]
+ 00D6 08                push A
+ 00D7 52FC              mov A,[X-4]
+ 00D9 08                push A
+ 00DA 9F61              xcall _PCA9632_LEDMode
+ 00DC 38FD              add SP,-3
+ 00DE 62D000            mov REG[0xd0],>__r0
+ 00E1 5400              mov [X+0],A
+ 00E3                   .dbline 41
+ 00E3           ;       return(stat);
+ 00E3 5200              mov A,[X+0]
+ 00E5                   .dbline -2
+ 00E5           L3:
+ 00E5 38FF              add SP,-1
+ 00E7 20                pop X
+ 00E8                   .dbline 0 ; func end
+ 00E8 7F                ret
+ 00E9                   .dbsym l stat 0 c
+ 00E9                   .dbsym l ledmode -7 c
+ 00E9                   .dbsym l drvmode -6 c
+ 00E9                   .dbsym l p -5 pS[PCA9632_STRUC]
+ 00E9                   .dbend
+ 00E9                   .dbfunc s PCA9632_Bright _PCA9632_Bright fc
+ 00E9           ;           stat -> X+0
+ 00E9           ;            dat -> X-7
+ 00E9           ;             ch -> X-6
+ 00E9           ;              p -> X-5
+ 00E9           _PCA9632_Bright:
+ 00E9                   .dbline -1
+ 00E9 10                push X
+ 00EA 4F                mov X,SP
+ 00EB 3801              add SP,1
+ 00ED                   .dbline 49
+ 00ED           ; }
+ 00ED           ; 
+ 00ED           ; 
+ 00ED           ; //
+ 00ED           ; // LED Brightness control
+ 00ED           ; //
+ 00ED           ; static UINT8 PCA9632_Bright(PCA9632 *p, UINT8 ch, UINT8 dat)
+ 00ED           ; {
+ 00ED                   .dbline 51
+ 00ED           ;       UINT8 stat;
+ 00ED           ;       stat = (p->madrs).WriteByte(&(p->madrs), (ch & 3)+2, dat);
+ 00ED 10                push X
+ 00EE 52F9              mov A,[X-7]
+ 00F0 08                push A
+ 00F1 62D000            mov REG[0xd0],>__r0
+ 00F4 52FA              mov A,[X-6]
+ 00F6 5300              mov [__r1],A
+ 00F8 550000            mov [__r0],0
+ 00FB 260003            and [__r1],3
+ 00FE 260000            and [__r0],0
+ 0101 060002            add [__r1],2
+ 0104 0E0000            adc [__r0],0
+ 0107 5100              mov A,[__r0]
+ 0109 08                push A
+ 010A 5100              mov A,[__r1]
+ 010C 08                push A
+ 010D 52FB              mov A,[X-5]
+ 010F 08                push A
+ 0110 52FC              mov A,[X-4]
+ 0112 08                push A
+ 0113 52FC              mov A,[X-4]
+ 0115 0106              add A,6
+ 0117 5300              mov [__r1],A
+ 0119 52FB              mov A,[X-5]
+ 011B 0900              adc A,0
+ 011D 60D4              mov REG[0xd4],A
+ 011F 3E00              mvi A,[__r1]
+ 0121 5300              mov [__r0],A
+ 0123 3E00              mvi A,[__r1]
+ 0125 5C                mov X,A
+ 0126 5100              mov A,[__r0]
+ 0128 7C0000            xcall __plcall
+ 012B 38FB              add SP,-5
+ 012D 62D000            mov REG[0xd0],>__r0
+ 0130 20                pop X
+ 0131 5400              mov [X+0],A
+ 0133                   .dbline 52
+ 0133           ;       return(stat);
+ 0133 5200              mov A,[X+0]
+ 0135                   .dbline -2
+ 0135           L8:
+ 0135 38FF              add SP,-1
+ 0137 20                pop X
+ 0138                   .dbline 0 ; func end
+ 0138 7F                ret
+ 0139                   .dbsym l stat 0 c
+ 0139                   .dbsym l dat -7 c
+ 0139                   .dbsym l ch -6 c
+ 0139                   .dbsym l p -5 pS[PCA9632_STRUC]
+ 0139                   .dbend
+ 0139                   .dbfunc s PCA9632_DimmBlink _PCA9632_DimmBlink fc
+ 0139           ;           stat -> X+0
+ 0139           ;           freq -> X-7
+ 0139           ;            pwm -> X-6
+ 0139           ;              p -> X-5
+ 0139           _PCA9632_DimmBlink:
+ 0139                   .dbline -1
+ 0139 10                push X
+ 013A 4F                mov X,SP
+ 013B 3801              add SP,1
+ 013D                   .dbline 59
+ 013D           ; }
+ 013D           ; 
+ 013D           ; //
+ 013D           ; // LED Global Dimmer/Blink control
+ 013D           ; //
+ 013D           ; static UINT8 PCA9632_DimmBlink(PCA9632 *p, UINT8 pwm, UINT8 freq)
+ 013D           ; {
+ 013D                   .dbline 61
+ 013D           ;       UINT8 stat;
+ 013D           ;       stat = (p->madrs).WriteByte(&(p->madrs), 0x06, pwm);
+ 013D 10                push X
+ 013E 52FA              mov A,[X-6]
+ 0140 08                push A
+ 0141 5000              mov A,0
+ 0143 08                push A
+ 0144 5006              mov A,6
+ 0146 08                push A
+ 0147 52FB              mov A,[X-5]
+ 0149 08                push A
+ 014A 52FC              mov A,[X-4]
+ 014C 08                push A
+ 014D 62D000            mov REG[0xd0],>__r0
+ 0150 52FC              mov A,[X-4]
+ 0152 0106              add A,6
+ 0154 5300              mov [__r1],A
+ 0156 52FB              mov A,[X-5]
+ 0158 0900              adc A,0
+ 015A 60D4              mov REG[0xd4],A
+ 015C 3E00              mvi A,[__r1]
+ 015E 5300              mov [__r0],A
+ 0160 3E00              mvi A,[__r1]
+ 0162 5C                mov X,A
+ 0163 5100              mov A,[__r0]
+ 0165 7C0000            xcall __plcall
+ 0168 38FB              add SP,-5
+ 016A 62D000            mov REG[0xd0],>__r0
+ 016D 20                pop X
+ 016E 5400              mov [X+0],A
+ 0170                   .dbline 62
+ 0170           ;       if (stat == MI2C_WRITE_ERR)
+ 0170 3D00FF            cmp [X+0],-1
+ 0173 B005              jnz L10
+ 0175                   .dbline 63
+ 0175           ;               return(stat);
+ 0175 5200              mov A,[X+0]
+ 0177 8036              xjmp L9
+ 0179           L10:
+ 0179                   .dbline 64
+ 0179           ;       stat = (p->madrs).WriteByte(&(p->madrs), 0x07, freq);
+ 0179 10                push X
+ 017A 52F9              mov A,[X-7]
+ 017C 08                push A
+ 017D 5000              mov A,0
+ 017F 08                push A
+ 0180 5007              mov A,7
+ 0182 08                push A
+ 0183 52FB              mov A,[X-5]
+ 0185 08                push A
+ 0186 52FC              mov A,[X-4]
+ 0188 08                push A
+ 0189 62D000            mov REG[0xd0],>__r0
+ 018C 52FC              mov A,[X-4]
+ 018E 0106              add A,6
+ 0190 5300              mov [__r1],A
+ 0192 52FB              mov A,[X-5]
+ 0194 0900              adc A,0
+ 0196 60D4              mov REG[0xd4],A
+ 0198 3E00              mvi A,[__r1]
+ 019A 5300              mov [__r0],A
+ 019C 3E00              mvi A,[__r1]
+ 019E 5C                mov X,A
+ 019F 5100              mov A,[__r0]
+ 01A1 7C0000            xcall __plcall
+ 01A4 38FB              add SP,-5
+ 01A6 62D000            mov REG[0xd0],>__r0
+ 01A9 20                pop X
+ 01AA 5400              mov [X+0],A
+ 01AC                   .dbline 65
+ 01AC           ;       return(stat);
+ 01AC 5200              mov A,[X+0]
+ 01AE                   .dbline -2
+ 01AE           L9:
+ 01AE 38FF              add SP,-1
+ 01B0 20                pop X
+ 01B1                   .dbline 0 ; func end
+ 01B1 7F                ret
+ 01B2                   .dbsym l stat 0 c
+ 01B2                   .dbsym l freq -7 c
+ 01B2                   .dbsym l pwm -6 c
+ 01B2                   .dbsym l p -5 pS[PCA9632_STRUC]
+ 01B2                   .dbend
+ 01B2                   .dbfunc e PCA9632_Setup _PCA9632_Setup fV
+ 01B2           ;         option -> X-9
+ 01B2           ;        devadrs -> X-8
+ 01B2           ;          bswch -> X-7
+ 01B2           ;        bswadrs -> X-6
+ 01B2           ;              p -> X-5
+ 01B2           _PCA9632_Setup::
+ 01B2                   .dbline -1
+ 01B2 10                push X
+ 01B3 4F                mov X,SP
+ 01B4                   .dbline 74
+ 01B4           ; }
+ 01B4           ; 
+ 01B4           ; void PCA9632_Setup(
+ 01B4           ;               PCA9632 *p,
+ 01B4           ;               UINT8 bswadrs,
+ 01B4           ;               UINT8 bswch,
+ 01B4           ;               UINT8 devadrs,
+ 01B4           ;               UINT8 option)
+ 01B4           ; {
+ 01B4                   .dbline 76
+ 01B4           ; 
+ 01B4           ;       p->Start = &PCA9632_Start;
+ 01B4 62D000            mov REG[0xd0],>__r0
+ 01B7 52FC              mov A,[X-4]
+ 01B9 010C              add A,12
+ 01BB 5300              mov [__r1],A
+ 01BD 52FB              mov A,[X-5]
+ 01BF 0900              adc A,0
+ 01C1 60D5              mov REG[0xd5],A
+ 01C3 5008              mov A,>PL_PCA9632_Start
+ 01C5 3F00              mvi [__r1],A
+ 01C7 5008              mov A,<PL_PCA9632_Start
+ 01C9 3F00              mvi [__r1],A
+ 01CB                   .dbline 77
+ 01CB           ;       p->DRVMode = &PCA9632_DRVMode;
+ 01CB 52FC              mov A,[X-4]
+ 01CD 010E              add A,14
+ 01CF 5300              mov [__r1],A
+ 01D1 52FB              mov A,[X-5]
+ 01D3 0900              adc A,0
+ 01D5 60D5              mov REG[0xd5],A
+ 01D7 5006              mov A,>PL_PCA9632_DRVMode
+ 01D9 3F00              mvi [__r1],A
+ 01DB 5006              mov A,<PL_PCA9632_DRVMode
+ 01DD 3F00              mvi [__r1],A
+ 01DF                   .dbline 78
+ 01DF           ;       p->LEDMode = &PCA9632_LEDMode;
+ 01DF 52FC              mov A,[X-4]
+ 01E1 0110              add A,16
+ 01E3 5300              mov [__r1],A
+ 01E5 52FB              mov A,[X-5]
+ 01E7 0900              adc A,0
+ 01E9 60D5              mov REG[0xd5],A
+ 01EB 5004              mov A,>PL_PCA9632_LEDMode
+ 01ED 3F00              mvi [__r1],A
+ 01EF 5004              mov A,<PL_PCA9632_LEDMode
+ 01F1 3F00              mvi [__r1],A
+ 01F3                   .dbline 79
+ 01F3           ;       p->Bright = &PCA9632_Bright;
+ 01F3 52FC              mov A,[X-4]
+ 01F5 0112              add A,18
+ 01F7 5300              mov [__r1],A
+ 01F9 52FB              mov A,[X-5]
+ 01FB 0900              adc A,0
+ 01FD 60D5              mov REG[0xd5],A
+ 01FF 5002              mov A,>PL_PCA9632_Bright
+ 0201 3F00              mvi [__r1],A
+ 0203 5002              mov A,<PL_PCA9632_Bright
+ 0205 3F00              mvi [__r1],A
+ 0207                   .dbline 80
+ 0207           ;       p->DimmBlink = &PCA9632_DimmBlink;
+ 0207 52FC              mov A,[X-4]
+ 0209 0114              add A,20
+ 020B 5300              mov [__r1],A
+ 020D 52FB              mov A,[X-5]
+ 020F 0900              adc A,0
+ 0211 60D5              mov REG[0xd5],A
+ 0213 5000              mov A,>PL_PCA9632_DimmBlink
+ 0215 3F00              mvi [__r1],A
+ 0217 5000              mov A,<PL_PCA9632_DimmBlink
+ 0219 3F00              mvi [__r1],A
+ 021B                   .dbline 81
+ 021B           ;       MI2C_Setup(&(p->madrs), bswadrs, bswch, devadrs, option);
+ 021B 52F7              mov A,[X-9]
+ 021D 08                push A
+ 021E 52F8              mov A,[X-8]
+ 0220 08                push A
+ 0221 52F9              mov A,[X-7]
+ 0223 08                push A
+ 0224 52FA              mov A,[X-6]
+ 0226 08                push A
+ 0227 52FB              mov A,[X-5]
+ 0229 08                push A
+ 022A 52FC              mov A,[X-4]
+ 022C 08                push A
+ 022D 7C0000            xcall _MI2C_Setup
+ 0230 38FA              add SP,-6
+ 0232                   .dbline -2
+ 0232           L12:
+ 0232 20                pop X
+ 0233                   .dbline 0 ; func end
+ 0233 7F                ret
+ 0234                   .dbsym l option -9 c
+ 0234                   .dbsym l devadrs -8 c
+ 0234                   .dbsym l bswch -7 c
+ 0234                   .dbsym l bswadrs -6 c
+ 0234                   .dbsym l p -5 pS[PCA9632_STRUC]
+ 0234                   .dbend
+                        .area func_lit(rom, con, rel, proclab)
+ 0000 0139      PL_PCA9632_DimmBlink:   .word _PCA9632_DimmBlink
+ 0002 00E9      PL_PCA9632_Bright:      .word _PCA9632_Bright
+ 0004 003D      PL_PCA9632_LEDMode:     .word _PCA9632_LEDMode
+ 0006 0000      PL_PCA9632_DRVMode:     .word _PCA9632_DRVMode
+ 0008 007A      PL_PCA9632_Start:       .word _PCA9632_Start

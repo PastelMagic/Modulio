@@ -1,0 +1,933 @@
+ 0000                   cpu LMM
+                        .module lps25h.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ..\..\lib_modulio\lps25h.c
+ 0000                   .dbfile C:\PSOC1P~1\PSoC1\lib_modulio\lps25h.c
+ 0000                   .dbfunc s LPS25H_Start _LPS25H_Start fc
+ 0000                   .dbstruct 0 12 MI2CADRS_STRUC
+ 0000                   .dbfield 0 BSW_ADRS c
+ 0000                   .dbfield 1 BSW_CH c
+ 0000                   .dbfield 2 DEV_ADRS c
+ 0000                   .dbfield 3 OPTION_1 c
+ 0000                   .dbfield 4 WriteBytes pfc
+ 0000                   .dbfield 6 WriteByte pfc
+ 0000                   .dbfield 8 ReadBytes pfc
+ 0000                   .dbfield 10 ReadByte pfc
+ 0000                   .dbend
+ 0000                   .dbstruct 0 32 LPS25H_STRUC
+ 0000                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 0000                   .dbfield 12 ID c
+ 0000                   .dbfield 13 STS c
+ 0000                   .dbfield 14 PRESS A[3:3]c
+ 0000                   .dbfield 17 TEMP A[2:2]c
+ 0000                   .dbfield 19 STATUS c
+ 0000                   .dbfield 20 Start pfc
+ 0000                   .dbfield 22 ReadPress pfc
+ 0000                   .dbfield 24 wConvPress pfV
+ 0000                   .dbfield 26 ReadTemp pfc
+ 0000                   .dbfield 28 wConvTemp pfV
+ 0000                   .dbfield 30 ReadStatus pfc
+ 0000                   .dbend
+ 0000           ;            sts -> X+0
+ 0000           ;              p -> X-5
+ 0000           _LPS25H_Start:
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 3801              add SP,1
+ 0004                   .dbline 15
+ 0004           ; //---------------------------------------
+ 0004           ; //- LPS25H Pressure Sensor
+ 0004           ; //- �C���Z���T
+ 0004           ; //---------------------------------------
+ 0004           ; #define       EXTERN
+ 0004           ; #include "Modulio.h"
+ 0004           ; #undef EXTERN
+ 0004           ; #include "LPS25H.h"
+ 0004           ; 
+ 0004           ; //-------------------------------------------
+ 0004           ; //--- Initialize Device
+ 0004           ; //--- �f�o�C�X������
+ 0004           ; //-------------------------------------------
+ 0004           ; static UINT8  LPS25H_Start(LPS25H *p)
+ 0004           ; {
+ 0004                   .dbline 17
+ 0004           ;       UINT8   sts;
+ 0004           ;       sts = (p->madrs).ReadByte(&(p->madrs), 0x0f, &(p->ID));
+ 0004 62D000            mov REG[0xd0],>__r0
+ 0007 52FC              mov A,[X-4]
+ 0009 010C              add A,12
+ 000B 5300              mov [__r1],A
+ 000D 52FB              mov A,[X-5]
+ 000F 0900              adc A,0
+ 0011 10                push X
+ 0012 08                push A
+ 0013 5100              mov A,[__r1]
+ 0015 08                push A
+ 0016 5000              mov A,0
+ 0018 08                push A
+ 0019 500F              mov A,15
+ 001B 08                push A
+ 001C 52FB              mov A,[X-5]
+ 001E 08                push A
+ 001F 52FC              mov A,[X-4]
+ 0021 08                push A
+ 0022 52FC              mov A,[X-4]
+ 0024 010A              add A,10
+ 0026 5300              mov [__r1],A
+ 0028 52FB              mov A,[X-5]
+ 002A 0900              adc A,0
+ 002C 60D4              mov REG[0xd4],A
+ 002E 3E00              mvi A,[__r1]
+ 0030 5300              mov [__r0],A
+ 0032 3E00              mvi A,[__r1]
+ 0034 5C                mov X,A
+ 0035 5100              mov A,[__r0]
+ 0037 7C0000            xcall __plcall
+ 003A 38FA              add SP,-6
+ 003C 62D000            mov REG[0xd0],>__r0
+ 003F 20                pop X
+ 0040 5400              mov [X+0],A
+ 0042                   .dbline 18
+ 0042           ;       if (sts != MI2C_ACKslave)
+ 0042 3D0000            cmp [X+0],0
+ 0045 A005              jz L2
+ 0047                   .dbline 19
+ 0047           ;               return(sts);
+ 0047 5200              mov A,[X+0]
+ 0049 804F              xjmp L1
+ 004B           L2:
+ 004B                   .dbline 20
+ 004B           ;       if (p->ID != LPS25H_ID)
+ 004B 62D000            mov REG[0xd0],>__r0
+ 004E 52FC              mov A,[X-4]
+ 0050 010C              add A,12
+ 0052 5300              mov [__r1],A
+ 0054 52FB              mov A,[X-5]
+ 0056 0900              adc A,0
+ 0058 60D4              mov REG[0xd4],A
+ 005A 3E00              mvi A,[__r1]
+ 005C 39BD              cmp A,-67
+ 005E A005              jz L4
+ 0060                   .dbline 21
+ 0060           ;               return(sts);
+ 0060 5200              mov A,[X+0]
+ 0062 8036              xjmp L1
+ 0064           L4:
+ 0064                   .dbline 22
+ 0064           ;       sts = (p->madrs).WriteByte(&(p->madrs), 0x20, 0x90);
+ 0064 10                push X
+ 0065 5090              mov A,-112
+ 0067 08                push A
+ 0068 5000              mov A,0
+ 006A 08                push A
+ 006B 5020              mov A,32
+ 006D 08                push A
+ 006E 52FB              mov A,[X-5]
+ 0070 08                push A
+ 0071 52FC              mov A,[X-4]
+ 0073 08                push A
+ 0074 62D000            mov REG[0xd0],>__r0
+ 0077 52FC              mov A,[X-4]
+ 0079 0106              add A,6
+ 007B 5300              mov [__r1],A
+ 007D 52FB              mov A,[X-5]
+ 007F 0900              adc A,0
+ 0081 60D4              mov REG[0xd4],A
+ 0083 3E00              mvi A,[__r1]
+ 0085 5300              mov [__r0],A
+ 0087 3E00              mvi A,[__r1]
+ 0089 5C                mov X,A
+ 008A 5100              mov A,[__r0]
+ 008C 7C0000            xcall __plcall
+ 008F 38FB              add SP,-5
+ 0091 62D000            mov REG[0xd0],>__r0
+ 0094 20                pop X
+ 0095 5400              mov [X+0],A
+ 0097                   .dbline 23
+ 0097           ;       return(sts);
+ 0097 5200              mov A,[X+0]
+ 0099                   .dbline -2
+ 0099           L1:
+ 0099 38FF              add SP,-1
+ 009B 20                pop X
+ 009C                   .dbline 0 ; func end
+ 009C 7F                ret
+ 009D                   .dbsym l sts 0 c
+ 009D                   .dbsym l p -5 pS[LPS25H_STRUC]
+ 009D                   .dbend
+ 009D                   .dbfunc s LPS25H_ReadPress _LPS25H_ReadPress fc
+ 009D           ;            sts -> X+1
+ 009D           ;              c -> X+0
+ 009D           ;              p -> X-5
+ 009D           _LPS25H_ReadPress:
+ 009D                   .dbline -1
+ 009D 10                push X
+ 009E 4F                mov X,SP
+ 009F 3802              add SP,2
+ 00A1                   .dbline 32
+ 00A1           ; }
+ 00A1           ; 
+ 00A1           ; //-------------------------------------------
+ 00A1           ; //--- Read PRESSOUT(Pressure�j Registers
+ 00A1           ; //--- PRESS[0]:LSB�@PRESS[2]�FMSB
+ 00A1           ; //--- ���̓��W�X�^�l�ǂݍ���
+ 00A1           ; //-------------------------------------------
+ 00A1           ; static UINT8  LPS25H_ReadPress(LPS25H *p)
+ 00A1           ; {
+ 00A1                   .dbline 34
+ 00A1           ;       UINT8 c,sts;
+ 00A1           ;       for (c=0; c<3; c++) {
+ 00A1 560000            mov [X+0],0
+ 00A4 8061              xjmp L10
+ 00A6           L7:
+ 00A6                   .dbline 34
+ 00A6                   .dbline 35
+ 00A6           ;               sts = (p->madrs).ReadByte(&(p->madrs), 0x28+c, &(p->PRESS[c]));
+ 00A6 62D000            mov REG[0xd0],>__r0
+ 00A9 52FC              mov A,[X-4]
+ 00AB 010E              add A,14
+ 00AD 5300              mov [__r1],A
+ 00AF 52FB              mov A,[X-5]
+ 00B1 0900              adc A,0
+ 00B3 5300              mov [__r0],A
+ 00B5 5200              mov A,[X+0]
+ 00B7 0200              add A,[__r1]
+ 00B9 5300              mov [__r1],A
+ 00BB 5000              mov A,0
+ 00BD 0A00              adc A,[__r0]
+ 00BF 10                push X
+ 00C0 08                push A
+ 00C1 5100              mov A,[__r1]
+ 00C3 08                push A
+ 00C4 5200              mov A,[X+0]
+ 00C6 5300              mov [__r1],A
+ 00C8 550000            mov [__r0],0
+ 00CB 060028            add [__r1],40
+ 00CE 0E0000            adc [__r0],0
+ 00D1 5100              mov A,[__r0]
+ 00D3 08                push A
+ 00D4 5100              mov A,[__r1]
+ 00D6 08                push A
+ 00D7 52FB              mov A,[X-5]
+ 00D9 08                push A
+ 00DA 52FC              mov A,[X-4]
+ 00DC 08                push A
+ 00DD 52FC              mov A,[X-4]
+ 00DF 010A              add A,10
+ 00E1 5300              mov [__r1],A
+ 00E3 52FB              mov A,[X-5]
+ 00E5 0900              adc A,0
+ 00E7 60D4              mov REG[0xd4],A
+ 00E9 3E00              mvi A,[__r1]
+ 00EB 5300              mov [__r0],A
+ 00ED 3E00              mvi A,[__r1]
+ 00EF 5C                mov X,A
+ 00F0 5100              mov A,[__r0]
+ 00F2 7C0000            xcall __plcall
+ 00F5 38FA              add SP,-6
+ 00F7 62D000            mov REG[0xd0],>__r0
+ 00FA 20                pop X
+ 00FB 5401              mov [X+1],A
+ 00FD                   .dbline 36
+ 00FD           ;               if (sts != MI2C_ACKslave)
+ 00FD 3D0100            cmp [X+1],0
+ 0100 A003              jz L11
+ 0102                   .dbline 37
+ 0102           ;                       break;
+ 0102 8008              xjmp L9
+ 0104           L11:
+ 0104                   .dbline 38
+ 0104           ;       }
+ 0104           L8:
+ 0104                   .dbline 34
+ 0104 7700              inc [X+0]
+ 0106           L10:
+ 0106                   .dbline 34
+ 0106 3D0003            cmp [X+0],3
+ 0109 CF9C              jc L7
+ 010B           X0:
+ 010B           L9:
+ 010B                   .dbline 39
+ 010B           ;       return(sts);
+ 010B 5201              mov A,[X+1]
+ 010D 62D000            mov REG[0xd0],>__r0
+ 0110                   .dbline -2
+ 0110           L6:
+ 0110 38FE              add SP,-2
+ 0112 20                pop X
+ 0113                   .dbline 0 ; func end
+ 0113 7F                ret
+ 0114                   .dbsym l sts 1 c
+ 0114                   .dbsym l c 0 c
+ 0114                   .dbsym l p -5 pS[LPS25H_STRUC]
+ 0114                   .dbend
+ 0114                   .dbfunc s LPS25H_wConvPress _LPS25H_wConvPress fV
+ 0114           ;           frac -> X+0
+ 0114           ;              p -> X-5
+ 0114           _LPS25H_wConvPress:
+ 0114                   .dbline -1
+ 0114 10                push X
+ 0115 4F                mov X,SP
+ 0116 3802              add SP,2
+ 0118                   .dbline 49
+ 0118           ; }
+ 0118           ; 
+ 0118           ; //---------------------------------------------------
+ 0118           ; //--- Convert PRESS Reg.Value
+ 0118           ; //--- PRESS[0](MSB)�FPRESS[1]�iLSB):Integer Part
+ 0118           ; //--- PRESS[2]:Fractional Part
+ 0118           ; //--- ���̓f�[�^�l�ϊ�
+ 0118           ; //---------------------------------------------------
+ 0118           ; static void   LPS25H_wConvPress(LPS25H *p)
+ 0118           ; {
+ 0118                   .dbline 51
+ 0118           ;       UINT16  frac;
+ 0118           ;       frac = ((p->PRESS[1] & 0xf) << 8) | p->PRESS[0];        //*** PRESS[0]:LSB PRESS[2]:MSB
+ 0118 62D000            mov REG[0xd0],>__r0
+ 011B 52FC              mov A,[X-4]
+ 011D 010E              add A,14
+ 011F 5300              mov [__r1],A
+ 0121 52FB              mov A,[X-5]
+ 0123 0900              adc A,0
+ 0125 60D4              mov REG[0xd4],A
+ 0127 3E00              mvi A,[__r1]
+ 0129 5300              mov [__r0],A
+ 012B 52FC              mov A,[X-4]
+ 012D 010F              add A,15
+ 012F 5300              mov [__r3],A
+ 0131 52FB              mov A,[X-5]
+ 0133 0900              adc A,0
+ 0135 60D4              mov REG[0xd4],A
+ 0137 3E00              mvi A,[__r3]
+ 0139 5300              mov [__r2],A
+ 013B 26000F            and [__r2],15
+ 013E 5100              mov A,[__r0]
+ 0140 5401              mov [X+1],A
+ 0142 5100              mov A,[__r2]
+ 0144 5400              mov [X+0],A
+ 0146                   .dbline 52
+ 0146           ;       frac = (frac * 100) >> 12;
+ 0146 5200              mov A,[X+0]
+ 0148 08                push A
+ 0149 5201              mov A,[X+1]
+ 014B 08                push A
+ 014C 5000              mov A,0
+ 014E 08                push A
+ 014F 5064              mov A,100
+ 0151 08                push A
+ 0152 7C0000            xcall __mul16
+ 0155 38FC              add SP,-4
+ 0157 5100              mov A,[__rY]
+ 0159 5300              mov [__r1],A
+ 015B 550000            mov [__r0],0
+ 015E 70FB              and F,-5
+ 0160 6E00              rrc [__r0]
+ 0162 6E00              rrc [__r1]
+ 0164 70FB              and F,-5
+ 0166 6E00              rrc [__r0]
+ 0168 6E00              rrc [__r1]
+ 016A 70FB              and F,-5
+ 016C 6E00              rrc [__r0]
+ 016E 6E00              rrc [__r1]
+ 0170 70FB              and F,-5
+ 0172 6E00              rrc [__r0]
+ 0174 6E00              rrc [__r1]
+ 0176 5100              mov A,[__r1]
+ 0178 5401              mov [X+1],A
+ 017A 5100              mov A,[__r0]
+ 017C 5400              mov [X+0],A
+ 017E                   .dbline 53
+ 017E           ;       p->PRESS[1] =((p->PRESS[2] & 0xf)<<4) | (p->PRESS[1] >>4);
+ 017E 52FC              mov A,[X-4]
+ 0180 010F              add A,15
+ 0182 5300              mov [__r1],A
+ 0184 52FB              mov A,[X-5]
+ 0186 0900              adc A,0
+ 0188 5300              mov [__r0],A
+ 018A 60D4              mov REG[0xd4],A
+ 018C 3E00              mvi A,[__r1]
+ 018E 7A00              dec [__r1]
+ 0190 67                asr A
+ 0191 67                asr A
+ 0192 67                asr A
+ 0193 67                asr A
+ 0194 210F              and A,15
+ 0196 5300              mov [__r2],A
+ 0198 52FC              mov A,[X-4]
+ 019A 0110              add A,16
+ 019C 5300              mov [__r5],A
+ 019E 52FB              mov A,[X-5]
+ 01A0 0900              adc A,0
+ 01A2 60D4              mov REG[0xd4],A
+ 01A4 3E00              mvi A,[__r5]
+ 01A6 5300              mov [__r4],A
+ 01A8 26000F            and [__r4],15
+ 01AB 5100              mov A,[__r4]
+ 01AD 64                asl A
+ 01AE 64                asl A
+ 01AF 64                asl A
+ 01B0 64                asl A
+ 01B1 2A00              or A,[__r2]
+ 01B3 5300              mov [__r2],A
+ 01B5 5100              mov A,[__r0]
+ 01B7 60D5              mov REG[0xd5],A
+ 01B9 5100              mov A,[__r2]
+ 01BB 3F00              mvi [__r1],A
+ 01BD                   .dbline 54
+ 01BD           ;       p->PRESS[0] = p->PRESS[2] >> 4;
+ 01BD 52FC              mov A,[X-4]
+ 01BF 0110              add A,16
+ 01C1 5300              mov [__r1],A
+ 01C3 52FB              mov A,[X-5]
+ 01C5 0900              adc A,0
+ 01C7 60D4              mov REG[0xd4],A
+ 01C9 3E00              mvi A,[__r1]
+ 01CB 67                asr A
+ 01CC 67                asr A
+ 01CD 67                asr A
+ 01CE 67                asr A
+ 01CF 210F              and A,15
+ 01D1 5300              mov [__r0],A
+ 01D3 52FC              mov A,[X-4]
+ 01D5 010E              add A,14
+ 01D7 5300              mov [__r3],A
+ 01D9 52FB              mov A,[X-5]
+ 01DB 0900              adc A,0
+ 01DD 60D5              mov REG[0xd5],A
+ 01DF 5100              mov A,[__r0]
+ 01E1 3F00              mvi [__r3],A
+ 01E3                   .dbline 55
+ 01E3           ;       p->PRESS[2] = frac & 0xff;
+ 01E3 5201              mov A,[X+1]
+ 01E5 5300              mov [__r0],A
+ 01E7 52FC              mov A,[X-4]
+ 01E9 0110              add A,16
+ 01EB 5300              mov [__r3],A
+ 01ED 52FB              mov A,[X-5]
+ 01EF 0900              adc A,0
+ 01F1 60D5              mov REG[0xd5],A
+ 01F3 5100              mov A,[__r0]
+ 01F5 3F00              mvi [__r3],A
+ 01F7                   .dbline -2
+ 01F7           L13:
+ 01F7 38FE              add SP,-2
+ 01F9 20                pop X
+ 01FA                   .dbline 0 ; func end
+ 01FA 7F                ret
+ 01FB                   .dbsym l frac 0 s
+ 01FB                   .dbsym l p -5 pS[LPS25H_STRUC]
+ 01FB                   .dbend
+ 01FB                   .dbfunc s LPS25H_ReadTemp _LPS25H_ReadTemp fc
+ 01FB           ;            sts -> X+1
+ 01FB           ;              c -> X+0
+ 01FB           ;              p -> X-5
+ 01FB           _LPS25H_ReadTemp:
+ 01FB                   .dbline -1
+ 01FB 10                push X
+ 01FC 4F                mov X,SP
+ 01FD 3802              add SP,2
+ 01FF                   .dbline 63
+ 01FF           ; }
+ 01FF           ; 
+ 01FF           ; //-------------------------------------------
+ 01FF           ; //--- Read Temp. �iTEMP_OUT) Register
+ 01FF           ; //--- ���x���W�X�^�l�ǂݍ���
+ 01FF           ; //-------------------------------------------
+ 01FF           ; static UINT8  LPS25H_ReadTemp(LPS25H *p)
+ 01FF           ; {
+ 01FF                   .dbline 65
+ 01FF           ;       UINT8 c,sts;
+ 01FF           ;       for (c=0; c<2; c++) {
+ 01FF 560000            mov [X+0],0
+ 0202 8061              xjmp L18
+ 0204           L15:
+ 0204                   .dbline 65
+ 0204                   .dbline 66
+ 0204           ;               sts = (p->madrs).ReadByte(&(p->madrs), 0x2b+c, &(p->TEMP[c]));
+ 0204 62D000            mov REG[0xd0],>__r0
+ 0207 52FC              mov A,[X-4]
+ 0209 0111              add A,17
+ 020B 5300              mov [__r1],A
+ 020D 52FB              mov A,[X-5]
+ 020F 0900              adc A,0
+ 0211 5300              mov [__r0],A
+ 0213 5200              mov A,[X+0]
+ 0215 0200              add A,[__r1]
+ 0217 5300              mov [__r1],A
+ 0219 5000              mov A,0
+ 021B 0A00              adc A,[__r0]
+ 021D 10                push X
+ 021E 08                push A
+ 021F 5100              mov A,[__r1]
+ 0221 08                push A
+ 0222 5200              mov A,[X+0]
+ 0224 5300              mov [__r1],A
+ 0226 550000            mov [__r0],0
+ 0229 06002B            add [__r1],43
+ 022C 0E0000            adc [__r0],0
+ 022F 5100              mov A,[__r0]
+ 0231 08                push A
+ 0232 5100              mov A,[__r1]
+ 0234 08                push A
+ 0235 52FB              mov A,[X-5]
+ 0237 08                push A
+ 0238 52FC              mov A,[X-4]
+ 023A 08                push A
+ 023B 52FC              mov A,[X-4]
+ 023D 010A              add A,10
+ 023F 5300              mov [__r1],A
+ 0241 52FB              mov A,[X-5]
+ 0243 0900              adc A,0
+ 0245 60D4              mov REG[0xd4],A
+ 0247 3E00              mvi A,[__r1]
+ 0249 5300              mov [__r0],A
+ 024B 3E00              mvi A,[__r1]
+ 024D 5C                mov X,A
+ 024E 5100              mov A,[__r0]
+ 0250 7C0000            xcall __plcall
+ 0253 38FA              add SP,-6
+ 0255 62D000            mov REG[0xd0],>__r0
+ 0258 20                pop X
+ 0259 5401              mov [X+1],A
+ 025B                   .dbline 67
+ 025B           ;               if (sts != MI2C_ACKslave)
+ 025B 3D0100            cmp [X+1],0
+ 025E A003              jz L19
+ 0260                   .dbline 68
+ 0260           ;                       break;
+ 0260 8008              xjmp L17
+ 0262           L19:
+ 0262                   .dbline 69
+ 0262           ;       }
+ 0262           L16:
+ 0262                   .dbline 65
+ 0262 7700              inc [X+0]
+ 0264           L18:
+ 0264                   .dbline 65
+ 0264 3D0002            cmp [X+0],2
+ 0267 CF9C              jc L15
+ 0269           X1:
+ 0269           L17:
+ 0269                   .dbline 70
+ 0269           ;       return(sts);
+ 0269 5201              mov A,[X+1]
+ 026B 62D000            mov REG[0xd0],>__r0
+ 026E                   .dbline -2
+ 026E           L14:
+ 026E 38FE              add SP,-2
+ 0270 20                pop X
+ 0271                   .dbline 0 ; func end
+ 0271 7F                ret
+ 0272                   .dbsym l sts 1 c
+ 0272                   .dbsym l c 0 c
+ 0272                   .dbsym l p -5 pS[LPS25H_STRUC]
+ 0272                   .dbend
+ 0272                   .dbfunc s LPS25H_wConvTemp _LPS25H_wConvTemp fV
+ 0272           ;           fdat -> X+4
+ 0272           ;           idat -> X+2
+ 0272           ;            dat -> X+0
+ 0272           ;              p -> X-5
+ 0272           _LPS25H_wConvTemp:
+ 0272                   .dbline -1
+ 0272 10                push X
+ 0273 4F                mov X,SP
+ 0274 3806              add SP,6
+ 0276                   .dbline 82
+ 0276           ; }
+ 0276           ; 
+ 0276           ; //-------------------------------------------
+ 0276           ; //--- TEMP[0]:Integer Part
+ 0276           ; //--- TMEP[1]:Fractional Part
+ 0276           ; //--- ���x�f�[�^�l�ϊ�
+ 0276           ; //--- 42.5+(TEMP_OUT/480)
+ 0276           ; //--- �����F�����ibit7�j�{��Βl�ibit6�`0)
+ 0276           ; //--- �����F2�������Ȃ�
+ 0276           ; //-------------------------------------------
+ 0276           ; static void   LPS25H_wConvTemp(LPS25H *p)
+ 0276           ; {
+ 0276                   .dbline 85
+ 0276           ;       UINT16 idat,fdat;
+ 0276           ;       UINT16 dat;
+ 0276           ;       dat = (p->TEMP[1] << 8) | p->TEMP[0];
+ 0276 62D000            mov REG[0xd0],>__r0
+ 0279 52FC              mov A,[X-4]
+ 027B 0111              add A,17
+ 027D 5300              mov [__r1],A
+ 027F 52FB              mov A,[X-5]
+ 0281 0900              adc A,0
+ 0283 60D4              mov REG[0xd4],A
+ 0285 3E00              mvi A,[__r1]
+ 0287 5300              mov [__r0],A
+ 0289 52FC              mov A,[X-4]
+ 028B 0112              add A,18
+ 028D 5300              mov [__r3],A
+ 028F 52FB              mov A,[X-5]
+ 0291 0900              adc A,0
+ 0293 60D4              mov REG[0xd4],A
+ 0295 3E00              mvi A,[__r3]
+ 0297 5300              mov [__r2],A
+ 0299 5100              mov A,[__r0]
+ 029B 5401              mov [X+1],A
+ 029D 5100              mov A,[__r2]
+ 029F 5400              mov [X+0],A
+ 02A1                   .dbline 86
+ 02A1           ;       if ((dat & 0x8000) && (dat < 0xb050)) {
+ 02A1 5201              mov A,[X+1]
+ 02A3 2100              and A,0
+ 02A5 5300              mov [__r1],A
+ 02A7 5200              mov A,[X+0]
+ 02A9 2180              and A,-128
+ 02AB 3900              cmp A,0
+ 02AD B006              jnz X2
+ 02AF 3C0000            cmp [__r1],0
+ 02B2 A034              jz L22
+ 02B4           X2:
+ 02B4 5201              mov A,[X+1]
+ 02B6 1150              sub A,80
+ 02B8 5200              mov A,[X+0]
+ 02BA 19B0              sbb A,-80
+ 02BC D02A              jnc L22
+ 02BE           X3:
+ 02BE                   .dbline 87
+ 02BE           ;               dat = (((20400 + dat) & 0xffff)^0xffff)+1;
+ 02BE                   .dbline 87
+ 02BE 62D000            mov REG[0xd0],>__r0
+ 02C1 5201              mov A,[X+1]
+ 02C3 01B0              add A,-80
+ 02C5 5300              mov [__r1],A
+ 02C7 5200              mov A,[X+0]
+ 02C9 094F              adc A,79
+ 02CB 5300              mov [__r0],A
+ 02CD 3600FF            xor [__r1],-1
+ 02D0 3600FF            xor [__r0],-1
+ 02D3 5100              mov A,[__r1]
+ 02D5 0101              add A,1
+ 02D7 5401              mov [X+1],A
+ 02D9 5100              mov A,[__r0]
+ 02DB 0900              adc A,0
+ 02DD 5400              mov [X+0],A
+ 02DF                   .dbline 88
+ 02DF           ;               idat = 0x80;
+ 02DF 560380            mov [X+3],-128
+ 02E2 560200            mov [X+2],0
+ 02E5                   .dbline 89
+ 02E5           ;       } else {
+ 02E5 800D              xjmp L23
+ 02E7           L22:
+ 02E7                   .dbline 89
+ 02E7                   .dbline 90
+ 02E7           ;               dat = (20400 + dat) & 0xffff;
+ 02E7 0701B0            add [X+1],-80
+ 02EA 0F004F            adc [X+0],79
+ 02ED                   .dbline 91
+ 02ED           ;               idat = 0;
+ 02ED 560300            mov [X+3],0
+ 02F0 560200            mov [X+2],0
+ 02F3                   .dbline 92
+ 02F3           ;       }
+ 02F3           L23:
+ 02F3                   .dbline 93
+ 02F3           ;       idat += (dat / 480) & 0x7f;
+ 02F3 62D000            mov REG[0xd0],>__r0
+ 02F6 5001              mov A,1
+ 02F8 08                push A
+ 02F9 50E0              mov A,-32
+ 02FB 08                push A
+ 02FC 5200              mov A,[X+0]
+ 02FE 08                push A
+ 02FF 5201              mov A,[X+1]
+ 0301 08                push A
+ 0302 7C0000            xcall __divmodu_16X16_16
+ 0305 18                pop A
+ 0306 5300              mov [__r1],A
+ 0308 18                pop A
+ 0309 5300              mov [__r0],A
+ 030B 38FE              add SP,-2
+ 030D 26007F            and [__r1],127
+ 0310 260000            and [__r0],0
+ 0313 5100              mov A,[__r1]
+ 0315 0503              add [X+3],A
+ 0317 5100              mov A,[__r0]
+ 0319 0D02              adc [X+2],A
+ 031B                   .dbline 94
+ 031B           ;       dat -= idat*480;
+ 031B 5202              mov A,[X+2]
+ 031D 08                push A
+ 031E 5203              mov A,[X+3]
+ 0320 08                push A
+ 0321 5001              mov A,1
+ 0323 08                push A
+ 0324 50E0              mov A,-32
+ 0326 08                push A
+ 0327 7C0000            xcall __mul16
+ 032A 38FC              add SP,-4
+ 032C 5100              mov A,[__rX]
+ 032E 5300              mov [__r1],A
+ 0330 5100              mov A,[__rY]
+ 0332 5300              mov [__r0],A
+ 0334 5100              mov A,[__r1]
+ 0336 1501              sub [X+1],A
+ 0338 5100              mov A,[__r0]
+ 033A 1D00              sbb [X+0],A
+ 033C                   .dbline 95
+ 033C           ;       fdat = dat*5/24;
+ 033C 5200              mov A,[X+0]
+ 033E 08                push A
+ 033F 5201              mov A,[X+1]
+ 0341 08                push A
+ 0342 5000              mov A,0
+ 0344 08                push A
+ 0345 5005              mov A,5
+ 0347 08                push A
+ 0348 7C0000            xcall __mul16
+ 034B 38FC              add SP,-4
+ 034D 5100              mov A,[__rX]
+ 034F 5300              mov [__r1],A
+ 0351 5100              mov A,[__rY]
+ 0353 5300              mov [__r0],A
+ 0355 5000              mov A,0
+ 0357 08                push A
+ 0358 5018              mov A,24
+ 035A 08                push A
+ 035B 5100              mov A,[__r0]
+ 035D 08                push A
+ 035E 5100              mov A,[__r1]
+ 0360 08                push A
+ 0361 7C0000            xcall __divmodu_16X16_16
+ 0364 18                pop A
+ 0365 5405              mov [X+5],A
+ 0367 18                pop A
+ 0368 5404              mov [X+4],A
+ 036A 38FE              add SP,-2
+ 036C                   .dbline 96
+ 036C           ;       p->TEMP[0] = (UINT8)idat;
+ 036C 5203              mov A,[X+3]
+ 036E 5300              mov [__r0],A
+ 0370 52FC              mov A,[X-4]
+ 0372 0111              add A,17
+ 0374 5300              mov [__r3],A
+ 0376 52FB              mov A,[X-5]
+ 0378 0900              adc A,0
+ 037A 60D5              mov REG[0xd5],A
+ 037C 5100              mov A,[__r0]
+ 037E 3F00              mvi [__r3],A
+ 0380                   .dbline 97
+ 0380           ;       p->TEMP[1] = (UINT8)fdat;
+ 0380 5205              mov A,[X+5]
+ 0382 5300              mov [__r0],A
+ 0384 52FC              mov A,[X-4]
+ 0386 0112              add A,18
+ 0388 5300              mov [__r3],A
+ 038A 52FB              mov A,[X-5]
+ 038C 0900              adc A,0
+ 038E 60D5              mov REG[0xd5],A
+ 0390 5100              mov A,[__r0]
+ 0392 3F00              mvi [__r3],A
+ 0394                   .dbline -2
+ 0394           L21:
+ 0394 38FA              add SP,-6
+ 0396 20                pop X
+ 0397                   .dbline 0 ; func end
+ 0397 7F                ret
+ 0398                   .dbsym l fdat 4 s
+ 0398                   .dbsym l idat 2 s
+ 0398                   .dbsym l dat 0 s
+ 0398                   .dbsym l p -5 pS[LPS25H_STRUC]
+ 0398                   .dbend
+ 0398                   .dbfunc s LPS25H_ReadStatus _LPS25H_ReadStatus fc
+ 0398           ;            sts -> X+0
+ 0398           ;              p -> X-5
+ 0398           _LPS25H_ReadStatus:
+ 0398                   .dbline -1
+ 0398 10                push X
+ 0399 4F                mov X,SP
+ 039A 3801              add SP,1
+ 039C                   .dbline 104
+ 039C           ; }
+ 039C           ; 
+ 039C           ; //-------------------------------------------
+ 039C           ; //--- �X�e�[�^�X���W�X�^�ǂݍ���
+ 039C           ; //-------------------------------------------
+ 039C           ; static UINT8  LPS25H_ReadStatus(LPS25H *p)
+ 039C           ; {
+ 039C                   .dbline 106
+ 039C           ;       UINT8 sts;
+ 039C           ;       sts = (p->madrs).ReadByte(&(p->madrs), 0x27, &(p->STS));                //*** Adrs for StatusReg is 0x28
+ 039C 62D000            mov REG[0xd0],>__r0
+ 039F 52FC              mov A,[X-4]
+ 03A1 010D              add A,13
+ 03A3 5300              mov [__r1],A
+ 03A5 52FB              mov A,[X-5]
+ 03A7 0900              adc A,0
+ 03A9 10                push X
+ 03AA 08                push A
+ 03AB 5100              mov A,[__r1]
+ 03AD 08                push A
+ 03AE 5000              mov A,0
+ 03B0 08                push A
+ 03B1 5027              mov A,39
+ 03B3 08                push A
+ 03B4 52FB              mov A,[X-5]
+ 03B6 08                push A
+ 03B7 52FC              mov A,[X-4]
+ 03B9 08                push A
+ 03BA 52FC              mov A,[X-4]
+ 03BC 010A              add A,10
+ 03BE 5300              mov [__r1],A
+ 03C0 52FB              mov A,[X-5]
+ 03C2 0900              adc A,0
+ 03C4 60D4              mov REG[0xd4],A
+ 03C6 3E00              mvi A,[__r1]
+ 03C8 5300              mov [__r0],A
+ 03CA 3E00              mvi A,[__r1]
+ 03CC 5C                mov X,A
+ 03CD 5100              mov A,[__r0]
+ 03CF 7C0000            xcall __plcall
+ 03D2 38FA              add SP,-6
+ 03D4 62D000            mov REG[0xd0],>__r0
+ 03D7 20                pop X
+ 03D8 5400              mov [X+0],A
+ 03DA                   .dbline 107
+ 03DA           ;       return(sts);
+ 03DA 5200              mov A,[X+0]
+ 03DC                   .dbline -2
+ 03DC           L24:
+ 03DC 38FF              add SP,-1
+ 03DE 20                pop X
+ 03DF                   .dbline 0 ; func end
+ 03DF 7F                ret
+ 03E0                   .dbsym l sts 0 c
+ 03E0                   .dbsym l p -5 pS[LPS25H_STRUC]
+ 03E0                   .dbend
+ 03E0                   .dbfunc e LPS25H_Setup _LPS25H_Setup fV
+ 03E0           ;         option -> X-9
+ 03E0           ;        devadrs -> X-8
+ 03E0           ;          bswch -> X-7
+ 03E0           ;        bswadrs -> X-6
+ 03E0           ;              p -> X-5
+ 03E0           _LPS25H_Setup::
+ 03E0                   .dbline -1
+ 03E0 10                push X
+ 03E1 4F                mov X,SP
+ 03E2                   .dbline 119
+ 03E2           ; }
+ 03E2           ; 
+ 03E2           ; //-------------------------------------------
+ 03E2           ; //--- LPS25H�\���̏�����
+ 03E2           ; //-------------------------------------------
+ 03E2           ; void LPS25H_Setup(
+ 03E2           ;       LPS25H *p,
+ 03E2           ;       UINT8 bswadrs,
+ 03E2           ;       UINT8 bswch,
+ 03E2           ;       UINT8 devadrs,
+ 03E2           ;       UINT8 option)
+ 03E2           ; {
+ 03E2                   .dbline 120
+ 03E2           ;       p->Start = &LPS25H_Start;
+ 03E2 62D000            mov REG[0xd0],>__r0
+ 03E5 52FC              mov A,[X-4]
+ 03E7 0114              add A,20
+ 03E9 5300              mov [__r1],A
+ 03EB 52FB              mov A,[X-5]
+ 03ED 0900              adc A,0
+ 03EF 60D5              mov REG[0xd5],A
+ 03F1 500A              mov A,>PL_LPS25H_Start
+ 03F3 3F00              mvi [__r1],A
+ 03F5 500A              mov A,<PL_LPS25H_Start
+ 03F7 3F00              mvi [__r1],A
+ 03F9                   .dbline 121
+ 03F9           ;       p->ReadPress = &LPS25H_ReadPress;
+ 03F9 52FC              mov A,[X-4]
+ 03FB 0116              add A,22
+ 03FD 5300              mov [__r1],A
+ 03FF 52FB              mov A,[X-5]
+ 0401 0900              adc A,0
+ 0403 60D5              mov REG[0xd5],A
+ 0405 5008              mov A,>PL_LPS25H_ReadPress
+ 0407 3F00              mvi [__r1],A
+ 0409 5008              mov A,<PL_LPS25H_ReadPress
+ 040B 3F00              mvi [__r1],A
+ 040D                   .dbline 122
+ 040D           ;       p->wConvPress = &LPS25H_wConvPress;
+ 040D 52FC              mov A,[X-4]
+ 040F 0118              add A,24
+ 0411 5300              mov [__r1],A
+ 0413 52FB              mov A,[X-5]
+ 0415 0900              adc A,0
+ 0417 60D5              mov REG[0xd5],A
+ 0419 5006              mov A,>PL_LPS25H_wConvPress
+ 041B 3F00              mvi [__r1],A
+ 041D 5006              mov A,<PL_LPS25H_wConvPress
+ 041F 3F00              mvi [__r1],A
+ 0421                   .dbline 123
+ 0421           ;       p->ReadTemp = &LPS25H_ReadTemp;
+ 0421 52FC              mov A,[X-4]
+ 0423 011A              add A,26
+ 0425 5300              mov [__r1],A
+ 0427 52FB              mov A,[X-5]
+ 0429 0900              adc A,0
+ 042B 60D5              mov REG[0xd5],A
+ 042D 5004              mov A,>PL_LPS25H_ReadTemp
+ 042F 3F00              mvi [__r1],A
+ 0431 5004              mov A,<PL_LPS25H_ReadTemp
+ 0433 3F00              mvi [__r1],A
+ 0435                   .dbline 124
+ 0435           ;       p->wConvTemp = &LPS25H_wConvTemp;
+ 0435 52FC              mov A,[X-4]
+ 0437 011C              add A,28
+ 0439 5300              mov [__r1],A
+ 043B 52FB              mov A,[X-5]
+ 043D 0900              adc A,0
+ 043F 60D5              mov REG[0xd5],A
+ 0441 5002              mov A,>PL_LPS25H_wConvTemp
+ 0443 3F00              mvi [__r1],A
+ 0445 5002              mov A,<PL_LPS25H_wConvTemp
+ 0447 3F00              mvi [__r1],A
+ 0449                   .dbline 125
+ 0449           ;       p->ReadStatus = &LPS25H_ReadStatus;
+ 0449 52FC              mov A,[X-4]
+ 044B 011E              add A,30
+ 044D 5300              mov [__r1],A
+ 044F 52FB              mov A,[X-5]
+ 0451 0900              adc A,0
+ 0453 60D5              mov REG[0xd5],A
+ 0455 5000              mov A,>PL_LPS25H_ReadStatus
+ 0457 3F00              mvi [__r1],A
+ 0459 5000              mov A,<PL_LPS25H_ReadStatus
+ 045B 3F00              mvi [__r1],A
+ 045D                   .dbline 127
+ 045D           ; 
+ 045D           ;       MI2C_Setup(&(p->madrs), bswadrs, bswch, devadrs, option);
+ 045D 52F7              mov A,[X-9]
+ 045F 08                push A
+ 0460 52F8              mov A,[X-8]
+ 0462 08                push A
+ 0463 52F9              mov A,[X-7]
+ 0465 08                push A
+ 0466 52FA              mov A,[X-6]
+ 0468 08                push A
+ 0469 52FB              mov A,[X-5]
+ 046B 08                push A
+ 046C 52FC              mov A,[X-4]
+ 046E 08                push A
+ 046F 7C0000            xcall _MI2C_Setup
+ 0472 38FA              add SP,-6
+ 0474                   .dbline -2
+ 0474           L25:
+ 0474 20                pop X
+ 0475                   .dbline 0 ; func end
+ 0475 7F                ret
+ 0476                   .dbsym l option -9 c
+ 0476                   .dbsym l devadrs -8 c
+ 0476                   .dbsym l bswch -7 c
+ 0476                   .dbsym l bswadrs -6 c
+ 0476                   .dbsym l p -5 pS[LPS25H_STRUC]
+ 0476                   .dbend
+                        .area func_lit(rom, con, rel, proclab)
+ 0000 0398      PL_LPS25H_ReadStatus:   .word _LPS25H_ReadStatus
+ 0002 0272      PL_LPS25H_wConvTemp:    .word _LPS25H_wConvTemp
+ 0004 01FB      PL_LPS25H_ReadTemp:     .word _LPS25H_ReadTemp
+ 0006 0114      PL_LPS25H_wConvPress:   .word _LPS25H_wConvPress
+ 0008 009D      PL_LPS25H_ReadPress:    .word _LPS25H_ReadPress
+ 000A 0000      PL_LPS25H_Start:        .word _LPS25H_Start

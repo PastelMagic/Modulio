@@ -1,0 +1,30 @@
+Starting MAKE...
+creating project.mk 
+
+lib/i2chw_1common.asm
+
+lib/i2chw_1int.asm
+
+lib/i2chw_1mstr.asm
+
+lib/i2chw_1rsrcinits.asm
+
+lib/psocconfig.asm
+
+lib/psocconfigtbl.asm
+
+!W Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C60\MODU~C60\main.c(75):[warning] missing return value
+
+./boot.asm
+
+Linking..
+
+  ROM 31% full. 5078 out of 16384 bytes used (does not include absolute areas).
+
+  RAM 34% full. 86 bytes used (does not include stack usage).
+
+Built with ICCM8C STD V7.05.00
+
+ 
+Modulio_ADXL345_27143 - 0 error(s) 1 warning(s) 20:22:40
+

@@ -1,0 +1,1621 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000                   .dbfunc e pr2dec _pr2dec fV
+ 0000           ;            dat -> X-6
+ 0000           ;              s -> X-5
+ 0000           _pr2dec::
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002                   .dbline 21
+ 0002           ; //----------------------------------------
+ 0002           ; //--- LPS25H Test Program
+ 0002           ; //----------------------------------------
+ 0002           ; //
+ 0002           ; #include <stdio.h>
+ 0002           ; #define       EXTERN
+ 0002           ; #include "Modulio.h"
+ 0002           ; #include "ACM1602.h"
+ 0002           ; #include "ADXL345.h"
+ 0002           ; #include "LPS25H.h"
+ 0002           ; #include "PCA9632.h"
+ 0002           ; #undef EXTERN
+ 0002           ; 
+ 0002           ; ACM1602       lcd1,lcd2;
+ 0002           ; ADXL345       gsense;
+ 0002           ; LPS25H        psense;
+ 0002           ; PCA9632       led;
+ 0002           ; char  s[16];
+ 0002           ; 
+ 0002           ; void pr2dec(char *s, UINT8 dat)
+ 0002           ; {
+ 0002                   .dbline 22
+ 0002           ;       *s++ = (dat/10) + '0';
+ 0002 62D000            mov REG[0xd0],>__r0
+ 0005 52FC              mov A,[X-4]
+ 0007 5300              mov [__r1],A
+ 0009 52FB              mov A,[X-5]
+ 000B 5300              mov [__r0],A
+ 000D 5100              mov A,[__r1]
+ 000F 0101              add A,1
+ 0011 54FC              mov [X-4],A
+ 0013 5100              mov A,[__r0]
+ 0015 0900              adc A,0
+ 0017 54FB              mov [X-5],A
+ 0019 500A              mov A,10
+ 001B 08                push A
+ 001C 52FA              mov A,[X-6]
+ 001E 08                push A
+ 001F 7C0000            xcall __divmodu_8X8_8
+ 0022 18                pop A
+ 0023 5300              mov [__r2],A
+ 0025 38FF              add SP,-1
+ 0027 060030            add [__r2],48
+ 002A 5100              mov A,[__r0]
+ 002C 60D5              mov REG[0xd5],A
+ 002E 5100              mov A,[__r2]
+ 0030 3F00              mvi [__r1],A
+ 0032                   .dbline 23
+ 0032           ;       *s++ = (dat%10) + '0';
+ 0032 52FC              mov A,[X-4]
+ 0034 5300              mov [__r1],A
+ 0036 52FB              mov A,[X-5]
+ 0038 5300              mov [__r0],A
+ 003A 5100              mov A,[__r1]
+ 003C 0101              add A,1
+ 003E 54FC              mov [X-4],A
+ 0040 5100              mov A,[__r0]
+ 0042 0900              adc A,0
+ 0044 54FB              mov [X-5],A
+ 0046 500A              mov A,10
+ 0048 08                push A
+ 0049 52FA              mov A,[X-6]
+ 004B 08                push A
+ 004C 7C0000            xcall __divmodu_8X8_8
+ 004F 38FF              add SP,-1
+ 0051 18                pop A
+ 0052 5300              mov [__r2],A
+ 0054 060030            add [__r2],48
+ 0057 5100              mov A,[__r0]
+ 0059 60D5              mov REG[0xd5],A
+ 005B 5100              mov A,[__r2]
+ 005D 3F00              mvi [__r1],A
+ 005F                   .dbline 24
+ 005F           ;       *s = 0x00;
+ 005F 52FC              mov A,[X-4]
+ 0061 5300              mov [__r1],A
+ 0063 52FB              mov A,[X-5]
+ 0065 60D5              mov REG[0xd5],A
+ 0067 5000              mov A,0
+ 0069 3F00              mvi [__r1],A
+ 006B                   .dbline -2
+ 006B           L1:
+ 006B 20                pop X
+ 006C                   .dbline 0 ; func end
+ 006C 7F                ret
+ 006D                   .dbsym l dat -6 c
+ 006D                   .dbsym l s -5 pc
+ 006D                   .dbend
+ 006D                   .dbfunc e pr4dec _pr4dec fV
+ 006D           ;            dat -> X-7
+ 006D           ;              s -> X-5
+ 006D           _pr4dec::
+ 006D                   .dbline -1
+ 006D 10                push X
+ 006E 4F                mov X,SP
+ 006F                   .dbline 28
+ 006F           ; }
+ 006F           ; 
+ 006F           ; void pr4dec(char *s, UINT16 dat)
+ 006F           ; {
+ 006F                   .dbline 29
+ 006F           ;       pr2dec(s, dat/100);
+ 006F 62D000            mov REG[0xd0],>__r0
+ 0072 5000              mov A,0
+ 0074 08                push A
+ 0075 5064              mov A,100
+ 0077 08                push A
+ 0078 52F9              mov A,[X-7]
+ 007A 08                push A
+ 007B 52FA              mov A,[X-6]
+ 007D 08                push A
+ 007E 7C0000            xcall __divmodu_16X16_16
+ 0081 18                pop A
+ 0082 5300              mov [__r1],A
+ 0084 18                pop A
+ 0085 38FE              add SP,-2
+ 0087 5100              mov A,[__r1]
+ 0089 08                push A
+ 008A 52FB              mov A,[X-5]
+ 008C 08                push A
+ 008D 52FC              mov A,[X-4]
+ 008F 08                push A
+ 0090 9F6E              xcall _pr2dec
+ 0092 38FD              add SP,-3
+ 0094                   .dbline 30
+ 0094           ;       pr2dec(s+2, dat%100);
+ 0094 62D000            mov REG[0xd0],>__r0
+ 0097 5000              mov A,0
+ 0099 08                push A
+ 009A 5064              mov A,100
+ 009C 08                push A
+ 009D 52F9              mov A,[X-7]
+ 009F 08                push A
+ 00A0 52FA              mov A,[X-6]
+ 00A2 08                push A
+ 00A3 7C0000            xcall __divmodu_16X16_16
+ 00A6 38FE              add SP,-2
+ 00A8 18                pop A
+ 00A9 5300              mov [__r1],A
+ 00AB 18                pop A
+ 00AC 5100              mov A,[__r1]
+ 00AE 08                push A
+ 00AF 52FC              mov A,[X-4]
+ 00B1 0102              add A,2
+ 00B3 5300              mov [__r1],A
+ 00B5 52FB              mov A,[X-5]
+ 00B7 0900              adc A,0
+ 00B9 08                push A
+ 00BA 5100              mov A,[__r1]
+ 00BC 08                push A
+ 00BD 9F41              xcall _pr2dec
+ 00BF 38FD              add SP,-3
+ 00C1                   .dbline 31
+ 00C1           ;       *(s+4) = 0x00;
+ 00C1 62D000            mov REG[0xd0],>__r0
+ 00C4 52FC              mov A,[X-4]
+ 00C6 0104              add A,4
+ 00C8 5300              mov [__r1],A
+ 00CA 52FB              mov A,[X-5]
+ 00CC 0900              adc A,0
+ 00CE 60D5              mov REG[0xd5],A
+ 00D0 5000              mov A,0
+ 00D2 3F00              mvi [__r1],A
+ 00D4                   .dbline -2
+ 00D4           L2:
+ 00D4 20                pop X
+ 00D5                   .dbline 0 ; func end
+ 00D5 7F                ret
+ 00D6                   .dbsym l dat -7 s
+ 00D6                   .dbsym l s -5 pc
+ 00D6                   .dbend
+ 00D6                   .dbfunc e exec_gsense _exec_gsense fV
+ 00D6           _exec_gsense::
+ 00D6                   .dbline -1
+ 00D6                   .dbline 38
+ 00D6           ; }
+ 00D6           ; 
+ 00D6           ; 
+ 00D6           ; UINT8 fx, fy, fz;
+ 00D6           ; UINT16 x,y,z;
+ 00D6           ; void exec_gsense(void)
+ 00D6           ; {
+ 00D6                   .dbline 39
+ 00D6           ;       gsense.GetVal(&gsense);
+ 00D6 10                push X
+ 00D7 5000              mov A,>_gsense
+ 00D9 08                push A
+ 00DA 5000              mov A,<_gsense
+ 00DC 08                push A
+ 00DD 62D000            mov REG[0xd0],>_gsense
+ 00E0 5118              mov A,[_gsense+23+1]
+ 00E2 08                push A
+ 00E3 5117              mov A,[_gsense+23]
+ 00E5 62D000            mov REG[0xd0],>__r0
+ 00E8 5300              mov [__r0],A
+ 00EA 18                pop A
+ 00EB 5C                mov X,A
+ 00EC 5100              mov A,[__r0]
+ 00EE 7C0000            xcall __plcall
+ 00F1 38FE              add SP,-2
+ 00F3 20                pop X
+ 00F4                   .dbline 40
+ 00F4           ;       x = gsense.xdat;
+ 00F4 62D000            mov REG[0xd0],>_gsense
+ 00F7 510E              mov A,[_gsense+13+1]
+ 00F9 08                push A
+ 00FA 510D              mov A,[_gsense+13]
+ 00FC 62D000            mov REG[0xd0],>_x
+ 00FF 5300              mov [_x],A
+ 0101 18                pop A
+ 0102 5301              mov [_x+1],A
+ 0104                   .dbline 41
+ 0104           ;       if (x & 0x200) {
+ 0104 5101              mov A,[_x+1]
+ 0106 2100              and A,0
+ 0108 62D000            mov REG[0xd0],>__r0
+ 010B 5300              mov [__r1],A
+ 010D 62D000            mov REG[0xd0],>_x
+ 0110 5100              mov A,[_x]
+ 0112 2102              and A,2
+ 0114 62D000            mov REG[0xd0],>__r0
+ 0117 3900              cmp A,0
+ 0119 B006              jnz X0
+ 011B 3C0000            cmp [__r1],0
+ 011E A018              jz L6
+ 0120           X0:
+ 0120                   .dbline 42
+ 0120           ;               fx = '-';
+ 0120                   .dbline 42
+ 0120 62D000            mov REG[0xd0],>_fx
+ 0123 55002D            mov [_fx],45
+ 0126                   .dbline 43
+ 0126           ;               x = 0x400-x;
+ 0126 62D000            mov REG[0xd0],>_x
+ 0129 5000              mov A,0
+ 012B 1201              sub A,[_x+1]
+ 012D 5301              mov [_x+1],A
+ 012F 5004              mov A,4
+ 0131 1A00              sbb A,[_x]
+ 0133 5300              mov [_x],A
+ 0135                   .dbline 44
+ 0135           ;       } else  fx = '+';
+ 0135 8007              xjmp L7
+ 0137           L6:
+ 0137                   .dbline 44
+ 0137 62D000            mov REG[0xd0],>_fx
+ 013A 55002B            mov [_fx],43
+ 013D           L7:
+ 013D                   .dbline 45
+ 013D           ;       y = gsense.ydat;
+ 013D 62D000            mov REG[0xd0],>_gsense
+ 0140 5110              mov A,[_gsense+15+1]
+ 0142 08                push A
+ 0143 510F              mov A,[_gsense+15]
+ 0145 62D000            mov REG[0xd0],>_y
+ 0148 5300              mov [_y],A
+ 014A 18                pop A
+ 014B 5301              mov [_y+1],A
+ 014D                   .dbline 46
+ 014D           ;       if (y & 0x200) {
+ 014D 5101              mov A,[_y+1]
+ 014F 2100              and A,0
+ 0151 62D000            mov REG[0xd0],>__r0
+ 0154 5300              mov [__r1],A
+ 0156 62D000            mov REG[0xd0],>_y
+ 0159 5100              mov A,[_y]
+ 015B 2102              and A,2
+ 015D 62D000            mov REG[0xd0],>__r0
+ 0160 3900              cmp A,0
+ 0162 B006              jnz X1
+ 0164 3C0000            cmp [__r1],0
+ 0167 A018              jz L9
+ 0169           X1:
+ 0169                   .dbline 47
+ 0169           ;               fy = '-';
+ 0169                   .dbline 47
+ 0169 62D000            mov REG[0xd0],>_fy
+ 016C 55002D            mov [_fy],45
+ 016F                   .dbline 48
+ 016F           ;               y = 0x400-y;
+ 016F 62D000            mov REG[0xd0],>_y
+ 0172 5000              mov A,0
+ 0174 1201              sub A,[_y+1]
+ 0176 5301              mov [_y+1],A
+ 0178 5004              mov A,4
+ 017A 1A00              sbb A,[_y]
+ 017C 5300              mov [_y],A
+ 017E                   .dbline 49
+ 017E           ;       } else  fy = '+';
+ 017E 8007              xjmp L10
+ 0180           L9:
+ 0180                   .dbline 49
+ 0180 62D000            mov REG[0xd0],>_fy
+ 0183 55002B            mov [_fy],43
+ 0186           L10:
+ 0186                   .dbline 50
+ 0186           ;       z = gsense.zdat;
+ 0186 62D000            mov REG[0xd0],>_gsense
+ 0189 5112              mov A,[_gsense+17+1]
+ 018B 08                push A
+ 018C 5111              mov A,[_gsense+17]
+ 018E 62D000            mov REG[0xd0],>_z
+ 0191 5300              mov [_z],A
+ 0193 18                pop A
+ 0194 5301              mov [_z+1],A
+ 0196                   .dbline 51
+ 0196           ;       if (z & 0x200) {
+ 0196 5101              mov A,[_z+1]
+ 0198 2100              and A,0
+ 019A 62D000            mov REG[0xd0],>__r0
+ 019D 5300              mov [__r1],A
+ 019F 62D000            mov REG[0xd0],>_z
+ 01A2 5100              mov A,[_z]
+ 01A4 2102              and A,2
+ 01A6 62D000            mov REG[0xd0],>__r0
+ 01A9 3900              cmp A,0
+ 01AB B006              jnz X2
+ 01AD 3C0000            cmp [__r1],0
+ 01B0 A018              jz L12
+ 01B2           X2:
+ 01B2                   .dbline 52
+ 01B2           ;               fz = '-';
+ 01B2                   .dbline 52
+ 01B2 62D000            mov REG[0xd0],>_fz
+ 01B5 55002D            mov [_fz],45
+ 01B8                   .dbline 53
+ 01B8           ;               z = 0x400-z;
+ 01B8 62D000            mov REG[0xd0],>_z
+ 01BB 5000              mov A,0
+ 01BD 1201              sub A,[_z+1]
+ 01BF 5301              mov [_z+1],A
+ 01C1 5004              mov A,4
+ 01C3 1A00              sbb A,[_z]
+ 01C5 5300              mov [_z],A
+ 01C7                   .dbline 54
+ 01C7           ;       } else  fz = '+';
+ 01C7 8007              xjmp L13
+ 01C9           L12:
+ 01C9                   .dbline 54
+ 01C9 62D000            mov REG[0xd0],>_fz
+ 01CC 55002B            mov [_fz],43
+ 01CF           L13:
+ 01CF                   .dbline 55
+ 01CF           ;       lcd1.Position(&lcd1, 0, 2);
+ 01CF 10                push X
+ 01D0 5002              mov A,2
+ 01D2 08                push A
+ 01D3 5000              mov A,0
+ 01D5 08                push A
+ 01D6 5000              mov A,>_lcd1
+ 01D8 08                push A
+ 01D9 5000              mov A,<_lcd1
+ 01DB 08                push A
+ 01DC 62D000            mov REG[0xd0],>_lcd1
+ 01DF 5112              mov A,[_lcd1+17+1]
+ 01E1 08                push A
+ 01E2 5111              mov A,[_lcd1+17]
+ 01E4 62D000            mov REG[0xd0],>__r0
+ 01E7 5300              mov [__r0],A
+ 01E9 18                pop A
+ 01EA 5C                mov X,A
+ 01EB 5100              mov A,[__r0]
+ 01ED 7C0000            xcall __plcall
+ 01F0 38FC              add SP,-4
+ 01F2                   .dbline 56
+ 01F2           ;       lcd1.WriteData(&lcd1, fx);
+ 01F2 62D000            mov REG[0xd0],>_fx
+ 01F5 5100              mov A,[_fx]
+ 01F7 08                push A
+ 01F8 5000              mov A,>_lcd1
+ 01FA 08                push A
+ 01FB 5000              mov A,<_lcd1
+ 01FD 08                push A
+ 01FE 62D000            mov REG[0xd0],>_lcd1
+ 0201 5116              mov A,[_lcd1+21+1]
+ 0203 08                push A
+ 0204 5115              mov A,[_lcd1+21]
+ 0206 62D000            mov REG[0xd0],>__r0
+ 0209 5300              mov [__r0],A
+ 020B 18                pop A
+ 020C 5C                mov X,A
+ 020D 5100              mov A,[__r0]
+ 020F 7C0000            xcall __plcall
+ 0212 38FD              add SP,-3
+ 0214                   .dbline 57
+ 0214           ;       lcd1.PrHexInt(&lcd1, x);
+ 0214 62D000            mov REG[0xd0],>_x
+ 0217 5100              mov A,[_x]
+ 0219 08                push A
+ 021A 5101              mov A,[_x+1]
+ 021C 08                push A
+ 021D 5000              mov A,>_lcd1
+ 021F 08                push A
+ 0220 5000              mov A,<_lcd1
+ 0222 08                push A
+ 0223 62D000            mov REG[0xd0],>_lcd1
+ 0226 511A              mov A,[_lcd1+25+1]
+ 0228 08                push A
+ 0229 5119              mov A,[_lcd1+25]
+ 022B 62D000            mov REG[0xd0],>__r0
+ 022E 5300              mov [__r0],A
+ 0230 18                pop A
+ 0231 5C                mov X,A
+ 0232 5100              mov A,[__r0]
+ 0234 7C0000            xcall __plcall
+ 0237 38FC              add SP,-4
+ 0239                   .dbline 58
+ 0239           ;       lcd1.Position(&lcd1, 0, 10);
+ 0239 500A              mov A,10
+ 023B 08                push A
+ 023C 5000              mov A,0
+ 023E 08                push A
+ 023F 5000              mov A,>_lcd1
+ 0241 08                push A
+ 0242 5000              mov A,<_lcd1
+ 0244 08                push A
+ 0245 62D000            mov REG[0xd0],>_lcd1
+ 0248 5112              mov A,[_lcd1+17+1]
+ 024A 08                push A
+ 024B 5111              mov A,[_lcd1+17]
+ 024D 62D000            mov REG[0xd0],>__r0
+ 0250 5300              mov [__r0],A
+ 0252 18                pop A
+ 0253 5C                mov X,A
+ 0254 5100              mov A,[__r0]
+ 0256 7C0000            xcall __plcall
+ 0259 38FC              add SP,-4
+ 025B                   .dbline 59
+ 025B           ;       lcd1.WriteData(&lcd1, fy);
+ 025B 62D000            mov REG[0xd0],>_fy
+ 025E 5100              mov A,[_fy]
+ 0260 08                push A
+ 0261 5000              mov A,>_lcd1
+ 0263 08                push A
+ 0264 5000              mov A,<_lcd1
+ 0266 08                push A
+ 0267 62D000            mov REG[0xd0],>_lcd1
+ 026A 5116              mov A,[_lcd1+21+1]
+ 026C 08                push A
+ 026D 5115              mov A,[_lcd1+21]
+ 026F 62D000            mov REG[0xd0],>__r0
+ 0272 5300              mov [__r0],A
+ 0274 18                pop A
+ 0275 5C                mov X,A
+ 0276 5100              mov A,[__r0]
+ 0278 7C0000            xcall __plcall
+ 027B 38FD              add SP,-3
+ 027D                   .dbline 60
+ 027D           ;       lcd1.PrHexInt(&lcd1, y);
+ 027D 62D000            mov REG[0xd0],>_y
+ 0280 5100              mov A,[_y]
+ 0282 08                push A
+ 0283 5101              mov A,[_y+1]
+ 0285 08                push A
+ 0286 5000              mov A,>_lcd1
+ 0288 08                push A
+ 0289 5000              mov A,<_lcd1
+ 028B 08                push A
+ 028C 62D000            mov REG[0xd0],>_lcd1
+ 028F 511A              mov A,[_lcd1+25+1]
+ 0291 08                push A
+ 0292 5119              mov A,[_lcd1+25]
+ 0294 62D000            mov REG[0xd0],>__r0
+ 0297 5300              mov [__r0],A
+ 0299 18                pop A
+ 029A 5C                mov X,A
+ 029B 5100              mov A,[__r0]
+ 029D 7C0000            xcall __plcall
+ 02A0 38FC              add SP,-4
+ 02A2                   .dbline 61
+ 02A2           ;       lcd1.Position(&lcd1, 1, 2);
+ 02A2 5002              mov A,2
+ 02A4 08                push A
+ 02A5 5001              mov A,1
+ 02A7 08                push A
+ 02A8 5000              mov A,>_lcd1
+ 02AA 08                push A
+ 02AB 5000              mov A,<_lcd1
+ 02AD 08                push A
+ 02AE 62D000            mov REG[0xd0],>_lcd1
+ 02B1 5112              mov A,[_lcd1+17+1]
+ 02B3 08                push A
+ 02B4 5111              mov A,[_lcd1+17]
+ 02B6 62D000            mov REG[0xd0],>__r0
+ 02B9 5300              mov [__r0],A
+ 02BB 18                pop A
+ 02BC 5C                mov X,A
+ 02BD 5100              mov A,[__r0]
+ 02BF 7C0000            xcall __plcall
+ 02C2 38FC              add SP,-4
+ 02C4                   .dbline 62
+ 02C4           ;       lcd1.WriteData(&lcd1, fz);
+ 02C4 62D000            mov REG[0xd0],>_fz
+ 02C7 5100              mov A,[_fz]
+ 02C9 08                push A
+ 02CA 5000              mov A,>_lcd1
+ 02CC 08                push A
+ 02CD 5000              mov A,<_lcd1
+ 02CF 08                push A
+ 02D0 62D000            mov REG[0xd0],>_lcd1
+ 02D3 5116              mov A,[_lcd1+21+1]
+ 02D5 08                push A
+ 02D6 5115              mov A,[_lcd1+21]
+ 02D8 62D000            mov REG[0xd0],>__r0
+ 02DB 5300              mov [__r0],A
+ 02DD 18                pop A
+ 02DE 5C                mov X,A
+ 02DF 5100              mov A,[__r0]
+ 02E1 7C0000            xcall __plcall
+ 02E4 38FD              add SP,-3
+ 02E6                   .dbline 63
+ 02E6           ;       lcd1.PrHexInt(&lcd1, z);
+ 02E6 62D000            mov REG[0xd0],>_z
+ 02E9 5100              mov A,[_z]
+ 02EB 08                push A
+ 02EC 5101              mov A,[_z+1]
+ 02EE 08                push A
+ 02EF 5000              mov A,>_lcd1
+ 02F1 08                push A
+ 02F2 5000              mov A,<_lcd1
+ 02F4 08                push A
+ 02F5 62D000            mov REG[0xd0],>_lcd1
+ 02F8 511A              mov A,[_lcd1+25+1]
+ 02FA 08                push A
+ 02FB 5119              mov A,[_lcd1+25]
+ 02FD 62D000            mov REG[0xd0],>__r0
+ 0300 5300              mov [__r0],A
+ 0302 18                pop A
+ 0303 5C                mov X,A
+ 0304 5100              mov A,[__r0]
+ 0306 7C0000            xcall __plcall
+ 0309 38FC              add SP,-4
+ 030B 62D000            mov REG[0xd0],>__r0
+ 030E 20                pop X
+ 030F                   .dbline -2
+ 030F           L3:
+ 030F                   .dbline 0 ; func end
+ 030F 7F                ret
+ 0310                   .dbend
+ 0310                   .dbfunc e exec_psense _exec_psense fV
+ 0310           _exec_psense::
+ 0310                   .dbline -1
+ 0310                   .dbline 67
+ 0310           ; }
+ 0310           ; 
+ 0310           ; void exec_psense(void)
+ 0310           ; {
+ 0310                   .dbline 68
+ 0310           ;       psense.ReadPress(&psense);
+ 0310 10                push X
+ 0311 5000              mov A,>_psense
+ 0313 08                push A
+ 0314 5000              mov A,<_psense
+ 0316 08                push A
+ 0317 62D000            mov REG[0xd0],>_psense
+ 031A 5117              mov A,[_psense+22+1]
+ 031C 08                push A
+ 031D 5116              mov A,[_psense+22]
+ 031F 62D000            mov REG[0xd0],>__r0
+ 0322 5300              mov [__r0],A
+ 0324 18                pop A
+ 0325 5C                mov X,A
+ 0326 5100              mov A,[__r0]
+ 0328 7C0000            xcall __plcall
+ 032B 38FE              add SP,-2
+ 032D                   .dbline 69
+ 032D           ;       psense.wConvPress(&psense);
+ 032D 5000              mov A,>_psense
+ 032F 08                push A
+ 0330 5000              mov A,<_psense
+ 0332 08                push A
+ 0333 62D000            mov REG[0xd0],>_psense
+ 0336 5119              mov A,[_psense+24+1]
+ 0338 08                push A
+ 0339 5118              mov A,[_psense+24]
+ 033B 62D000            mov REG[0xd0],>__r0
+ 033E 5300              mov [__r0],A
+ 0340 18                pop A
+ 0341 5C                mov X,A
+ 0342 5100              mov A,[__r0]
+ 0344 7C0000            xcall __plcall
+ 0347 38FE              add SP,-2
+ 0349                   .dbline 70
+ 0349           ;       lcd2.Position(&lcd2, 0, 0);
+ 0349 5000              mov A,0
+ 034B 08                push A
+ 034C 08                push A
+ 034D 5000              mov A,>_lcd2
+ 034F 08                push A
+ 0350 5000              mov A,<_lcd2
+ 0352 08                push A
+ 0353 62D000            mov REG[0xd0],>_lcd2
+ 0356 5112              mov A,[_lcd2+17+1]
+ 0358 08                push A
+ 0359 5111              mov A,[_lcd2+17]
+ 035B 62D000            mov REG[0xd0],>__r0
+ 035E 5300              mov [__r0],A
+ 0360 18                pop A
+ 0361 5C                mov X,A
+ 0362 5100              mov A,[__r0]
+ 0364 7C0000            xcall __plcall
+ 0367 38FC              add SP,-4
+ 0369 20                pop X
+ 036A                   .dbline 74
+ 036A           ; 
+ 036A           ; //    sprintf(s," %04d.%02dhPa", (psense.PRESS[0] << 8)|(psense.PRESS[1]), psense.PRESS[2]);
+ 036A           ; //    lcd2.PrString(&lcd2, s);
+ 036A           ;       pr4dec(s, (psense.PRESS[0] << 8)|(psense.PRESS[1]));
+ 036A 62D000            mov REG[0xd0],>_psense
+ 036D 510F              mov A,[_psense+14+1]
+ 036F 62D000            mov REG[0xd0],>__r0
+ 0372 5300              mov [__r1],A
+ 0374 62D000            mov REG[0xd0],>_psense
+ 0377 510E              mov A,[_psense+14]
+ 0379 62D000            mov REG[0xd0],>__r0
+ 037C 08                push A
+ 037D 5100              mov A,[__r1]
+ 037F 08                push A
+ 0380 5000              mov A,>_s
+ 0382 08                push A
+ 0383 5000              mov A,<_s
+ 0385 08                push A
+ 0386 9CE5              xcall _pr4dec
+ 0388 38FC              add SP,-4
+ 038A                   .dbline 75
+ 038A           ;       lcd2.PrString(&lcd2, s);
+ 038A 10                push X
+ 038B 5000              mov A,>_s
+ 038D 08                push A
+ 038E 5000              mov A,<_s
+ 0390 08                push A
+ 0391 5000              mov A,>_lcd2
+ 0393 08                push A
+ 0394 5000              mov A,<_lcd2
+ 0396 08                push A
+ 0397 62D000            mov REG[0xd0],>_lcd2
+ 039A 511C              mov A,[_lcd2+27+1]
+ 039C 08                push A
+ 039D 511B              mov A,[_lcd2+27]
+ 039F 62D000            mov REG[0xd0],>__r0
+ 03A2 5300              mov [__r0],A
+ 03A4 18                pop A
+ 03A5 5C                mov X,A
+ 03A6 5100              mov A,[__r0]
+ 03A8 7C0000            xcall __plcall
+ 03AB 38FC              add SP,-4
+ 03AD                   .dbline 76
+ 03AD           ;       lcd2.WriteData(&lcd2, '.');
+ 03AD 502E              mov A,46
+ 03AF 08                push A
+ 03B0 5000              mov A,>_lcd2
+ 03B2 08                push A
+ 03B3 5000              mov A,<_lcd2
+ 03B5 08                push A
+ 03B6 62D000            mov REG[0xd0],>_lcd2
+ 03B9 5116              mov A,[_lcd2+21+1]
+ 03BB 08                push A
+ 03BC 5115              mov A,[_lcd2+21]
+ 03BE 62D000            mov REG[0xd0],>__r0
+ 03C1 5300              mov [__r0],A
+ 03C3 18                pop A
+ 03C4 5C                mov X,A
+ 03C5 5100              mov A,[__r0]
+ 03C7 7C0000            xcall __plcall
+ 03CA 38FD              add SP,-3
+ 03CC 20                pop X
+ 03CD                   .dbline 77
+ 03CD           ;       pr2dec(s, psense.PRESS[2]);
+ 03CD 62D000            mov REG[0xd0],>_psense
+ 03D0 5110              mov A,[_psense+14+2]
+ 03D2 08                push A
+ 03D3 5000              mov A,>_s
+ 03D5 08                push A
+ 03D6 5000              mov A,<_s
+ 03D8 08                push A
+ 03D9 9C25              xcall _pr2dec
+ 03DB 38FD              add SP,-3
+ 03DD                   .dbline 78
+ 03DD           ;       lcd2.PrString(&lcd2, s);
+ 03DD 10                push X
+ 03DE 5000              mov A,>_s
+ 03E0 08                push A
+ 03E1 5000              mov A,<_s
+ 03E3 08                push A
+ 03E4 5000              mov A,>_lcd2
+ 03E6 08                push A
+ 03E7 5000              mov A,<_lcd2
+ 03E9 08                push A
+ 03EA 62D000            mov REG[0xd0],>_lcd2
+ 03ED 511C              mov A,[_lcd2+27+1]
+ 03EF 08                push A
+ 03F0 511B              mov A,[_lcd2+27]
+ 03F2 62D000            mov REG[0xd0],>__r0
+ 03F5 5300              mov [__r0],A
+ 03F7 18                pop A
+ 03F8 5C                mov X,A
+ 03F9 5100              mov A,[__r0]
+ 03FB 7C0000            xcall __plcall
+ 03FE 38FC              add SP,-4
+ 0400                   .dbline 79
+ 0400           ;       lcd2.PrCString(&lcd2, "hPa");
+ 0400 5011              mov A,>L36
+ 0402 08                push A
+ 0403 5011              mov A,<L36
+ 0405 08                push A
+ 0406 5000              mov A,>_lcd2
+ 0408 08                push A
+ 0409 5000              mov A,<_lcd2
+ 040B 08                push A
+ 040C 62D000            mov REG[0xd0],>_lcd2
+ 040F 511E              mov A,[_lcd2+29+1]
+ 0411 08                push A
+ 0412 511D              mov A,[_lcd2+29]
+ 0414 62D000            mov REG[0xd0],>__r0
+ 0417 5300              mov [__r0],A
+ 0419 18                pop A
+ 041A 5C                mov X,A
+ 041B 5100              mov A,[__r0]
+ 041D 7C0000            xcall __plcall
+ 0420 38FC              add SP,-4
+ 0422                   .dbline 81
+ 0422           ; 
+ 0422           ;       psense.ReadTemp(&psense);
+ 0422 5000              mov A,>_psense
+ 0424 08                push A
+ 0425 5000              mov A,<_psense
+ 0427 08                push A
+ 0428 62D000            mov REG[0xd0],>_psense
+ 042B 511B              mov A,[_psense+26+1]
+ 042D 08                push A
+ 042E 511A              mov A,[_psense+26]
+ 0430 62D000            mov REG[0xd0],>__r0
+ 0433 5300              mov [__r0],A
+ 0435 18                pop A
+ 0436 5C                mov X,A
+ 0437 5100              mov A,[__r0]
+ 0439 7C0000            xcall __plcall
+ 043C 38FE              add SP,-2
+ 043E                   .dbline 82
+ 043E           ;       psense.wConvTemp(&psense);
+ 043E 5000              mov A,>_psense
+ 0440 08                push A
+ 0441 5000              mov A,<_psense
+ 0443 08                push A
+ 0444 62D000            mov REG[0xd0],>_psense
+ 0447 511D              mov A,[_psense+28+1]
+ 0449 08                push A
+ 044A 511C              mov A,[_psense+28]
+ 044C 62D000            mov REG[0xd0],>__r0
+ 044F 5300              mov [__r0],A
+ 0451 18                pop A
+ 0452 5C                mov X,A
+ 0453 5100              mov A,[__r0]
+ 0455 7C0000            xcall __plcall
+ 0458 38FE              add SP,-2
+ 045A                   .dbline 83
+ 045A           ;       lcd2.Position(&lcd2, 1, 0);
+ 045A 5000              mov A,0
+ 045C 08                push A
+ 045D 5001              mov A,1
+ 045F 08                push A
+ 0460 5000              mov A,>_lcd2
+ 0462 08                push A
+ 0463 5000              mov A,<_lcd2
+ 0465 08                push A
+ 0466 62D000            mov REG[0xd0],>_lcd2
+ 0469 5112              mov A,[_lcd2+17+1]
+ 046B 08                push A
+ 046C 5111              mov A,[_lcd2+17]
+ 046E 62D000            mov REG[0xd0],>__r0
+ 0471 5300              mov [__r0],A
+ 0473 18                pop A
+ 0474 5C                mov X,A
+ 0475 5100              mov A,[__r0]
+ 0477 7C0000            xcall __plcall
+ 047A 38FC              add SP,-4
+ 047C 20                pop X
+ 047D                   .dbline 86
+ 047D           ; //    sprintf(s," %02d.%02d%cC", psense.TEMP[0], psense.TEMP[1], 0xdf);
+ 047D           ; //    lcd2.PrString(&lcd2, s);
+ 047D           ;       pr2dec(s, psense.TEMP[0]);
+ 047D 62D000            mov REG[0xd0],>_psense
+ 0480 5111              mov A,[_psense+17]
+ 0482 08                push A
+ 0483 5000              mov A,>_s
+ 0485 08                push A
+ 0486 5000              mov A,<_s
+ 0488 08                push A
+ 0489 9B75              xcall _pr2dec
+ 048B 38FD              add SP,-3
+ 048D                   .dbline 87
+ 048D           ;       lcd2.PrString(&lcd2, s);
+ 048D 10                push X
+ 048E 5000              mov A,>_s
+ 0490 08                push A
+ 0491 5000              mov A,<_s
+ 0493 08                push A
+ 0494 5000              mov A,>_lcd2
+ 0496 08                push A
+ 0497 5000              mov A,<_lcd2
+ 0499 08                push A
+ 049A 62D000            mov REG[0xd0],>_lcd2
+ 049D 511C              mov A,[_lcd2+27+1]
+ 049F 08                push A
+ 04A0 511B              mov A,[_lcd2+27]
+ 04A2 62D000            mov REG[0xd0],>__r0
+ 04A5 5300              mov [__r0],A
+ 04A7 18                pop A
+ 04A8 5C                mov X,A
+ 04A9 5100              mov A,[__r0]
+ 04AB 7C0000            xcall __plcall
+ 04AE 38FC              add SP,-4
+ 04B0                   .dbline 88
+ 04B0           ;       lcd2.WriteData(&lcd2, '.');
+ 04B0 502E              mov A,46
+ 04B2 08                push A
+ 04B3 5000              mov A,>_lcd2
+ 04B5 08                push A
+ 04B6 5000              mov A,<_lcd2
+ 04B8 08                push A
+ 04B9 62D000            mov REG[0xd0],>_lcd2
+ 04BC 5116              mov A,[_lcd2+21+1]
+ 04BE 08                push A
+ 04BF 5115              mov A,[_lcd2+21]
+ 04C1 62D000            mov REG[0xd0],>__r0
+ 04C4 5300              mov [__r0],A
+ 04C6 18                pop A
+ 04C7 5C                mov X,A
+ 04C8 5100              mov A,[__r0]
+ 04CA 7C0000            xcall __plcall
+ 04CD 38FD              add SP,-3
+ 04CF 20                pop X
+ 04D0                   .dbline 89
+ 04D0           ;       pr2dec(s, psense.TEMP[1]);
+ 04D0 62D000            mov REG[0xd0],>_psense
+ 04D3 5112              mov A,[_psense+17+1]
+ 04D5 08                push A
+ 04D6 5000              mov A,>_s
+ 04D8 08                push A
+ 04D9 5000              mov A,<_s
+ 04DB 08                push A
+ 04DC 9B22              xcall _pr2dec
+ 04DE 38FD              add SP,-3
+ 04E0                   .dbline 90
+ 04E0           ;       lcd2.PrString(&lcd2, s);
+ 04E0 10                push X
+ 04E1 5000              mov A,>_s
+ 04E3 08                push A
+ 04E4 5000              mov A,<_s
+ 04E6 08                push A
+ 04E7 5000              mov A,>_lcd2
+ 04E9 08                push A
+ 04EA 5000              mov A,<_lcd2
+ 04EC 08                push A
+ 04ED 62D000            mov REG[0xd0],>_lcd2
+ 04F0 511C              mov A,[_lcd2+27+1]
+ 04F2 08                push A
+ 04F3 511B              mov A,[_lcd2+27]
+ 04F5 62D000            mov REG[0xd0],>__r0
+ 04F8 5300              mov [__r0],A
+ 04FA 18                pop A
+ 04FB 5C                mov X,A
+ 04FC 5100              mov A,[__r0]
+ 04FE 7C0000            xcall __plcall
+ 0501 38FC              add SP,-4
+ 0503                   .dbline 91
+ 0503           ;       lcd2.WriteData(&lcd2, 0xdf);
+ 0503 50DF              mov A,-33
+ 0505 08                push A
+ 0506 5000              mov A,>_lcd2
+ 0508 08                push A
+ 0509 5000              mov A,<_lcd2
+ 050B 08                push A
+ 050C 62D000            mov REG[0xd0],>_lcd2
+ 050F 5116              mov A,[_lcd2+21+1]
+ 0511 08                push A
+ 0512 5115              mov A,[_lcd2+21]
+ 0514 62D000            mov REG[0xd0],>__r0
+ 0517 5300              mov [__r0],A
+ 0519 18                pop A
+ 051A 5C                mov X,A
+ 051B 5100              mov A,[__r0]
+ 051D 7C0000            xcall __plcall
+ 0520 38FD              add SP,-3
+ 0522                   .dbline 92
+ 0522           ;       lcd2.WriteData(&lcd2, 'C');
+ 0522 5043              mov A,67
+ 0524 08                push A
+ 0525 5000              mov A,>_lcd2
+ 0527 08                push A
+ 0528 5000              mov A,<_lcd2
+ 052A 08                push A
+ 052B 62D000            mov REG[0xd0],>_lcd2
+ 052E 5116              mov A,[_lcd2+21+1]
+ 0530 08                push A
+ 0531 5115              mov A,[_lcd2+21]
+ 0533 62D000            mov REG[0xd0],>__r0
+ 0536 5300              mov [__r0],A
+ 0538 18                pop A
+ 0539 5C                mov X,A
+ 053A 5100              mov A,[__r0]
+ 053C 7C0000            xcall __plcall
+ 053F 38FD              add SP,-3
+ 0541 62D000            mov REG[0xd0],>__r0
+ 0544 20                pop X
+ 0545                   .dbline -2
+ 0545           L23:
+ 0545                   .dbline 0 ; func end
+ 0545 7F                ret
+ 0546                   .dbend
+ 0546                   .dbfunc e exec_led _exec_led fV
+ 0546           ;              z -> X-6
+ 0546           ;              y -> X-5
+ 0546           ;              x -> X-4
+ 0546           _exec_led::
+ 0546                   .dbline -1
+ 0546 10                push X
+ 0547 4F                mov X,SP
+ 0548                   .dbline 96
+ 0548           ; }
+ 0548           ; 
+ 0548           ; void exec_led(UINT8 x, UINT8 y, UINT8 z)
+ 0548           ; {
+ 0548                   .dbline 97
+ 0548           ;       led.Bright(&led,0,x);
+ 0548 10                push X
+ 0549 52FC              mov A,[X-4]
+ 054B 08                push A
+ 054C 5000              mov A,0
+ 054E 08                push A
+ 054F 5000              mov A,>_led
+ 0551 08                push A
+ 0552 5000              mov A,<_led
+ 0554 08                push A
+ 0555 62D000            mov REG[0xd0],>_led
+ 0558 5113              mov A,[_led+18+1]
+ 055A 08                push A
+ 055B 5112              mov A,[_led+18]
+ 055D 62D000            mov REG[0xd0],>__r0
+ 0560 5300              mov [__r0],A
+ 0562 18                pop A
+ 0563 5C                mov X,A
+ 0564 5100              mov A,[__r0]
+ 0566 7C0000            xcall __plcall
+ 0569 38FC              add SP,-4
+ 056B 20                pop X
+ 056C                   .dbline 98
+ 056C           ;       led.Bright(&led,1,y);
+ 056C 10                push X
+ 056D 52FB              mov A,[X-5]
+ 056F 08                push A
+ 0570 5001              mov A,1
+ 0572 08                push A
+ 0573 5000              mov A,>_led
+ 0575 08                push A
+ 0576 5000              mov A,<_led
+ 0578 08                push A
+ 0579 62D000            mov REG[0xd0],>_led
+ 057C 5113              mov A,[_led+18+1]
+ 057E 08                push A
+ 057F 5112              mov A,[_led+18]
+ 0581 62D000            mov REG[0xd0],>__r0
+ 0584 5300              mov [__r0],A
+ 0586 18                pop A
+ 0587 5C                mov X,A
+ 0588 5100              mov A,[__r0]
+ 058A 7C0000            xcall __plcall
+ 058D 38FC              add SP,-4
+ 058F 20                pop X
+ 0590                   .dbline 99
+ 0590           ;       led.Bright(&led,2,z);
+ 0590 10                push X
+ 0591 52FA              mov A,[X-6]
+ 0593 08                push A
+ 0594 5002              mov A,2
+ 0596 08                push A
+ 0597 5000              mov A,>_led
+ 0599 08                push A
+ 059A 5000              mov A,<_led
+ 059C 08                push A
+ 059D 62D000            mov REG[0xd0],>_led
+ 05A0 5113              mov A,[_led+18+1]
+ 05A2 08                push A
+ 05A3 5112              mov A,[_led+18]
+ 05A5 62D000            mov REG[0xd0],>__r0
+ 05A8 5300              mov [__r0],A
+ 05AA 18                pop A
+ 05AB 5C                mov X,A
+ 05AC 5100              mov A,[__r0]
+ 05AE 7C0000            xcall __plcall
+ 05B1 38FC              add SP,-4
+ 05B3 62D000            mov REG[0xd0],>__r0
+ 05B6 20                pop X
+ 05B7                   .dbline -2
+ 05B7           L48:
+ 05B7 20                pop X
+ 05B8                   .dbline 0 ; func end
+ 05B8 7F                ret
+ 05B9                   .dbsym l z -6 c
+ 05B9                   .dbsym l y -5 c
+ 05B9                   .dbsym l x -4 c
+ 05B9                   .dbend
+ 05B9                   .dbfunc e main _main fI
+ 05B9           ;             zd -> X+2
+ 05B9           ;             yd -> X+1
+ 05B9           ;             xd -> X+0
+ 05B9           _main::
+ 05B9                   .dbline -1
+ 05B9 10                push X
+ 05BA 4F                mov X,SP
+ 05BB 3803              add SP,3
+ 05BD                   .dbline 103
+ 05BD           ; }
+ 05BD           ; 
+ 05BD           ; int main(void)
+ 05BD           ; {
+ 05BD                   .dbline 105
+ 05BD           ;       UINT8 xd,yd,zd;
+ 05BD           ;       MI2C_Start();
+ 05BD 7C0000            xcall _MI2C_Start
+ 05C0                   .dbline 106
+ 05C0           ;       ACM1602_Setup(&lcd1, BSW_ADRS_DEFAULT, 0, ACM1602_ADRS0, 0);
+ 05C0 5000              mov A,0
+ 05C2 08                push A
+ 05C3 5050              mov A,80
+ 05C5 08                push A
+ 05C6 5000              mov A,0
+ 05C8 08                push A
+ 05C9 5074              mov A,116
+ 05CB 08                push A
+ 05CC 5000              mov A,>_lcd1
+ 05CE 08                push A
+ 05CF 5000              mov A,<_lcd1
+ 05D1 08                push A
+ 05D2 7C0000            xcall _ACM1602_Setup
+ 05D5 38FA              add SP,-6
+ 05D7                   .dbline 107
+ 05D7           ;       ACM1602_Setup(&lcd2, BSW_ADRS_DEFAULT, 3, ACM1602_ADRS0, 0);
+ 05D7 5000              mov A,0
+ 05D9 08                push A
+ 05DA 5050              mov A,80
+ 05DC 08                push A
+ 05DD 5003              mov A,3
+ 05DF 08                push A
+ 05E0 5074              mov A,116
+ 05E2 08                push A
+ 05E3 5000              mov A,>_lcd2
+ 05E5 08                push A
+ 05E6 5000              mov A,<_lcd2
+ 05E8 08                push A
+ 05E9 7C0000            xcall _ACM1602_Setup
+ 05EC                   .dbline 108
+ 05EC           ;       ADXL345_Setup(&gsense, BSW_ADRS_DEFAULT, 1, ADXL345_ADRS0, 0);
+ 05EC 5000              mov A,0
+ 05EE 08                push A
+ 05EF 501D              mov A,29
+ 05F1 08                push A
+ 05F2 5001              mov A,1
+ 05F4 08                push A
+ 05F5 5074              mov A,116
+ 05F7 08                push A
+ 05F8 5000              mov A,>_gsense
+ 05FA 08                push A
+ 05FB 5000              mov A,<_gsense
+ 05FD 08                push A
+ 05FE 7C0000            xcall _ADXL345_Setup
+ 0601 38F4              add SP,-12
+ 0603                   .dbline 109
+ 0603           ;       LPS25H_Setup(&psense, BSW_ADRS_DEFAULT, 1, LPS25H_ADRS0, 0);
+ 0603 5000              mov A,0
+ 0605 08                push A
+ 0606 505C              mov A,92
+ 0608 08                push A
+ 0609 5001              mov A,1
+ 060B 08                push A
+ 060C 5074              mov A,116
+ 060E 08                push A
+ 060F 5000              mov A,>_psense
+ 0611 08                push A
+ 0612 5000              mov A,<_psense
+ 0614 08                push A
+ 0615 7C0000            xcall _LPS25H_Setup
+ 0618                   .dbline 110
+ 0618           ;       PCA9632_Setup(&led, BSW_ADRS_DEFAULT, 2, PCA9632_ADRS2, 0);
+ 0618 5000              mov A,0
+ 061A 08                push A
+ 061B 5062              mov A,98
+ 061D 08                push A
+ 061E 5002              mov A,2
+ 0620 08                push A
+ 0621 5074              mov A,116
+ 0623 08                push A
+ 0624 5000              mov A,>_led
+ 0626 08                push A
+ 0627 5000              mov A,<_led
+ 0629 08                push A
+ 062A 7C0000            xcall _PCA9632_Setup
+ 062D 38F4              add SP,-12
+ 062F                   .dbline 111
+ 062F           ;       lcd1.Start(&lcd1);
+ 062F 10                push X
+ 0630 5000              mov A,>_lcd1
+ 0632 08                push A
+ 0633 5000              mov A,<_lcd1
+ 0635 08                push A
+ 0636 62D000            mov REG[0xd0],>_lcd1
+ 0639 5110              mov A,[_lcd1+15+1]
+ 063B 08                push A
+ 063C 510F              mov A,[_lcd1+15]
+ 063E 62D000            mov REG[0xd0],>__r0
+ 0641 5300              mov [__r0],A
+ 0643 18                pop A
+ 0644 5C                mov X,A
+ 0645 5100              mov A,[__r0]
+ 0647 7C0000            xcall __plcall
+ 064A 38FE              add SP,-2
+ 064C                   .dbline 112
+ 064C           ;       lcd2.Start(&lcd2);
+ 064C 5000              mov A,>_lcd2
+ 064E 08                push A
+ 064F 5000              mov A,<_lcd2
+ 0651 08                push A
+ 0652 62D000            mov REG[0xd0],>_lcd2
+ 0655 5110              mov A,[_lcd2+15+1]
+ 0657 08                push A
+ 0658 510F              mov A,[_lcd2+15]
+ 065A 62D000            mov REG[0xd0],>__r0
+ 065D 5300              mov [__r0],A
+ 065F 18                pop A
+ 0660 5C                mov X,A
+ 0661 5100              mov A,[__r0]
+ 0663 7C0000            xcall __plcall
+ 0666 38FE              add SP,-2
+ 0668                   .dbline 114
+ 0668           ; 
+ 0668           ;       gsense.Start(&gsense);
+ 0668 5000              mov A,>_gsense
+ 066A 08                push A
+ 066B 5000              mov A,<_gsense
+ 066D 08                push A
+ 066E 62D000            mov REG[0xd0],>_gsense
+ 0671 5114              mov A,[_gsense+19+1]
+ 0673 08                push A
+ 0674 5113              mov A,[_gsense+19]
+ 0676 62D000            mov REG[0xd0],>__r0
+ 0679 5300              mov [__r0],A
+ 067B 18                pop A
+ 067C 5C                mov X,A
+ 067D 5100              mov A,[__r0]
+ 067F 7C0000            xcall __plcall
+ 0682 38FE              add SP,-2
+ 0684                   .dbline 115
+ 0684           ;       psense.Start(&psense);
+ 0684 5000              mov A,>_psense
+ 0686 08                push A
+ 0687 5000              mov A,<_psense
+ 0689 08                push A
+ 068A 62D000            mov REG[0xd0],>_psense
+ 068D 5115              mov A,[_psense+20+1]
+ 068F 08                push A
+ 0690 5114              mov A,[_psense+20]
+ 0692 62D000            mov REG[0xd0],>__r0
+ 0695 5300              mov [__r0],A
+ 0697 18                pop A
+ 0698 5C                mov X,A
+ 0699 5100              mov A,[__r0]
+ 069B 7C0000            xcall __plcall
+ 069E 38FE              add SP,-2
+ 06A0                   .dbline 116
+ 06A0           ;       led.Start(&led,0, 0xaa);
+ 06A0 50AA              mov A,-86
+ 06A2 08                push A
+ 06A3 5000              mov A,0
+ 06A5 08                push A
+ 06A6 5000              mov A,>_led
+ 06A8 08                push A
+ 06A9 5000              mov A,<_led
+ 06AB 08                push A
+ 06AC 62D000            mov REG[0xd0],>_led
+ 06AF 510D              mov A,[_led+12+1]
+ 06B1 08                push A
+ 06B2 510C              mov A,[_led+12]
+ 06B4 62D000            mov REG[0xd0],>__r0
+ 06B7 5300              mov [__r0],A
+ 06B9 18                pop A
+ 06BA 5C                mov X,A
+ 06BB 5100              mov A,[__r0]
+ 06BD 7C0000            xcall __plcall
+ 06C0 38FC              add SP,-4
+ 06C2                   .dbline 118
+ 06C2           ; 
+ 06C2           ;       lcd1.Position(&lcd1, 0, 0);
+ 06C2 5000              mov A,0
+ 06C4 08                push A
+ 06C5 08                push A
+ 06C6 5000              mov A,>_lcd1
+ 06C8 08                push A
+ 06C9 5000              mov A,<_lcd1
+ 06CB 08                push A
+ 06CC 62D000            mov REG[0xd0],>_lcd1
+ 06CF 5112              mov A,[_lcd1+17+1]
+ 06D1 08                push A
+ 06D2 5111              mov A,[_lcd1+17]
+ 06D4 62D000            mov REG[0xd0],>__r0
+ 06D7 5300              mov [__r0],A
+ 06D9 18                pop A
+ 06DA 5C                mov X,A
+ 06DB 5100              mov A,[__r0]
+ 06DD 7C0000            xcall __plcall
+ 06E0 38FC              add SP,-4
+ 06E2                   .dbline 119
+ 06E2           ;       lcd1.PrCString(&lcd1, "X:");
+ 06E2 500E              mov A,>L60
+ 06E4 08                push A
+ 06E5 500E              mov A,<L60
+ 06E7 08                push A
+ 06E8 5000              mov A,>_lcd1
+ 06EA 08                push A
+ 06EB 5000              mov A,<_lcd1
+ 06ED 08                push A
+ 06EE 62D000            mov REG[0xd0],>_lcd1
+ 06F1 511E              mov A,[_lcd1+29+1]
+ 06F3 08                push A
+ 06F4 511D              mov A,[_lcd1+29]
+ 06F6 62D000            mov REG[0xd0],>__r0
+ 06F9 5300              mov [__r0],A
+ 06FB 18                pop A
+ 06FC 5C                mov X,A
+ 06FD 5100              mov A,[__r0]
+ 06FF 7C0000            xcall __plcall
+ 0702 38FC              add SP,-4
+ 0704                   .dbline 120
+ 0704           ;       lcd1.Position(&lcd1, 0, 8);
+ 0704 5008              mov A,8
+ 0706 08                push A
+ 0707 5000              mov A,0
+ 0709 08                push A
+ 070A 5000              mov A,>_lcd1
+ 070C 08                push A
+ 070D 5000              mov A,<_lcd1
+ 070F 08                push A
+ 0710 62D000            mov REG[0xd0],>_lcd1
+ 0713 5112              mov A,[_lcd1+17+1]
+ 0715 08                push A
+ 0716 5111              mov A,[_lcd1+17]
+ 0718 62D000            mov REG[0xd0],>__r0
+ 071B 5300              mov [__r0],A
+ 071D 18                pop A
+ 071E 5C                mov X,A
+ 071F 5100              mov A,[__r0]
+ 0721 7C0000            xcall __plcall
+ 0724 38FC              add SP,-4
+ 0726                   .dbline 121
+ 0726           ;       lcd1.PrCString(&lcd1, "Y:");
+ 0726 500B              mov A,>L63
+ 0728 08                push A
+ 0729 500B              mov A,<L63
+ 072B 08                push A
+ 072C 5000              mov A,>_lcd1
+ 072E 08                push A
+ 072F 5000              mov A,<_lcd1
+ 0731 08                push A
+ 0732 62D000            mov REG[0xd0],>_lcd1
+ 0735 511E              mov A,[_lcd1+29+1]
+ 0737 08                push A
+ 0738 511D              mov A,[_lcd1+29]
+ 073A 62D000            mov REG[0xd0],>__r0
+ 073D 5300              mov [__r0],A
+ 073F 18                pop A
+ 0740 5C                mov X,A
+ 0741 5100              mov A,[__r0]
+ 0743 7C0000            xcall __plcall
+ 0746 38FC              add SP,-4
+ 0748                   .dbline 122
+ 0748           ;       lcd1.Position(&lcd1, 1, 0);
+ 0748 5000              mov A,0
+ 074A 08                push A
+ 074B 5001              mov A,1
+ 074D 08                push A
+ 074E 5000              mov A,>_lcd1
+ 0750 08                push A
+ 0751 5000              mov A,<_lcd1
+ 0753 08                push A
+ 0754 62D000            mov REG[0xd0],>_lcd1
+ 0757 5112              mov A,[_lcd1+17+1]
+ 0759 08                push A
+ 075A 5111              mov A,[_lcd1+17]
+ 075C 62D000            mov REG[0xd0],>__r0
+ 075F 5300              mov [__r0],A
+ 0761 18                pop A
+ 0762 5C                mov X,A
+ 0763 5100              mov A,[__r0]
+ 0765 7C0000            xcall __plcall
+ 0768 38FC              add SP,-4
+ 076A                   .dbline 123
+ 076A           ;       lcd1.PrCString(&lcd1, "Z:");
+ 076A 5008              mov A,>L66
+ 076C 08                push A
+ 076D 5008              mov A,<L66
+ 076F 08                push A
+ 0770 5000              mov A,>_lcd1
+ 0772 08                push A
+ 0773 5000              mov A,<_lcd1
+ 0775 08                push A
+ 0776 62D000            mov REG[0xd0],>_lcd1
+ 0779 511E              mov A,[_lcd1+29+1]
+ 077B 08                push A
+ 077C 511D              mov A,[_lcd1+29]
+ 077E 62D000            mov REG[0xd0],>__r0
+ 0781 5300              mov [__r0],A
+ 0783 18                pop A
+ 0784 5C                mov X,A
+ 0785 5100              mov A,[__r0]
+ 0787 7C0000            xcall __plcall
+ 078A 38FC              add SP,-4
+ 078C                   .dbline 124
+ 078C           ;       lcd1.Position(&lcd1, 1, 8);
+ 078C 5008              mov A,8
+ 078E 08                push A
+ 078F 5001              mov A,1
+ 0791 08                push A
+ 0792 5000              mov A,>_lcd1
+ 0794 08                push A
+ 0795 5000              mov A,<_lcd1
+ 0797 08                push A
+ 0798 62D000            mov REG[0xd0],>_lcd1
+ 079B 5112              mov A,[_lcd1+17+1]
+ 079D 08                push A
+ 079E 5111              mov A,[_lcd1+17]
+ 07A0 62D000            mov REG[0xd0],>__r0
+ 07A3 5300              mov [__r0],A
+ 07A5 18                pop A
+ 07A6 5C                mov X,A
+ 07A7 5100              mov A,[__r0]
+ 07A9 7C0000            xcall __plcall
+ 07AC 38FC              add SP,-4
+ 07AE                   .dbline 125
+ 07AE           ;       lcd1.PrCString(&lcd1, "ADXL345");
+ 07AE 5000              mov A,>L69
+ 07B0 08                push A
+ 07B1 5000              mov A,<L69
+ 07B3 08                push A
+ 07B4 5000              mov A,>_lcd1
+ 07B6 08                push A
+ 07B7 5000              mov A,<_lcd1
+ 07B9 08                push A
+ 07BA 62D000            mov REG[0xd0],>_lcd1
+ 07BD 511E              mov A,[_lcd1+29+1]
+ 07BF 08                push A
+ 07C0 511D              mov A,[_lcd1+29]
+ 07C2 62D000            mov REG[0xd0],>__r0
+ 07C5 5300              mov [__r0],A
+ 07C7 18                pop A
+ 07C8 5C                mov X,A
+ 07C9 5100              mov A,[__r0]
+ 07CB 7C0000            xcall __plcall
+ 07CE 38FC              add SP,-4
+ 07D0 62D000            mov REG[0xd0],>__r0
+ 07D3 20                pop X
+ 07D4 806F              xjmp L71
+ 07D6           L70:
+ 07D6                   .dbline 128
+ 07D6           ; 
+ 07D6           ; 
+ 07D6           ;       while(1) {
+ 07D6                   .dbline 129
+ 07D6           ;               exec_gsense();
+ 07D6 98FE              xcall _exec_gsense
+ 07D8                   .dbline 130
+ 07D8           ;               exec_psense();
+ 07D8 9B36              xcall _exec_psense
+ 07DA                   .dbline 131
+ 07DA           ;               if (x >= 0x100)
+ 07DA 62D000            mov REG[0xd0],>_x
+ 07DD 5101              mov A,[_x+1]
+ 07DF 1100              sub A,0
+ 07E1 5100              mov A,[_x]
+ 07E3 1901              sbb A,1
+ 07E5 C006              jc L73
+ 07E7           X4:
+ 07E7                   .dbline 132
+ 07E7           ;                       xd = 0xff;
+ 07E7 5600FF            mov [X+0],-1
+ 07EA 800B              xjmp L74
+ 07EC           L73:
+ 07EC                   .dbline 133
+ 07EC           ;               else    xd = x;
+ 07EC 62D000            mov REG[0xd0],>_x
+ 07EF 5101              mov A,[_x+1]
+ 07F1 62D000            mov REG[0xd0],>__r0
+ 07F4 5400              mov [X+0],A
+ 07F6           L74:
+ 07F6                   .dbline 134
+ 07F6           ;               if (y >= 0x100)
+ 07F6 62D000            mov REG[0xd0],>_y
+ 07F9 5101              mov A,[_y+1]
+ 07FB 1100              sub A,0
+ 07FD 5100              mov A,[_y]
+ 07FF 1901              sbb A,1
+ 0801 C006              jc L75
+ 0803           X5:
+ 0803                   .dbline 135
+ 0803           ;                       yd = 0xff;
+ 0803 5601FF            mov [X+1],-1
+ 0806 800B              xjmp L76
+ 0808           L75:
+ 0808                   .dbline 136
+ 0808           ;               else    yd = y;
+ 0808 62D000            mov REG[0xd0],>_y
+ 080B 5101              mov A,[_y+1]
+ 080D 62D000            mov REG[0xd0],>__r0
+ 0810 5401              mov [X+1],A
+ 0812           L76:
+ 0812                   .dbline 137
+ 0812           ;               if (z >= 0x100)
+ 0812 62D000            mov REG[0xd0],>_z
+ 0815 5101              mov A,[_z+1]
+ 0817 1100              sub A,0
+ 0819 5100              mov A,[_z]
+ 081B 1901              sbb A,1
+ 081D C006              jc L77
+ 081F           X6:
+ 081F                   .dbline 138
+ 081F           ;                       zd = 0xff;
+ 081F 5602FF            mov [X+2],-1
+ 0822 800B              xjmp L78
+ 0824           L77:
+ 0824                   .dbline 139
+ 0824           ;               else    zd = z;
+ 0824 62D000            mov REG[0xd0],>_z
+ 0827 5101              mov A,[_z+1]
+ 0829 62D000            mov REG[0xd0],>__r0
+ 082C 5402              mov [X+2],A
+ 082E           L78:
+ 082E                   .dbline 140
+ 082E           ;               exec_led(xd, yd, zd);
+ 082E 5202              mov A,[X+2]
+ 0830 08                push A
+ 0831 5201              mov A,[X+1]
+ 0833 08                push A
+ 0834 5200              mov A,[X+0]
+ 0836 08                push A
+ 0837 9D0D              xcall _exec_led
+ 0839                   .dbline 141
+ 0839           ;               MI2C_Waitms(100);
+ 0839 5000              mov A,0
+ 083B 08                push A
+ 083C 5064              mov A,100
+ 083E 08                push A
+ 083F 7C0000            xcall _MI2C_Waitms
+ 0842 38FB              add SP,-5
+ 0844                   .dbline 142
+ 0844           ;       }
+ 0844           L71:
+ 0844                   .dbline 128
+ 0844 8F91              xjmp L70
+ 0846           X3:
+ 0846                   .dbline -2
+ 0846           L52:
+ 0846 38FD              add SP,-3
+ 0848 20                pop X
+ 0849                   .dbline 0 ; func end
+ 0849 8FFF              jmp .
+ 084B                   .dbsym l zd 2 c
+ 084B                   .dbsym l yd 1 c
+ 084B                   .dbsym l xd 0 c
+ 084B                   .dbend
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _z::
+ 0000 0000              .byte 0,0
+ 0002                   .dbsym e z _z s
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _y::
+ 0000 0000              .byte 0,0
+ 0002                   .dbsym e y _y s
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _x::
+ 0000 0000              .byte 0,0
+ 0002                   .dbsym e x _x s
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _fz::
+ 0000 00                .byte 0
+ 0001                   .dbsym e fz _fz c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _fy::
+ 0000 00                .byte 0
+ 0001                   .dbsym e fy _fy c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _fx::
+ 0000 00                .byte 0
+ 0001                   .dbsym e fx _fx c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _s::
+ 0000 00000000000000000000      .word 0,0,0,0,0
+ 000A 000000000000      .byte 0,0,0,0,0,0
+ 0010                   .dbsym e s _s A[16:16]c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _led::
+ 0000 00000000000000000000      .word 0,0,0,0,0
+ 000A 00000000000000000000      .word 0,0,0,0,0
+ 0014 0000              .byte 0,0
+ 0016                   .dbstruct 0 12 MI2CADRS_STRUC
+ 0016                   .dbfield 0 BSW_ADRS c
+ 0016                   .dbfield 1 BSW_CH c
+ 0016                   .dbfield 2 DEV_ADRS c
+ 0016                   .dbfield 3 OPTION_1 c
+ 0016                   .dbfield 4 WriteBytes pfc
+ 0016                   .dbfield 6 WriteByte pfc
+ 0016                   .dbfield 8 ReadBytes pfc
+ 0016                   .dbfield 10 ReadByte pfc
+ 0016                   .dbend
+ 0016                   .dbstruct 0 22 PCA9632_STRUC
+ 0016                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 0016                   .dbfield 12 Start pfc
+ 0016                   .dbfield 14 DRVMode pfc
+ 0016                   .dbfield 16 LEDMode pfc
+ 0016                   .dbfield 18 Bright pfc
+ 0016                   .dbfield 20 DimmBlink pfc
+ 0016                   .dbend
+ 0016                   .dbsym e led _led S[PCA9632_STRUC]
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _psense::
+ 0000 00000000000000000000      .word 0,0,0,0,0
+ 000A 00000000000000000000      .word 0,0,0,0,0
+ 0014 00000000000000000000      .word 0,0,0,0,0
+ 001E 0000              .byte 0,0
+ 0020                   .dbstruct 0 32 LPS25H_STRUC
+ 0020                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 0020                   .dbfield 12 ID c
+ 0020                   .dbfield 13 STS c
+ 0020                   .dbfield 14 PRESS A[3:3]c
+ 0020                   .dbfield 17 TEMP A[2:2]c
+ 0020                   .dbfield 19 STATUS c
+ 0020                   .dbfield 20 Start pfc
+ 0020                   .dbfield 22 ReadPress pfc
+ 0020                   .dbfield 24 wConvPress pfV
+ 0020                   .dbfield 26 ReadTemp pfc
+ 0020                   .dbfield 28 wConvTemp pfV
+ 0020                   .dbfield 30 ReadStatus pfc
+ 0020                   .dbend
+ 0020                   .dbsym e psense _psense S[LPS25H_STRUC]
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _gsense::
+ 0000 00000000000000000000      .word 0,0,0,0,0
+ 000A 00000000000000000000      .word 0,0,0,0,0
+ 0014 0000000000        .byte 0,0,0,0,0
+ 0019                   .dbstruct 0 25 ADXL345_STRUC
+ 0019                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 0019                   .dbfield 12 ID c
+ 0019                   .dbfield 13 xdat s
+ 0019                   .dbfield 15 ydat s
+ 0019                   .dbfield 17 zdat s
+ 0019                   .dbfield 19 Start pfc
+ 0019                   .dbfield 21 GetID pfc
+ 0019                   .dbfield 23 GetVal pfV
+ 0019                   .dbend
+ 0019                   .dbsym e gsense _gsense S[ADXL345_STRUC]
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _lcd2::
+ 0000 00000000000000000000      .word 0,0,0,0,0
+ 000A 00000000000000000000      .word 0,0,0,0,0
+ 0014 00000000000000000000      .word 0,0,0,0,0
+ 001E 00                .byte 0
+ 001F                   .dbstruct 0 31 ACM1602_STRUC
+ 001F                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 001F                   .dbfield 12 Xpos c
+ 001F                   .dbfield 13 Ypos c
+ 001F                   .dbfield 14 DDRAM_Adrs c
+ 001F                   .dbfield 15 Start pfc
+ 001F                   .dbfield 17 Position pfV
+ 001F                   .dbfield 19 Clear pfc
+ 001F                   .dbfield 21 WriteData pfc
+ 001F                   .dbfield 23 PrHexByte pfc
+ 001F                   .dbfield 25 PrHexInt pfc
+ 001F                   .dbfield 27 PrString pfc
+ 001F                   .dbfield 29 PrCString pfc
+ 001F                   .dbend
+ 001F                   .dbsym e lcd2 _lcd2 S[ACM1602_STRUC]
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~C88\MODU~C88\main.c
+ 0000           _lcd1::
+ 0000 00000000000000000000      .word 0,0,0,0,0
+ 000A 00000000000000000000      .word 0,0,0,0,0
+ 0014 00000000000000000000      .word 0,0,0,0,0
+ 001E 00                .byte 0
+ 001F                   .dbsym e lcd1 _lcd1 S[ACM1602_STRUC]
+                        .area lit(rom, con, rel, lit)
+ 0000           L69:
+ 0000 4144584C33343500  .byte 'A,'D,'X,'L,51,52,53,0
+ 0008           L66:
+ 0008 5A3A00            .byte 'Z,58,0
+ 000B           L63:
+ 000B 593A00            .byte 'Y,58,0
+ 000E           L60:
+ 000E 583A00            .byte 'X,58,0
+ 0011           L36:
+ 0011 68506100          .byte 'h,'P,'a,0

@@ -1,0 +1,10 @@
+Starting MAKE...
+creating project.mk -- no changes
+
+!E Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~E8D\MODU~E8D\main.c(5): cannot include source file "PSOC.h"; file not found
+
+make: *** [obj/main.o] Error 1
+
+ 
+Modulio_wLCD_27143 - 2 error(s) 0 warning(s) 16:14:30
+

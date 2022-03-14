@@ -1,0 +1,398 @@
+ 0000                   cpu LMM
+                        .module modulio_hal.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ..\..\lib_modulio\modulio_hal.c
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\lib_modulio\Modulio_PSOC1.h
+ 0000                   .dbfunc e MI2C_fSendStart _MI2C_fSendStart fc
+ 0000           ;           stat -> X+0
+ 0000           ;            fRW -> X-5
+ 0000           ;     bSlaveAddr -> X-4
+ 0000           _MI2C_fSendStart::
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 3801              add SP,1
+ 0004                   .dbline 32
+ 0004           ; //=======================================
+ 0004           ; //= Modulio Device depend Library Header=
+ 0004           ; //=                                   =
+ 0004           ; //=======================================
+ 0004           ; //
+ 0004           ; #include "m8c.h"
+ 0004           ; #include "PSoCAPI.h"
+ 0004           ; 
+ 0004           ; #define EXTERN
+ 0004           ; #include "Modulio.h"
+ 0004           ; #undef EXTERN
+ 0004           ; #include "Modulio_HAL.h"
+ 0004           ; 
+ 0004           ; //=======================================
+ 0004           ; //= Low Level I2C API                 =
+ 0004           ; //= �჌�x��API                               =
+ 0004           ; //=                                   =
+ 0004           ; //=======================================
+ 0004           ; 
+ 0004           ; //---------------------------------------
+ 0004           ; //- Generate START condition on I2C   -
+ 0004           ; //- �X�^�[�g�R���f�B�V��������            -
+ 0004           ; //-                                   -
+ 0004           ; //- Return Value�i�߂�l)                -
+ 0004           ; //- ==0: Slave acknowleged            -
+ 0004           ; //-   �X���[�u����������                -
+ 0004           ; //- !=0: Slave didn't acknowlege      -
+ 0004           ; //-   �X���[�u���������Ȃ�����  -
+ 0004           ; //---------------------------------------
+ 0004           ; //
+ 0004           ; UINT8 MI2C_fSendStart(UINT8 bSlaveAddr, UINT8 fRW)
+ 0004           ; {
+ 0004                   .dbline 34
+ 0004           ;       UINT8 stat;
+ 0004           ;       stat = I2CHW_1_fSendStart(bSlaveAddr, fRW);
+ 0004 10                push X
+ 0005 52FB              mov A,[X-5]
+ 0007 08                push A
+ 0008 52FC              mov A,[X-4]
+ 000A 20                pop X
+ 000B 7C0000            xcall _I2CHW_1_fSendStart
+ 000E 20                pop X
+ 000F 62D000            mov REG[0xd0],>__r0
+ 0012 5400              mov [X+0],A
+ 0014                   .dbline 35
+ 0014           ;       if (stat == 0)
+ 0014 3D0000            cmp [X+0],0
+ 0017 B006              jnz L2
+ 0019                   .dbline 36
+ 0019           ;               stat = MI2C_NAKslave;
+ 0019 560001            mov [X+0],1
+ 001C 8004              xjmp L3
+ 001E           L2:
+ 001E                   .dbline 37
+ 001E           ;       else    stat = MI2C_ACKslave;
+ 001E 560000            mov [X+0],0
+ 0021           L3:
+ 0021                   .dbline 38
+ 0021           ;       return(stat);
+ 0021 5200              mov A,[X+0]
+ 0023 62D000            mov REG[0xd0],>__r0
+ 0026                   .dbline -2
+ 0026           L1:
+ 0026 38FF              add SP,-1
+ 0028 20                pop X
+ 0029                   .dbline 0 ; func end
+ 0029 7F                ret
+ 002A                   .dbsym l stat 0 c
+ 002A                   .dbsym l fRW -5 c
+ 002A                   .dbsym l bSlaveAddr -4 c
+ 002A                   .dbend
+ 002A                   .dbfunc e MI2C_fSendRepStart _MI2C_fSendRepStart fc
+ 002A           ;           stat -> X+0
+ 002A           ;            fRW -> X-5
+ 002A           ;     bSlaveAddr -> X-4
+ 002A           _MI2C_fSendRepStart::
+ 002A                   .dbline -1
+ 002A 10                push X
+ 002B 4F                mov X,SP
+ 002C 3801              add SP,1
+ 002E                   .dbline 54
+ 002E           ; }
+ 002E           ; 
+ 002E           ; 
+ 002E           ; //---------------------------------------
+ 002E           ; //- Generate Rep.START condition on I2C       -
+ 002E           ; //- ���s�[�e�B�b�h�X�^�[�g����                -
+ 002E           ; //-                                   -
+ 002E           ; //- Return Value�i�߂�l)                -
+ 002E           ; //- ==0: Slave acknowleged            -
+ 002E           ; //-   �X���[�u����������                -
+ 002E           ; //- !=0: Slave didn't acknowlege      -
+ 002E           ; //-   �X���[�u���������Ȃ�����  -
+ 002E           ; //---------------------------------------
+ 002E           ; //
+ 002E           ; UINT8 MI2C_fSendRepStart(UINT8 bSlaveAddr, UINT8 fRW)
+ 002E           ; {
+ 002E                   .dbline 56
+ 002E           ;       UINT8 stat;
+ 002E           ;       stat = I2CHW_1_fSendRepeatStart(bSlaveAddr, fRW);
+ 002E 10                push X
+ 002F 52FB              mov A,[X-5]
+ 0031 08                push A
+ 0032 52FC              mov A,[X-4]
+ 0034 20                pop X
+ 0035 7C0000            xcall _I2CHW_1_fSendRepeatStart
+ 0038 20                pop X
+ 0039 62D000            mov REG[0xd0],>__r0
+ 003C 5400              mov [X+0],A
+ 003E                   .dbline 57
+ 003E           ;       if (stat == 0)
+ 003E 3D0000            cmp [X+0],0
+ 0041 B006              jnz L5
+ 0043                   .dbline 58
+ 0043           ;               stat = MI2C_NAKslave;
+ 0043 560001            mov [X+0],1
+ 0046 8004              xjmp L6
+ 0048           L5:
+ 0048                   .dbline 59
+ 0048           ;       else    stat = MI2C_ACKslave;
+ 0048 560000            mov [X+0],0
+ 004B           L6:
+ 004B                   .dbline 60
+ 004B           ;       return(stat);
+ 004B 5200              mov A,[X+0]
+ 004D 62D000            mov REG[0xd0],>__r0
+ 0050                   .dbline -2
+ 0050           L4:
+ 0050 38FF              add SP,-1
+ 0052 20                pop X
+ 0053                   .dbline 0 ; func end
+ 0053 7F                ret
+ 0054                   .dbsym l stat 0 c
+ 0054                   .dbsym l fRW -5 c
+ 0054                   .dbsym l bSlaveAddr -4 c
+ 0054                   .dbend
+ 0054                   .dbfunc e MI2C_SendStop _MI2C_SendStop fV
+ 0054           _MI2C_SendStop::
+ 0054                   .dbline -1
+ 0054                   .dbline 73
+ 0054           ; }
+ 0054           ; 
+ 0054           ; //---------------------------------------
+ 0054           ; //- Generate STOP condition on I2C    -
+ 0054           ; //- �X�g�b�v�R���f�B�V��������            -
+ 0054           ; //-                                   -
+ 0054           ; //- Return Value�i�߂�l)                -
+ 0054           ; //-   None                            -
+ 0054           ; //-   �i�Ȃ��j                        -
+ 0054           ; //---------------------------------------
+ 0054           ; //
+ 0054           ; void MI2C_SendStop(void)
+ 0054           ; {
+ 0054                   .dbline 74
+ 0054           ;       I2CHW_1_SendStop();
+ 0054 10                push X
+ 0055 7C0000            xcall _I2CHW_1_SendStop
+ 0058 20                pop X
+ 0059                   .dbline -2
+ 0059           L7:
+ 0059                   .dbline 0 ; func end
+ 0059 7F                ret
+ 005A                   .dbend
+ 005A                   .dbfunc e MI2C_fWrite _MI2C_fWrite fc
+ 005A           ;           stat -> X+0
+ 005A           ;          bData -> X-4
+ 005A           _MI2C_fWrite::
+ 005A                   .dbline -1
+ 005A 10                push X
+ 005B 4F                mov X,SP
+ 005C 3801              add SP,1
+ 005E                   .dbline 87
+ 005E           ; }
+ 005E           ; 
+ 005E           ; //---------------------------------------
+ 005E           ; //- Send a single-byte on I2C bus     -
+ 005E           ; //- �P�o�C�g���M                        -
+ 005E           ; //-                                   -
+ 005E           ; //- Return Value�i�߂�l)                -
+ 005E           ; //- !=0x00: Slave faild to acknowlege -
+ 005E           ; //-   �X���[�u�ɃG���[����          -
+ 005E           ; //---------------------------------------
+ 005E           ; //
+ 005E           ; UINT8 MI2C_fWrite(UINT8 bData)
+ 005E           ; {
+ 005E                   .dbline 89
+ 005E           ;       UINT8 stat;
+ 005E           ;       stat = I2CHW_1_fWrite(bData);
+ 005E 10                push X
+ 005F 52FC              mov A,[X-4]
+ 0061 7C0000            xcall _I2CHW_1_fWrite
+ 0064 20                pop X
+ 0065 62D000            mov REG[0xd0],>__r0
+ 0068 5400              mov [X+0],A
+ 006A                   .dbline 90
+ 006A           ;       if (stat == 0)
+ 006A 3D0000            cmp [X+0],0
+ 006D B006              jnz L9
+ 006F                   .dbline 91
+ 006F           ;               stat = MI2C_NAKslave;
+ 006F 560001            mov [X+0],1
+ 0072 8004              xjmp L10
+ 0074           L9:
+ 0074                   .dbline 92
+ 0074           ;       else    stat = MI2C_ACKslave;
+ 0074 560000            mov [X+0],0
+ 0077           L10:
+ 0077                   .dbline 93
+ 0077           ;       return(stat);
+ 0077 5200              mov A,[X+0]
+ 0079 62D000            mov REG[0xd0],>__r0
+ 007C                   .dbline -2
+ 007C           L8:
+ 007C 38FF              add SP,-1
+ 007E 20                pop X
+ 007F                   .dbline 0 ; func end
+ 007F 7F                ret
+ 0080                   .dbsym l stat 0 c
+ 0080                   .dbsym l bData -4 c
+ 0080                   .dbend
+ 0080                   .dbfunc e MI2C_bRead _MI2C_bRead fc
+ 0080           ;           data -> X+0
+ 0080           ;           fACK -> X-4
+ 0080           _MI2C_bRead::
+ 0080                   .dbline -1
+ 0080 10                push X
+ 0081 4F                mov X,SP
+ 0082 3801              add SP,1
+ 0084                   .dbline 115
+ 0084           ; }
+ 0084           ; 
+ 0084           ; 
+ 0084           ; //---------------------------------------
+ 0084           ; //- Read a single-byte from I2C bus   -
+ 0084           ; //- �P�o�C�g��M                   -
+ 0084           ; //-                                   -
+ 0084           ; //- fACK                              -
+ 0084           ; //- ==MI2C_NAKslave(==0x00)           -
+ 0084           ; //-   Generate NAK after recieving data       -
+ 0084           ; //-�@ �]���I�����NAK�����i���[�h�I���j  -
+ 0084           ; //- ==MI2C_ACKslave(!=0x00)           -
+ 0084           ; //-   Generate ACK after recieving data       -
+ 0084           ; //-�@ �]���I�����ACK�����i���[�h�p���j  -
+ 0084           ; //-                                   -
+ 0084           ; //- Return Value�i�߂�l)                -
+ 0084           ; //-   Data received from slave        -
+ 0084           ; //-   �ǂݎ�����f�[�^         -
+ 0084           ; //---------------------------------------
+ 0084           ; //
+ 0084           ; UINT8 MI2C_bRead(UINT8 fACK)
+ 0084           ; {
+ 0084                   .dbline 117
+ 0084           ;       UINT8 data;
+ 0084           ;       data = I2CHW_1_bRead(fACK);
+ 0084 10                push X
+ 0085 52FC              mov A,[X-4]
+ 0087 7C0000            xcall _I2CHW_1_bRead
+ 008A 20                pop X
+ 008B 62D000            mov REG[0xd0],>__r0
+ 008E 5400              mov [X+0],A
+ 0090                   .dbline 118
+ 0090           ;       return(data);
+ 0090 5200              mov A,[X+0]
+ 0092                   .dbline -2
+ 0092           L11:
+ 0092 38FF              add SP,-1
+ 0094 20                pop X
+ 0095                   .dbline 0 ; func end
+ 0095 7F                ret
+ 0096                   .dbsym l data 0 c
+ 0096                   .dbsym l fACK -4 c
+ 0096                   .dbend
+ 0096                   .dbfunc e MI2C_WaitMills _MI2C_WaitMills fV
+ 0096           ;          delay -> X-5
+ 0096           _MI2C_WaitMills::
+ 0096                   .dbline -1
+ 0096 10                push X
+ 0097 4F                mov X,SP
+ 0098                   .dbline 137
+ 0098           ; }
+ 0098           ; 
+ 0098           ; 
+ 0098           ; // Create pragmas to support proper argument and return value passing
+ 0098           ; #pragma fastcall16  Delay50uTimes
+ 0098           ; #pragma fastcall16  Delay50u
+ 0098           ; #pragma fastcall16  Delay10msTimes
+ 0098           ; //-------------------------------------------------
+ 0098           ; // Prototypes of the delay API.
+ 0098           ; //-------------------------------------------------
+ 0098           ; extern void Delay50u(void);
+ 0098           ; extern void Delay50uTimes(BYTE Multiple);
+ 0098           ; extern void Delay10msTimes(BYTE TenMstimes);
+ 0098           ; //=======================================
+ 0098           ; //= Delay N(ms)                               =
+ 0098           ; //= N�~���b�f�B���C                 =
+ 0098           ; //=======================================
+ 0098           ; void MI2C_WaitMills(UINT16 delay)
+ 0098           ; {
+ 0098                   .dbline 138
+ 0098           ;       if (delay) {
+ 0098 3DFB00            cmp [X-5],0
+ 009B B006              jnz X0
+ 009D 3DFC00            cmp [X-4],0
+ 00A0 A02B              jz L13
+ 00A2           X0:
+ 00A2                   .dbline 139
+ 00A2           ;               while(--delay) {
+ 00A2 8008              xjmp L16
+ 00A4           L15:
+ 00A4                   .dbline 139
+ 00A4                   .dbline 140
+ 00A4           ;                       Delay50uTimes(20);
+ 00A4 10                push X
+ 00A5 5014              mov A,20
+ 00A7 7C0000            xcall _Delay50uTimes
+ 00AA 20                pop X
+ 00AB                   .dbline 141
+ 00AB           ;               }
+ 00AB           L16:
+ 00AB                   .dbline 139
+ 00AB 62D000            mov REG[0xd0],>__r0
+ 00AE 52FC              mov A,[X-4]
+ 00B0 1101              sub A,1
+ 00B2 5300              mov [__r1],A
+ 00B4 52FB              mov A,[X-5]
+ 00B6 1900              sbb A,0
+ 00B8 5300              mov [__r0],A
+ 00BA 5100              mov A,[__r1]
+ 00BC 54FC              mov [X-4],A
+ 00BE 5100              mov A,[__r0]
+ 00C0 54FB              mov [X-5],A
+ 00C2 3C0000            cmp [__r0],0
+ 00C5 BFDE              jnz L15
+ 00C7 3C0000            cmp [__r1],0
+ 00CA BFD9              jnz L15
+ 00CC           X1:
+ 00CC                   .dbline 142
+ 00CC           ;       }
+ 00CC           L13:
+ 00CC                   .dbline -2
+ 00CC           L12:
+ 00CC 20                pop X
+ 00CD                   .dbline 0 ; func end
+ 00CD 7F                ret
+ 00CE                   .dbsym l delay -5 s
+ 00CE                   .dbend
+ 00CE                   .dbfunc e MI2C_Startup _MI2C_Startup fV
+ 00CE           _MI2C_Startup::
+ 00CE                   .dbline -1
+ 00CE                   .dbline 155
+ 00CE           ; }
+ 00CE           ; 
+ 00CE           ; 
+ 00CE           ; //---------------------------------------
+ 00CE           ; //- MI2C Startup                      -
+ 00CE           ; //- MI2C�̃X�^�[�g�A�b�v                -
+ 00CE           ; //- Return Value�i�߂�l)                -
+ 00CE           ; //-   None                            -
+ 00CE           ; //-   �i�Ȃ��j                        -
+ 00CE           ; //---------------------------------------
+ 00CE           ; //
+ 00CE           ; void MI2C_Startup(void)
+ 00CE           ; {
+ 00CE                   .dbline 156
+ 00CE           ;       M8C_EnableGInt;
+ 00CE 7101                      or  F, 01h
+ 00D0           
+ 00D0                   .dbline 157
+ 00D0           ;       I2CHW_1_Start();
+ 00D0 10                push X
+ 00D1 7C0000            xcall _I2CHW_1_Start
+ 00D4                   .dbline 158
+ 00D4           ;       I2CHW_1_EnableMstr();
+ 00D4 7C0000            xcall _I2CHW_1_EnableMstr
+ 00D7                   .dbline 159
+ 00D7           ;       I2CHW_1_EnableInt();
+ 00D7 7C0000            xcall _I2CHW_1_EnableInt
+ 00DA 20                pop X
+ 00DB                   .dbline -2
+ 00DB           L18:
+ 00DB                   .dbline 0 ; func end
+ 00DB 7F                ret
+ 00DC                   .dbend

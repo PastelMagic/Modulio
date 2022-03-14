@@ -1,0 +1,15 @@
+ren PM_UNIT05-append.pro PM_UNIV05-append.pro
+ren PM_UNIT05-cache.lib PM_UNIV05-cache.lib
+ren PM_UNIT05-rescue.lib PM_UNIV05-rescue.lib
+ren PM_UNIT05.cmp PM_UNIV05.cmp
+ren PM_UNIT05.dcm PM_UNIV05.dcm
+ren PM_UNIT05.kicad_pcb PM_UNIV05.kicad_pcb
+ren PM_UNIT05.lib PM_UNIV05.lib
+ren PM_UNIT05.mod PM_UNIV05.mod
+ren PM_UNIT05.net PM_UNIV05.net
+ren PM_UNIT05.pretty PM_UNIV05.pretty
+ren PM_UNIT05.pro PM_UNIV05.pro
+ren PM_UNIT05.sch PM_UNIV05.sch
+ren PM_UNIT05AW.log PM_UNIV05AW.log
+ren PM_UNIT05_SCH PM_UNIV05_SCH
+ren PM_UNIT05_SCH.log PM_UNIV05_SCH.log

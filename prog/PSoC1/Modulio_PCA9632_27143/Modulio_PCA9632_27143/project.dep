@@ -1,0 +1,63 @@
+# DO NOT DELETE
+./obj/acm1602.o :  Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/ACM1602.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/Modulio.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~4C9.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~F1D.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/MODU~2D8.H
+./obj/modulio_common.o :  Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/Modulio.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~4C9.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~324.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~F1D.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/MODU~2D8.H
+./obj/modulio_hal.o :  ./lib/I2CH~985.H ./lib/I2CH~069.H ./lib/PSoCAPI.h\
+   ./lib/PSOC~EE4.H\
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8c.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/Modulio.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~385.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~4C9.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~324.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~A94.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~79C.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~F1D.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/MODU~2D8.H
+./obj/pca9632.o :  Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/Modulio.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~4C9.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~F1D.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/PCA9632.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/MODU~2D8.H
+./obj/psoc1_delay.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8c.inc\
+   Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~787\MODU~787\memory.inc
+./obj/boot.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8c.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8ssc.inc\
+   Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~787\MODU~787\lib\GLOB~014.INC\
+   Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~787\MODU~787\memory.inc
+./obj/main.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/_const.h\
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/stdarg.h\
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/stdio.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/ACM1602.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/Modulio.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~4C9.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/MODU~F1D.H\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/LIB_~A8B/PCA9632.h\
+   Z:/TMP/Modulio/Proj/V6/PSoC1/MODU~2D8.H
+./lib/obj/i2chw_1common.o :  ./lib/I2CH~B8F.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8c.inc\
+   Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~787\MODU~787\memory.inc
+./lib/obj/i2chw_1int.o :  ./lib/I2CH~B8F.INC ./lib/I2CH~E0C.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8c.inc\
+   Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~787\MODU~787\memory.inc
+./lib/obj/i2chw_1mstr.o :  ./lib/I2CH~B8F.INC ./lib/I2CH~E0C.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8c.inc\
+   Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~787\MODU~787\memory.inc
+./lib/obj/i2chw_1rsrcinits.o :  ./lib/I2CH~B8F.INC ./lib/I2CH~E0C.INC\
+   ./lib/PSoCAPI.inc ./lib/PSOC~C8F.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8c.inc\
+   Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~787\MODU~787\memory.inc
+./lib/obj/psocconfig.o :  ./lib/GLOB~014.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8c.inc\
+   Z:\TMP\Modulio\Proj\V8\PSoC1\MODU~787\MODU~787\memory.inc
+./lib/obj/psocconfigtbl.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/include/CY8C27~1/m8c.inc

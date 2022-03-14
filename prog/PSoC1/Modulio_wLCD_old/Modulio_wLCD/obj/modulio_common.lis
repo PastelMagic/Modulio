@@ -1,0 +1,1077 @@
+ 0000                   cpu LMM
+                        .module modulio_common.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ..\..\lib_modulio\modulio_common.c
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\lib_modulio\modulio_common.c
+ 0000                   .dbfunc s MI2C_bWriteBytes _MI2C_bWriteBytes fc
+ 0000           ;         counts -> X+1
+ 0000           ;           stat -> X+0
+ 0000           ;          bMode -> X-8
+ 0000           ;           bCnt -> X-7
+ 0000           ;     pbXferData -> X-6
+ 0000           ;     bSlaveAddr -> X-4
+ 0000           _MI2C_bWriteBytes:
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 3802              add SP,2
+ 0004                   .dbline 32
+ 0004           ; //=======================================
+ 0004           ; //= Modulio Common Library            =
+ 0004           ; //=                                   =
+ 0004           ; //=======================================
+ 0004           ; //
+ 0004           ; #include "Modulio.h"
+ 0004           ; #define EXTERN
+ 0004           ; #include "Modulio_HAL.h"
+ 0004           ; #undef EXTERN
+ 0004           ; 
+ 0004           ; //=======================================
+ 0004           ; //= Middle Level I2C API              =
+ 0004           ; //= 中間レベルAPI                     =
+ 0004           ; //=                                   =
+ 0004           ; //=======================================
+ 0004           ; //
+ 0004           ; 
+ 0004           ; //---------------------------------------
+ 0004           ; //- Write multiple data on I2C                -
+ 0004           ; //- 複数バイト書込み                  -
+ 0004           ; //-                                   -
+ 0004           ; //- Return Value（戻り値)             -
+ 0004           ; //- ==MI2C_NAKslave(0x00)             -
+ 0004           ; //-   Error occured on I2C bus        -
+ 0004           ; //-   書き込み中にエラー発生          -
+ 0004           ; //- == MI2C_ACKslave                  -
+ 0004           ; //-   Xfr complete with no error      -
+ 0004           ; //-   正常終了                        -
+ 0004           ; //---------------------------------------
+ 0004           ; //
+ 0004           ; static UINT8 MI2C_bWriteBytes(UINT8 bSlaveAddr, UINT8 *pbXferData, UINT8 bCnt, UINT8 bMode)
+ 0004           ; {
+ 0004                   .dbline 35
+ 0004           ;       UINT8 stat;
+ 0004           ;       UINT8 counts;
+ 0004           ;       stat = MI2C_ACKslave;
+ 0004 560000            mov [X+0],0
+ 0007                   .dbline 36
+ 0007           ;       if ((bSlaveAddr & 0x80)==0x00) {        // Send SlaveAddr if it is valid(0x00-0x7f)
+ 0007 48FC80            tst [X-4],-128
+ 000A B037              jnz L2
+ 000C                   .dbline 38
+ 000C           ;                                               // スレーブアドレスが0x00～0x7fならアドレス指定
+ 000C           ;               if (bMode & MI2C_RepStart)
+ 000C                   .dbline 38
+ 000C 48F801            tst [X-8],1
+ 000F A013              jz L4
+ 0011                   .dbline 39
+ 0011           ;                       stat = MI2C_fSendRepStart(bSlaveAddr, MI2C_WRITE);
+ 0011 5000              mov A,0
+ 0013 08                push A
+ 0014 52FC              mov A,[X-4]
+ 0016 08                push A
+ 0017 7C0000            xcall _MI2C_fSendRepStart
+ 001A 38FE              add SP,-2
+ 001C 62D000            mov REG[0xd0],>__r0
+ 001F 5400              mov [X+0],A
+ 0021 8011              xjmp L5
+ 0023           L4:
+ 0023                   .dbline 40
+ 0023           ;               else    stat = MI2C_fSendStart(bSlaveAddr, MI2C_WRITE);
+ 0023 5000              mov A,0
+ 0025 08                push A
+ 0026 52FC              mov A,[X-4]
+ 0028 08                push A
+ 0029 7C0000            xcall _MI2C_fSendStart
+ 002C 38FE              add SP,-2
+ 002E 62D000            mov REG[0xd0],>__r0
+ 0031 5400              mov [X+0],A
+ 0033           L5:
+ 0033                   .dbline 41
+ 0033           ;               if (stat != MI2C_ACKslave) {
+ 0033 3D0000            cmp [X+0],0
+ 0036 A00B              jz L6
+ 0038                   .dbline 42
+ 0038           ;                       MI2C_SendStop();
+ 0038                   .dbline 42
+ 0038 7C0000            xcall _MI2C_SendStop
+ 003B                   .dbline 43
+ 003B           ;                       return(stat);
+ 003B 5200              mov A,[X+0]
+ 003D 62D000            mov REG[0xd0],>__r0
+ 0040 803A              xjmp L1
+ 0042           L6:
+ 0042                   .dbline 45
+ 0042           ;               }
+ 0042           ;       }
+ 0042           L2:
+ 0042                   .dbline 46
+ 0042           ;       for (counts = 0; counts < bCnt; counts++) {
+ 0042 560100            mov [X+1],0
+ 0045 8022              xjmp L11
+ 0047           L8:
+ 0047                   .dbline 46
+ 0047                   .dbline 47
+ 0047           ;               stat = MI2C_fWrite(*pbXferData);
+ 0047 62D000            mov REG[0xd0],>__r0
+ 004A 52FB              mov A,[X-5]
+ 004C 5300              mov [__r1],A
+ 004E 52FA              mov A,[X-6]
+ 0050 60D4              mov REG[0xd4],A
+ 0052 3E00              mvi A,[__r1]
+ 0054 08                push A
+ 0055 7C0000            xcall _MI2C_fWrite
+ 0058 38FF              add SP,-1
+ 005A 62D000            mov REG[0xd0],>__r0
+ 005D 5400              mov [X+0],A
+ 005F                   .dbline 48
+ 005F           ;               if (stat != MI2C_ACKslave)
+ 005F 3D0000            cmp [X+0],0
+ 0062 A003              jz L12
+ 0064                   .dbline 49
+ 0064           ;                       break;
+ 0064 8009              xjmp L10
+ 0066           L12:
+ 0066                   .dbline 50
+ 0066           ;       }
+ 0066           L9:
+ 0066                   .dbline 46
+ 0066 7701              inc [X+1]
+ 0068           L11:
+ 0068                   .dbline 46
+ 0068 5201              mov A,[X+1]
+ 006A 3BF9              cmp A,[X-7]
+ 006C CFDA              jc L8
+ 006E           X0:
+ 006E           L10:
+ 006E                   .dbline 52
+ 006E           ; 
+ 006E           ;       if (bMode & MI2C_NoStop)
+ 006E 48F802            tst [X-8],2
+ 0071                   .dbline 53
+ 0071           ;               ;
+ 0071 B004              jnz L15
+ 0073           L14:
+ 0073                   .dbline 54
+ 0073           ;       else    MI2C_SendStop();
+ 0073 7C0000            xcall _MI2C_SendStop
+ 0076           L15:
+ 0076                   .dbline 55
+ 0076           ;       return(stat);
+ 0076 5200              mov A,[X+0]
+ 0078 62D000            mov REG[0xd0],>__r0
+ 007B                   .dbline -2
+ 007B           L1:
+ 007B 38FE              add SP,-2
+ 007D 20                pop X
+ 007E                   .dbline 0 ; func end
+ 007E 7F                ret
+ 007F                   .dbsym l counts 1 c
+ 007F                   .dbsym l stat 0 c
+ 007F                   .dbsym l bMode -8 c
+ 007F                   .dbsym l bCnt -7 c
+ 007F                   .dbsym l pbXferData -6 pc
+ 007F                   .dbsym l bSlaveAddr -4 c
+ 007F                   .dbend
+ 007F                   .dbfunc s MI2C_fReadBytes _MI2C_fReadBytes fc
+ 007F           ;           stat -> X+1
+ 007F           ;         counts -> X+0
+ 007F           ;          bMode -> X-8
+ 007F           ;           bCnt -> X-7
+ 007F           ;     pbXferData -> X-6
+ 007F           ;     bSlaveAddr -> X-4
+ 007F           _MI2C_fReadBytes:
+ 007F                   .dbline -1
+ 007F 10                push X
+ 0080 4F                mov X,SP
+ 0081 3804              add SP,4
+ 0083                   .dbline 73
+ 0083           ; }
+ 0083           ; 
+ 0083           ; 
+ 0083           ; //---------------------------------------
+ 0083           ; //- Read multiple data on I2C         -
+ 0083           ; //- 複数バイト読み込み                        -
+ 0083           ; //-                                   -
+ 0083           ; //- Return Value（戻り値)             -
+ 0083           ; //- ==MI2C_NAKslave(0x00)             -
+ 0083           ; //-   Error occured on I2C bus        -
+ 0083           ; //-   読み込み中にエラー発生          -
+ 0083           ; //- == MI2C_ACKslave                  -
+ 0083           ; //-   Xfr complete with no error      -
+ 0083           ; //-   正常終了                        -
+ 0083           ; //---------------------------------------
+ 0083           ; //
+ 0083           ; static UINT8 MI2C_fReadBytes(UINT8 bSlaveAddr, UINT8 *pbXferData, UINT8 bCnt, UINT8 bMode)
+ 0083           ; {
+ 0083                   .dbline 76
+ 0083           ;       UINT8 stat;
+ 0083           ;       UINT8 counts;
+ 0083           ;       stat = MI2C_ACKslave;
+ 0083 560100            mov [X+1],0
+ 0086                   .dbline 77
+ 0086           ;       if ((bSlaveAddr & 0x80)==0x00) {        // Send SlaveAddr if it is valid(0x00-0x7f)
+ 0086 48FC80            tst [X-4],-128
+ 0089 B037              jnz L17
+ 008B                   .dbline 79
+ 008B           ;                                               // スレーブアドレスが0x00～0x7fならアドレス指定
+ 008B           ;               if (bMode & MI2C_RepStart)
+ 008B                   .dbline 79
+ 008B 48F801            tst [X-8],1
+ 008E A013              jz L19
+ 0090                   .dbline 80
+ 0090           ;                       stat = MI2C_fSendRepStart(bSlaveAddr, MI2C_READ);
+ 0090 5001              mov A,1
+ 0092 08                push A
+ 0093 52FC              mov A,[X-4]
+ 0095 08                push A
+ 0096 7C0000            xcall _MI2C_fSendRepStart
+ 0099 38FE              add SP,-2
+ 009B 62D000            mov REG[0xd0],>__r0
+ 009E 5401              mov [X+1],A
+ 00A0 8011              xjmp L20
+ 00A2           L19:
+ 00A2                   .dbline 81
+ 00A2           ;               else    stat = MI2C_fSendStart(bSlaveAddr, MI2C_READ);
+ 00A2 5001              mov A,1
+ 00A4 08                push A
+ 00A5 52FC              mov A,[X-4]
+ 00A7 08                push A
+ 00A8 7C0000            xcall _MI2C_fSendStart
+ 00AB 38FE              add SP,-2
+ 00AD 62D000            mov REG[0xd0],>__r0
+ 00B0 5401              mov [X+1],A
+ 00B2           L20:
+ 00B2                   .dbline 82
+ 00B2           ;               if (stat != MI2C_ACKslave) {
+ 00B2 3D0100            cmp [X+1],0
+ 00B5 A00B              jz L21
+ 00B7                   .dbline 83
+ 00B7           ;                       MI2C_SendStop();
+ 00B7                   .dbline 83
+ 00B7 7C0000            xcall _MI2C_SendStop
+ 00BA                   .dbline 84
+ 00BA           ;                       return(stat);
+ 00BA 5201              mov A,[X+1]
+ 00BC 62D000            mov REG[0xd0],>__r0
+ 00BF 8067              xjmp L16
+ 00C1           L21:
+ 00C1                   .dbline 86
+ 00C1           ;               }
+ 00C1           ;       }
+ 00C1           L17:
+ 00C1                   .dbline 87
+ 00C1           ;       for (counts = 1; counts < bCnt; counts++) {
+ 00C1 560001            mov [X+0],1
+ 00C4 803B              xjmp L26
+ 00C6           L23:
+ 00C6                   .dbline 87
+ 00C6                   .dbline 88
+ 00C6           ;               *pbXferData++ = MI2C_bRead(MI2C_fACK);
+ 00C6 62D000            mov REG[0xd0],>__r0
+ 00C9 52FB              mov A,[X-5]
+ 00CB 5300              mov [__r1],A
+ 00CD 52FA              mov A,[X-6]
+ 00CF 5300              mov [__r0],A
+ 00D1 5100              mov A,[__r1]
+ 00D3 5403              mov [X+3],A
+ 00D5 5100              mov A,[__r0]
+ 00D7 5402              mov [X+2],A
+ 00D9 5100              mov A,[__r1]
+ 00DB 0101              add A,1
+ 00DD 54FB              mov [X-5],A
+ 00DF 5100              mov A,[__r0]
+ 00E1 0900              adc A,0
+ 00E3 54FA              mov [X-6],A
+ 00E5 5001              mov A,1
+ 00E7 08                push A
+ 00E8 7C0000            xcall _MI2C_bRead
+ 00EB 38FF              add SP,-1
+ 00ED 62D000            mov REG[0xd0],>__r0
+ 00F0 5300              mov [__r0],A
+ 00F2 5203              mov A,[X+3]
+ 00F4 5300              mov [__r3],A
+ 00F6 5202              mov A,[X+2]
+ 00F8 60D5              mov REG[0xd5],A
+ 00FA 5100              mov A,[__r0]
+ 00FC 3F00              mvi [__r3],A
+ 00FE                   .dbline 89
+ 00FE           ;       }
+ 00FE           L24:
+ 00FE                   .dbline 87
+ 00FE 7700              inc [X+0]
+ 0100           L26:
+ 0100                   .dbline 87
+ 0100 5200              mov A,[X+0]
+ 0102 3BF9              cmp A,[X-7]
+ 0104 CFC1              jc L23
+ 0106           X1:
+ 0106                   .dbline 90
+ 0106           ;       *pbXferData = MI2C_bRead(MI2C_fNAK);
+ 0106 5000              mov A,0
+ 0108 08                push A
+ 0109 7C0000            xcall _MI2C_bRead
+ 010C 38FF              add SP,-1
+ 010E 62D000            mov REG[0xd0],>__r0
+ 0111 5300              mov [__r0],A
+ 0113 52FB              mov A,[X-5]
+ 0115 5300              mov [__r3],A
+ 0117 52FA              mov A,[X-6]
+ 0119 60D5              mov REG[0xd5],A
+ 011B 5100              mov A,[__r0]
+ 011D 3F00              mvi [__r3],A
+ 011F                   .dbline 91
+ 011F           ;       MI2C_SendStop();
+ 011F 7C0000            xcall _MI2C_SendStop
+ 0122                   .dbline 92
+ 0122           ;       return(stat);
+ 0122 5201              mov A,[X+1]
+ 0124 62D000            mov REG[0xd0],>__r0
+ 0127                   .dbline -2
+ 0127           L16:
+ 0127 38FC              add SP,-4
+ 0129 20                pop X
+ 012A                   .dbline 0 ; func end
+ 012A 7F                ret
+ 012B                   .dbsym l stat 1 c
+ 012B                   .dbsym l counts 0 c
+ 012B                   .dbsym l bMode -8 c
+ 012B                   .dbsym l bCnt -7 c
+ 012B                   .dbsym l pbXferData -6 pc
+ 012B                   .dbsym l bSlaveAddr -4 c
+ 012B                   .dbend
+ 012B                   .dbfunc e MI2C_WriteBytes _MI2C_WriteBytes fc
+ 012B                   .dbstruct 0 12 MI2CADRS_STRUC
+ 012B                   .dbfield 0 BSW_ADRS c
+ 012B                   .dbfield 1 BSW_CH c
+ 012B                   .dbfield 2 DEV_ADRS c
+ 012B                   .dbfield 3 OPTION_1 c
+ 012B                   .dbfield 4 WriteBytes pfc
+ 012B                   .dbfield 6 WriteByte pfc
+ 012B                   .dbfield 8 ReadBytes pfc
+ 012B                   .dbfield 10 ReadByte pfc
+ 012B                   .dbend
+ 012B           ;            reg -> X+1
+ 012B           ;           stat -> X+0
+ 012B           ;         Length -> X-10
+ 012B           ;           Data -> X-9
+ 012B           ;            Reg -> X-7
+ 012B           ;           adrs -> X-5
+ 012B           _MI2C_WriteBytes::
+ 012B                   .dbline -1
+ 012B 10                push X
+ 012C 4F                mov X,SP
+ 012D 3802              add SP,2
+ 012F                   .dbline 117
+ 012F           ; }
+ 012F           ; 
+ 012F           ; //=======================================
+ 012F           ; //= Public (High Level) I2C API               =
+ 012F           ; //= 公開（高レベル）API                       =
+ 012F           ; //=                                   =
+ 012F           ; //=======================================
+ 012F           ; //
+ 012F           ; 
+ 012F           ; 
+ 012F           ; //---------------------------------------
+ 012F           ; //- Write multi-byte data on I2C      -
+ 012F           ; //- 複数バイト書込み                  -
+ 012F           ; //-                                   -
+ 012F           ; //- Return Value（戻り値)             -
+ 012F           ; //- ==MI2C_NAKslave(0x00)             -
+ 012F           ; //-   Error occured on I2C bus        -
+ 012F           ; //-   書き込み中にエラー発生          -
+ 012F           ; //- == MI2C_ACKslave                  -
+ 012F           ; //-   Xfr complete with no error      -
+ 012F           ; //-   正常終了                        -
+ 012F           ; //---------------------------------------
+ 012F           ; //
+ 012F           ; UINT8 MI2C_WriteBytes(MI2CADRS *adrs, UINT16 Reg, UINT8 *Data, UINT8 Length)
+ 012F           ; {
+ 012F                   .dbline 119
+ 012F           ;       UINT8 stat,reg;
+ 012F           ;       reg = Reg & 0xff;
+ 012F 62D000            mov REG[0xd0],>__r0
+ 0132 52FA              mov A,[X-6]
+ 0134 5401              mov [X+1],A
+ 0136                   .dbline 120
+ 0136           ;       if (adrs->BSW_ADRS != 0) {      // Setup channel of bus switch
+ 0136 52FC              mov A,[X-4]
+ 0138 5300              mov [__r1],A
+ 013A 52FB              mov A,[X-5]
+ 013C 60D4              mov REG[0xd4],A
+ 013E 3E00              mvi A,[__r1]
+ 0140 3900              cmp A,0
+ 0142 A051              jz L28
+ 0144                   .dbline 122
+ 0144           ;                                       // バススイッチのチャンネル設定
+ 0144           ;               stat = 1 << ((adrs->BSW_CH) & 0x3);
+ 0144                   .dbline 122
+ 0144 52FC              mov A,[X-4]
+ 0146 0101              add A,1
+ 0148 5300              mov [__r1],A
+ 014A 52FB              mov A,[X-5]
+ 014C 0900              adc A,0
+ 014E 60D4              mov REG[0xd4],A
+ 0150 3E00              mvi A,[__r1]
+ 0152 5300              mov [__r0],A
+ 0154 260003            and [__r0],3
+ 0157 550001            mov [__r2],1
+ 015A 5100              mov A,[__r0]
+ 015C A009              jz X2
+ 015E           X3:
+ 015E 62D000            mov REG[0xd0],>__r0
+ 0161 6500              asl [__r2]
+ 0163 78                dec A
+ 0164 BFF9              jnz X3
+ 0166           X2:
+ 0166 62D000            mov REG[0xd0],>__r0
+ 0169 5100              mov A,[__r2]
+ 016B 5400              mov [X+0],A
+ 016D                   .dbline 123
+ 016D           ;               stat = MI2C_bWriteBytes(adrs->BSW_ADRS, &stat, 1, MI2C_CompleteXfer);
+ 016D 5000              mov A,0
+ 016F 08                push A
+ 0170 5001              mov A,1
+ 0172 08                push A
+ 0173 5007              mov A,7
+ 0175 08                push A
+ 0176 10                push X
+ 0177 52FC              mov A,[X-4]
+ 0179 5300              mov [__r1],A
+ 017B 52FB              mov A,[X-5]
+ 017D 60D4              mov REG[0xd4],A
+ 017F 3E00              mvi A,[__r1]
+ 0181 08                push A
+ 0182 9E7C              xcall _MI2C_bWriteBytes
+ 0184 38FB              add SP,-5
+ 0186 62D000            mov REG[0xd0],>__r0
+ 0189 5400              mov [X+0],A
+ 018B                   .dbline 124
+ 018B           ;               if (stat != MI2C_ACKslave)
+ 018B 3D0000            cmp [X+0],0
+ 018E A005              jz L30
+ 0190                   .dbline 125
+ 0190           ;                       return(stat);
+ 0190 5200              mov A,[X+0]
+ 0192 8072              xjmp L27
+ 0194           L30:
+ 0194                   .dbline 126
+ 0194           ;       }
+ 0194           L28:
+ 0194                   .dbline 127
+ 0194           ;       if (Reg != REG_ADRS_NONE) {     // Register number is valid
+ 0194 3DF9FF            cmp [X-7],-1
+ 0197 B006              jnz X4
+ 0199 3DFAFF            cmp [X-6],-1
+ 019C A03B              jz L32
+ 019E           X4:
+ 019E                   .dbline 129
+ 019E           ;                                       // レジスタ番号が指定されているとき
+ 019E           ;               stat = MI2C_bWriteBytes(adrs->DEV_ADRS, // Send register number
+ 019E                   .dbline 129
+ 019E 5002              mov A,2
+ 01A0 08                push A
+ 01A1 5001              mov A,1
+ 01A3 08                push A
+ 01A4 62D000            mov REG[0xd0],>__r0
+ 01A7 5A00              mov [__r1],X
+ 01A9 060001            add [__r1],1
+ 01AC 5007              mov A,7
+ 01AE 08                push A
+ 01AF 5100              mov A,[__r1]
+ 01B1 08                push A
+ 01B2 52FC              mov A,[X-4]
+ 01B4 0102              add A,2
+ 01B6 5300              mov [__r1],A
+ 01B8 52FB              mov A,[X-5]
+ 01BA 0900              adc A,0
+ 01BC 60D4              mov REG[0xd4],A
+ 01BE 3E00              mvi A,[__r1]
+ 01C0 08                push A
+ 01C1 9E3D              xcall _MI2C_bWriteBytes
+ 01C3 38FB              add SP,-5
+ 01C5 62D000            mov REG[0xd0],>__r0
+ 01C8 5400              mov [X+0],A
+ 01CA                   .dbline 133
+ 01CA           ;                                &reg,                  // レジスタ番号書込み
+ 01CA           ;                                1,
+ 01CA           ;                                MI2C_NoStop);
+ 01CA           ;               if (stat != MI2C_ACKslave)
+ 01CA 3D0000            cmp [X+0],0
+ 01CD A005              jz L34
+ 01CF                   .dbline 134
+ 01CF           ;                       return(stat);
+ 01CF 5200              mov A,[X+0]
+ 01D1 8033              xjmp L27
+ 01D3           L34:
+ 01D3                   .dbline 135
+ 01D3           ;               stat = DEV_ADRS_NONE;
+ 01D3 5600FF            mov [X+0],-1
+ 01D6                   .dbline 136
+ 01D6           ;       } else {
+ 01D6 8014              xjmp L33
+ 01D8           L32:
+ 01D8                   .dbline 136
+ 01D8                   .dbline 137
+ 01D8           ;               stat = adrs->DEV_ADRS;
+ 01D8 62D000            mov REG[0xd0],>__r0
+ 01DB 52FC              mov A,[X-4]
+ 01DD 0102              add A,2
+ 01DF 5300              mov [__r1],A
+ 01E1 52FB              mov A,[X-5]
+ 01E3 0900              adc A,0
+ 01E5 60D4              mov REG[0xd4],A
+ 01E7 3E00              mvi A,[__r1]
+ 01E9 5400              mov [X+0],A
+ 01EB                   .dbline 138
+ 01EB           ;       }
+ 01EB           L33:
+ 01EB                   .dbline 139
+ 01EB           ;       stat = MI2C_bWriteBytes(        // Perform write operation
+ 01EB 5000              mov A,0
+ 01ED 08                push A
+ 01EE 52F6              mov A,[X-10]
+ 01F0 08                push A
+ 01F1 52F7              mov A,[X-9]
+ 01F3 08                push A
+ 01F4 52F8              mov A,[X-8]
+ 01F6 08                push A
+ 01F7 5200              mov A,[X+0]
+ 01F9 08                push A
+ 01FA 9E04              xcall _MI2C_bWriteBytes
+ 01FC 38FB              add SP,-5
+ 01FE 62D000            mov REG[0xd0],>__r0
+ 0201 5400              mov [X+0],A
+ 0203                   .dbline 144
+ 0203           ;                       stat,           // データ書込み実行
+ 0203           ;                       Data,
+ 0203           ;                       Length,
+ 0203           ;                       MI2C_CompleteXfer);
+ 0203           ;       return(stat);
+ 0203 5200              mov A,[X+0]
+ 0205                   .dbline -2
+ 0205           L27:
+ 0205 38FE              add SP,-2
+ 0207 20                pop X
+ 0208                   .dbline 0 ; func end
+ 0208 7F                ret
+ 0209                   .dbsym l reg 1 c
+ 0209                   .dbsym l stat 0 c
+ 0209                   .dbsym l Length -10 c
+ 0209                   .dbsym l Data -9 pc
+ 0209                   .dbsym l Reg -7 s
+ 0209                   .dbsym l adrs -5 pS[MI2CADRS_STRUC]
+ 0209                   .dbend
+ 0209                   .dbfunc e MI2C_WriteByte _MI2C_WriteByte fc
+ 0209           ;           Data -> X-8
+ 0209           ;            Reg -> X-7
+ 0209           ;           adrs -> X-5
+ 0209           _MI2C_WriteByte::
+ 0209                   .dbline -1
+ 0209 10                push X
+ 020A 4F                mov X,SP
+ 020B                   .dbline 162
+ 020B           ; }
+ 020B           ; 
+ 020B           ; 
+ 020B           ; //---------------------------------------
+ 020B           ; //- Write a single-byte data on I2C   -
+ 020B           ; //- 1バイト書込み                     -
+ 020B           ; //-                                   -
+ 020B           ; //- Return Value（戻り値)             -
+ 020B           ; //- ==MI2C_NAKslave(0x00)             -
+ 020B           ; //-   Error occured on I2C bus        -
+ 020B           ; //-   書き込み中にエラー発生          -
+ 020B           ; //- == MI2C_ACKslave                  -
+ 020B           ; //-   Xfr complete with no error      -
+ 020B           ; //-   正常終了                        -
+ 020B           ; //---------------------------------------
+ 020B           ; //
+ 020B           ; UINT8 MI2C_WriteByte(MI2CADRS *adrs, UINT16 Reg, UINT8 Data)
+ 020B           ; {
+ 020B                   .dbline 163
+ 020B           ;       return(MI2C_WriteBytes(adrs, Reg, &Data, 1));
+ 020B 5001              mov A,1
+ 020D 08                push A
+ 020E 62D000            mov REG[0xd0],>__r0
+ 0211 5A00              mov [__r1],X
+ 0213 160008            sub [__r1],8
+ 0216 5007              mov A,7
+ 0218 08                push A
+ 0219 5100              mov A,[__r1]
+ 021B 08                push A
+ 021C 52F9              mov A,[X-7]
+ 021E 08                push A
+ 021F 52FA              mov A,[X-6]
+ 0221 08                push A
+ 0222 52FB              mov A,[X-5]
+ 0224 08                push A
+ 0225 52FC              mov A,[X-4]
+ 0227 08                push A
+ 0228 9F01              xcall _MI2C_WriteBytes
+ 022A 38F9              add SP,-7
+ 022C 62D000            mov REG[0xd0],>__r0
+ 022F                   .dbline -2
+ 022F           L36:
+ 022F 20                pop X
+ 0230                   .dbline 0 ; func end
+ 0230 7F                ret
+ 0231                   .dbsym l Data -8 c
+ 0231                   .dbsym l Reg -7 s
+ 0231                   .dbsym l adrs -5 pS[MI2CADRS_STRUC]
+ 0231                   .dbend
+ 0231                   .dbfunc e MI2C_ReadBytes _MI2C_ReadBytes fc
+ 0231           ;            reg -> X+2
+ 0231           ;           Mode -> X+1
+ 0231           ;           stat -> X+0
+ 0231           ;         Length -> X-10
+ 0231           ;           Data -> X-9
+ 0231           ;            Reg -> X-7
+ 0231           ;           adrs -> X-5
+ 0231           _MI2C_ReadBytes::
+ 0231                   .dbline -1
+ 0231 10                push X
+ 0232 4F                mov X,SP
+ 0233 3803              add SP,3
+ 0235                   .dbline 181
+ 0235           ; }
+ 0235           ; 
+ 0235           ; 
+ 0235           ; //---------------------------------------
+ 0235           ; //- Read a multi-byte data from I2C   -
+ 0235           ; //- 複数バイト読み込み                        -
+ 0235           ; //-                                   -
+ 0235           ; //- Return Value（戻り値)             -
+ 0235           ; //- ==MI2C_NAKslave(0x00)             -
+ 0235           ; //-   Error occured on I2C bus        -
+ 0235           ; //-   書き込み中にエラー発生          -
+ 0235           ; //- == MI2C_ACKslave                  -
+ 0235           ; //-   Xfr complete with no error      -
+ 0235           ; //-   正常終了                        -
+ 0235           ; //---------------------------------------
+ 0235           ; //
+ 0235           ; UINT8 MI2C_ReadBytes(MI2CADRS *adrs, UINT16 Reg, UINT8 *Data, UINT8 Length)
+ 0235           ; {
+ 0235                   .dbline 183
+ 0235           ;       UINT8 Mode,reg,stat;
+ 0235           ;       reg = Reg & 0xff;
+ 0235 62D000            mov REG[0xd0],>__r0
+ 0238 52FA              mov A,[X-6]
+ 023A 5402              mov [X+2],A
+ 023C                   .dbline 184
+ 023C           ;       if (adrs->BSW_ADRS != 0) {      // Setup channel number of bus switch
+ 023C 52FC              mov A,[X-4]
+ 023E 5300              mov [__r1],A
+ 0240 52FB              mov A,[X-5]
+ 0242 60D4              mov REG[0xd4],A
+ 0244 3E00              mvi A,[__r1]
+ 0246 3900              cmp A,0
+ 0248 A051              jz L38
+ 024A                   .dbline 186
+ 024A           ;                                       // チャンネル番号設定
+ 024A           ;               stat = 1 << ((adrs->BSW_CH) & 0x3);
+ 024A                   .dbline 186
+ 024A 52FC              mov A,[X-4]
+ 024C 0101              add A,1
+ 024E 5300              mov [__r1],A
+ 0250 52FB              mov A,[X-5]
+ 0252 0900              adc A,0
+ 0254 60D4              mov REG[0xd4],A
+ 0256 3E00              mvi A,[__r1]
+ 0258 5300              mov [__r0],A
+ 025A 260003            and [__r0],3
+ 025D 550001            mov [__r2],1
+ 0260 5100              mov A,[__r0]
+ 0262 A009              jz X5
+ 0264           X6:
+ 0264 62D000            mov REG[0xd0],>__r0
+ 0267 6500              asl [__r2]
+ 0269 78                dec A
+ 026A BFF9              jnz X6
+ 026C           X5:
+ 026C 62D000            mov REG[0xd0],>__r0
+ 026F 5100              mov A,[__r2]
+ 0271 5400              mov [X+0],A
+ 0273                   .dbline 187
+ 0273           ;               stat = MI2C_bWriteBytes(adrs->BSW_ADRS, &stat, 1, MI2C_CompleteXfer);
+ 0273 5000              mov A,0
+ 0275 08                push A
+ 0276 5001              mov A,1
+ 0278 08                push A
+ 0279 5007              mov A,7
+ 027B 08                push A
+ 027C 10                push X
+ 027D 52FC              mov A,[X-4]
+ 027F 5300              mov [__r1],A
+ 0281 52FB              mov A,[X-5]
+ 0283 60D4              mov REG[0xd4],A
+ 0285 3E00              mvi A,[__r1]
+ 0287 08                push A
+ 0288 9D76              xcall _MI2C_bWriteBytes
+ 028A 38FB              add SP,-5
+ 028C 62D000            mov REG[0xd0],>__r0
+ 028F 5400              mov [X+0],A
+ 0291                   .dbline 188
+ 0291           ;               if (stat != MI2C_ACKslave)
+ 0291 3D0000            cmp [X+0],0
+ 0294 A005              jz L40
+ 0296                   .dbline 189
+ 0296           ;                       return(stat);
+ 0296 5200              mov A,[X+0]
+ 0298 8071              xjmp L37
+ 029A           L40:
+ 029A                   .dbline 190
+ 029A           ;       }
+ 029A           L38:
+ 029A                   .dbline 191
+ 029A           ;       if (Reg != REG_ADRS_NONE) {     // Write register address if it is valid
+ 029A 3DF9FF            cmp [X-7],-1
+ 029D B006              jnz X7
+ 029F 3DFAFF            cmp [X-6],-1
+ 02A2 A03B              jz L42
+ 02A4           X7:
+ 02A4                   .dbline 193
+ 02A4           ;                                       // レジスタアドレス指定があるなら書込む
+ 02A4           ;               stat = MI2C_bWriteBytes(adrs->DEV_ADRS, // Send register number
+ 02A4                   .dbline 193
+ 02A4 5002              mov A,2
+ 02A6 08                push A
+ 02A7 5001              mov A,1
+ 02A9 08                push A
+ 02AA 62D000            mov REG[0xd0],>__r0
+ 02AD 5A00              mov [__r1],X
+ 02AF 060002            add [__r1],2
+ 02B2 5007              mov A,7
+ 02B4 08                push A
+ 02B5 5100              mov A,[__r1]
+ 02B7 08                push A
+ 02B8 52FC              mov A,[X-4]
+ 02BA 0102              add A,2
+ 02BC 5300              mov [__r1],A
+ 02BE 52FB              mov A,[X-5]
+ 02C0 0900              adc A,0
+ 02C2 60D4              mov REG[0xd4],A
+ 02C4 3E00              mvi A,[__r1]
+ 02C6 08                push A
+ 02C7 9D37              xcall _MI2C_bWriteBytes
+ 02C9 38FB              add SP,-5
+ 02CB 62D000            mov REG[0xd0],>__r0
+ 02CE 5400              mov [X+0],A
+ 02D0                   .dbline 197
+ 02D0           ;                                &reg,                  // レジスタ番号書込み
+ 02D0           ;                                1,
+ 02D0           ;                                MI2C_NoStop);
+ 02D0           ;               if (stat != MI2C_ACKslave)
+ 02D0 3D0000            cmp [X+0],0
+ 02D3 A005              jz L44
+ 02D5                   .dbline 198
+ 02D5           ;                       return(stat);
+ 02D5 5200              mov A,[X+0]
+ 02D7 8032              xjmp L37
+ 02D9           L44:
+ 02D9                   .dbline 199
+ 02D9           ;               Mode = MI2C_RepStart;   // REP.START should be used for following read operation
+ 02D9 560101            mov [X+1],1
+ 02DC                   .dbline 201
+ 02DC           ;                                       // 続くリード動作はREPEATED STARTコンディション
+ 02DC           ;       } else {
+ 02DC 8004              xjmp L43
+ 02DE           L42:
+ 02DE                   .dbline 201
+ 02DE                   .dbline 202
+ 02DE           ;               Mode = MI2C_CompleteXfer;       // START should be used for following read operation
+ 02DE 560100            mov [X+1],0
+ 02E1                   .dbline 203
+ 02E1           ;       }                                       // 続くリード動作はSTART
+ 02E1           L43:
+ 02E1                   .dbline 204
+ 02E1           ;       stat = MI2C_fReadBytes(adrs->DEV_ADRS,  // Perform read operation
+ 02E1 5201              mov A,[X+1]
+ 02E3 08                push A
+ 02E4 52F6              mov A,[X-10]
+ 02E6 08                push A
+ 02E7 52F7              mov A,[X-9]
+ 02E9 08                push A
+ 02EA 52F8              mov A,[X-8]
+ 02EC 08                push A
+ 02ED 62D000            mov REG[0xd0],>__r0
+ 02F0 52FC              mov A,[X-4]
+ 02F2 0102              add A,2
+ 02F4 5300              mov [__r1],A
+ 02F6 52FB              mov A,[X-5]
+ 02F8 0900              adc A,0
+ 02FA 60D4              mov REG[0xd4],A
+ 02FC 3E00              mvi A,[__r1]
+ 02FE 08                push A
+ 02FF 9D7E              xcall _MI2C_fReadBytes
+ 0301 38FB              add SP,-5
+ 0303 62D000            mov REG[0xd0],>__r0
+ 0306 5400              mov [X+0],A
+ 0308                   .dbline 208
+ 0308           ;                       Data,                   // リード実行
+ 0308           ;                       Length,
+ 0308           ;                       Mode);
+ 0308           ;       return(stat);
+ 0308 5200              mov A,[X+0]
+ 030A                   .dbline -2
+ 030A           L37:
+ 030A 38FD              add SP,-3
+ 030C 20                pop X
+ 030D                   .dbline 0 ; func end
+ 030D 7F                ret
+ 030E                   .dbsym l reg 2 c
+ 030E                   .dbsym l Mode 1 c
+ 030E                   .dbsym l stat 0 c
+ 030E                   .dbsym l Length -10 c
+ 030E                   .dbsym l Data -9 pc
+ 030E                   .dbsym l Reg -7 s
+ 030E                   .dbsym l adrs -5 pS[MI2CADRS_STRUC]
+ 030E                   .dbend
+ 030E                   .dbfunc e MI2C_ReadByte _MI2C_ReadByte fc
+ 030E           ;            sts -> X+0
+ 030E           ;           Data -> X-9
+ 030E           ;            Reg -> X-7
+ 030E           ;           adrs -> X-5
+ 030E           _MI2C_ReadByte::
+ 030E                   .dbline -1
+ 030E 10                push X
+ 030F 4F                mov X,SP
+ 0310 3801              add SP,1
+ 0312                   .dbline 222
+ 0312           ; }
+ 0312           ; 
+ 0312           ; 
+ 0312           ; //---------------------------------------
+ 0312           ; //- Read a single-byte data from I2C  -
+ 0312           ; //- 1バイト読み込み                   -
+ 0312           ; //-                                   -
+ 0312           ; //- Return Value（戻り値)             -
+ 0312           ; //-   None                            -
+ 0312           ; //-   （なし）                        -
+ 0312           ; //---------------------------------------
+ 0312           ; //
+ 0312           ; UINT8 MI2C_ReadByte(MI2CADRS *adrs, UINT16 Reg, UINT8 *Data)
+ 0312           ; {
+ 0312                   .dbline 224
+ 0312           ;       UINT8 sts;
+ 0312           ;       sts = MI2C_ReadBytes(adrs, Reg, Data, 1);
+ 0312 5001              mov A,1
+ 0314 08                push A
+ 0315 52F7              mov A,[X-9]
+ 0317 08                push A
+ 0318 52F8              mov A,[X-8]
+ 031A 08                push A
+ 031B 52F9              mov A,[X-7]
+ 031D 08                push A
+ 031E 52FA              mov A,[X-6]
+ 0320 08                push A
+ 0321 52FB              mov A,[X-5]
+ 0323 08                push A
+ 0324 52FC              mov A,[X-4]
+ 0326 08                push A
+ 0327 9F08              xcall _MI2C_ReadBytes
+ 0329 38F9              add SP,-7
+ 032B 62D000            mov REG[0xd0],>__r0
+ 032E 5400              mov [X+0],A
+ 0330                   .dbline 225
+ 0330           ;       return(sts);
+ 0330 5200              mov A,[X+0]
+ 0332                   .dbline -2
+ 0332           L46:
+ 0332 38FF              add SP,-1
+ 0334 20                pop X
+ 0335                   .dbline 0 ; func end
+ 0335 7F                ret
+ 0336                   .dbsym l sts 0 c
+ 0336                   .dbsym l Data -9 pc
+ 0336                   .dbsym l Reg -7 s
+ 0336                   .dbsym l adrs -5 pS[MI2CADRS_STRUC]
+ 0336                   .dbend
+ 0336                   .dbfunc e MI2C_Setup _MI2C_Setup fV
+ 0336           ;         option -> X-9
+ 0336           ;        devadrs -> X-8
+ 0336           ;          bswch -> X-7
+ 0336           ;        bswadrs -> X-6
+ 0336           ;           adrs -> X-5
+ 0336           _MI2C_Setup::
+ 0336                   .dbline -1
+ 0336 10                push X
+ 0337 4F                mov X,SP
+ 0338                   .dbline 242
+ 0338           ; }
+ 0338           ; 
+ 0338           ; 
+ 0338           ; //---------------------------------------
+ 0338           ; //- Setup MI2CADRS database           -
+ 0338           ; //- MI2CADRSの初期化                  -
+ 0338           ; //- Return Value（戻り値)             -
+ 0338           ; //-   None                            -
+ 0338           ; //-   （なし）                        -
+ 0338           ; //---------------------------------------
+ 0338           ; //
+ 0338           ; void MI2C_Setup(MI2CADRS *adrs,
+ 0338           ;               UINT8 bswadrs,
+ 0338           ;               UINT8 bswch,
+ 0338           ;               UINT8 devadrs,
+ 0338           ;               UINT8 option)
+ 0338           ; {
+ 0338                   .dbline 243
+ 0338           ;       adrs->BSW_ADRS = bswadrs;
+ 0338 62D000            mov REG[0xd0],>__r0
+ 033B 52FC              mov A,[X-4]
+ 033D 5300              mov [__r1],A
+ 033F 52FB              mov A,[X-5]
+ 0341 60D5              mov REG[0xd5],A
+ 0343 52FA              mov A,[X-6]
+ 0345 3F00              mvi [__r1],A
+ 0347                   .dbline 244
+ 0347           ;       adrs->BSW_CH = bswch;
+ 0347 52FC              mov A,[X-4]
+ 0349 0101              add A,1
+ 034B 5300              mov [__r1],A
+ 034D 52FB              mov A,[X-5]
+ 034F 0900              adc A,0
+ 0351 60D5              mov REG[0xd5],A
+ 0353 52F9              mov A,[X-7]
+ 0355 3F00              mvi [__r1],A
+ 0357                   .dbline 245
+ 0357           ;       adrs->DEV_ADRS = devadrs;
+ 0357 52FC              mov A,[X-4]
+ 0359 0102              add A,2
+ 035B 5300              mov [__r1],A
+ 035D 52FB              mov A,[X-5]
+ 035F 0900              adc A,0
+ 0361 60D5              mov REG[0xd5],A
+ 0363 52F8              mov A,[X-8]
+ 0365 3F00              mvi [__r1],A
+ 0367                   .dbline 246
+ 0367           ;       adrs->OPTION_1 = option;
+ 0367 52FC              mov A,[X-4]
+ 0369 0103              add A,3
+ 036B 5300              mov [__r1],A
+ 036D 52FB              mov A,[X-5]
+ 036F 0900              adc A,0
+ 0371 60D5              mov REG[0xd5],A
+ 0373 52F7              mov A,[X-9]
+ 0375 3F00              mvi [__r1],A
+ 0377                   .dbline 247
+ 0377           ;       adrs->WriteBytes = &MI2C_WriteBytes;
+ 0377 52FC              mov A,[X-4]
+ 0379 0104              add A,4
+ 037B 5300              mov [__r1],A
+ 037D 52FB              mov A,[X-5]
+ 037F 0900              adc A,0
+ 0381 60D5              mov REG[0xd5],A
+ 0383 5006              mov A,>PL_MI2C_WriteBytes
+ 0385 3F00              mvi [__r1],A
+ 0387 5006              mov A,<PL_MI2C_WriteBytes
+ 0389 3F00              mvi [__r1],A
+ 038B                   .dbline 248
+ 038B           ;       adrs->WriteByte = &MI2C_WriteByte;
+ 038B 52FC              mov A,[X-4]
+ 038D 0106              add A,6
+ 038F 5300              mov [__r1],A
+ 0391 52FB              mov A,[X-5]
+ 0393 0900              adc A,0
+ 0395 60D5              mov REG[0xd5],A
+ 0397 5004              mov A,>PL_MI2C_WriteByte
+ 0399 3F00              mvi [__r1],A
+ 039B 5004              mov A,<PL_MI2C_WriteByte
+ 039D 3F00              mvi [__r1],A
+ 039F                   .dbline 249
+ 039F           ;       adrs->ReadBytes = &MI2C_ReadBytes;
+ 039F 52FC              mov A,[X-4]
+ 03A1 0108              add A,8
+ 03A3 5300              mov [__r1],A
+ 03A5 52FB              mov A,[X-5]
+ 03A7 0900              adc A,0
+ 03A9 60D5              mov REG[0xd5],A
+ 03AB 5002              mov A,>PL_MI2C_ReadBytes
+ 03AD 3F00              mvi [__r1],A
+ 03AF 5002              mov A,<PL_MI2C_ReadBytes
+ 03B1 3F00              mvi [__r1],A
+ 03B3                   .dbline 250
+ 03B3           ;       adrs->ReadByte = &MI2C_ReadByte;
+ 03B3 52FC              mov A,[X-4]
+ 03B5 010A              add A,10
+ 03B7 5300              mov [__r1],A
+ 03B9 52FB              mov A,[X-5]
+ 03BB 0900              adc A,0
+ 03BD 60D5              mov REG[0xd5],A
+ 03BF 5000              mov A,>PL_MI2C_ReadByte
+ 03C1 3F00              mvi [__r1],A
+ 03C3 5000              mov A,<PL_MI2C_ReadByte
+ 03C5 3F00              mvi [__r1],A
+ 03C7                   .dbline 251
+ 03C7           ;       return;
+ 03C7                   .dbline -2
+ 03C7           L47:
+ 03C7 20                pop X
+ 03C8                   .dbline 0 ; func end
+ 03C8 7F                ret
+ 03C9                   .dbsym l option -9 c
+ 03C9                   .dbsym l devadrs -8 c
+ 03C9                   .dbsym l bswch -7 c
+ 03C9                   .dbsym l bswadrs -6 c
+ 03C9                   .dbsym l adrs -5 pS[MI2CADRS_STRUC]
+ 03C9                   .dbend
+ 03C9                   .dbfunc e MI2C_Start _MI2C_Start fV
+ 03C9           _MI2C_Start::
+ 03C9                   .dbline -1
+ 03C9                   .dbline 263
+ 03C9           ; }
+ 03C9           ; 
+ 03C9           ; //---------------------------------------
+ 03C9           ; //- Initialize I2C hardware           -
+ 03C9           ; //- I2Cハードウェアの初期化           -
+ 03C9           ; //- Return Value（戻り値)             -
+ 03C9           ; //-   None                            -
+ 03C9           ; //-   （なし）                        -
+ 03C9           ; //---------------------------------------
+ 03C9           ; //
+ 03C9           ; void MI2C_Start(void)
+ 03C9           ; {
+ 03C9                   .dbline 264
+ 03C9           ;       MI2C_Startup();
+ 03C9 7C0000            xcall _MI2C_Startup
+ 03CC                   .dbline -2
+ 03CC           L48:
+ 03CC                   .dbline 0 ; func end
+ 03CC 7F                ret
+ 03CD                   .dbend
+ 03CD                   .dbfunc e MI2C_Waitms _MI2C_Waitms fV
+ 03CD           ;          delay -> X-5
+ 03CD           _MI2C_Waitms::
+ 03CD                   .dbline -1
+ 03CD 10                push X
+ 03CE 4F                mov X,SP
+ 03CF                   .dbline 273
+ 03CF           ; }
+ 03CF           ; 
+ 03CF           ; 
+ 03CF           ; //=======================================
+ 03CF           ; //= Delay N(ms)                               =
+ 03CF           ; //= Nミリ秒ディレイ                   =
+ 03CF           ; //=======================================
+ 03CF           ; void MI2C_Waitms(UINT16 delay)
+ 03CF           ; {
+ 03CF                   .dbline 274
+ 03CF           ;       MI2C_WaitMills(delay);
+ 03CF 52FB              mov A,[X-5]
+ 03D1 08                push A
+ 03D2 52FC              mov A,[X-4]
+ 03D4 08                push A
+ 03D5 7C0000            xcall _MI2C_WaitMills
+ 03D8 38FE              add SP,-2
+ 03DA                   .dbline -2
+ 03DA           L49:
+ 03DA 20                pop X
+ 03DB                   .dbline 0 ; func end
+ 03DB 7F                ret
+ 03DC                   .dbsym l delay -5 s
+ 03DC                   .dbend
+                        .area func_lit(rom, con, rel, proclab)
+ 0000 030E      PL_MI2C_ReadByte:       .word _MI2C_ReadByte
+ 0002 0231      PL_MI2C_ReadBytes:      .word _MI2C_ReadBytes
+ 0004 0209      PL_MI2C_WriteByte:      .word _MI2C_WriteByte
+ 0006 012B      PL_MI2C_WriteBytes:     .word _MI2C_WriteBytes

@@ -1,0 +1,532 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V7\PSoC1\MODU~A51\MODU~A51\main.c
+ 0000                   .dbfunc e main _main fI
+ 0000           ;             bz -> X+8
+ 0000           ;             by -> X+7
+ 0000           ;             bx -> X+6
+ 0000           ;              z -> X+4
+ 0000           ;              y -> X+2
+ 0000           ;              x -> X+0
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 380F              add SP,15
+ 0004                   .dbline 16
+ 0004           ; //----------------------------------------
+ 0004           ; //--- LPS25H Test Program
+ 0004           ; //----------------------------------------
+ 0004           ; //
+ 0004           ; #include <stdio.h>
+ 0004           ; #define       EXTERN
+ 0004           ; #include "Modulio.h"
+ 0004           ; #include "ACM1602.h"
+ 0004           ; #include "PCA9632.h"
+ 0004           ; #undef EXTERN
+ 0004           ; 
+ 0004           ; ACM1602       lcd;
+ 0004           ; PCA9632       led;
+ 0004           ; 
+ 0004           ; int main(void)
+ 0004           ; {
+ 0004                   .dbline 19
+ 0004           ;       UINT16 x,y,z;
+ 0004           ;       UINT8 bx,by,bz;
+ 0004           ;       MI2C_Start();
+ 0004 7C0000            xcall _MI2C_Start
+ 0007                   .dbline 20
+ 0007           ;       ACM1602_Setup(&lcd, BSW_ADRS_DEFAULT, 0, ACM1602_ADRS0, 0);
+ 0007 5000              mov A,0
+ 0009 08                push A
+ 000A 5050              mov A,80
+ 000C 08                push A
+ 000D 5000              mov A,0
+ 000F 08                push A
+ 0010 5074              mov A,116
+ 0012 08                push A
+ 0013 5000              mov A,>_lcd
+ 0015 08                push A
+ 0016 5000              mov A,<_lcd
+ 0018 08                push A
+ 0019 7C0000            xcall _ACM1602_Setup
+ 001C                   .dbline 21
+ 001C           ;       PCA9632_Setup(&led, BSW_ADRS_DEFAULT, 2, PCA9632_ADRS2, 0);
+ 001C 5000              mov A,0
+ 001E 08                push A
+ 001F 5062              mov A,98
+ 0021 08                push A
+ 0022 5002              mov A,2
+ 0024 08                push A
+ 0025 5074              mov A,116
+ 0027 08                push A
+ 0028 5000              mov A,>_led
+ 002A 08                push A
+ 002B 5000              mov A,<_led
+ 002D 08                push A
+ 002E 7C0000            xcall _PCA9632_Setup
+ 0031 38F4              add SP,-12
+ 0033                   .dbline 22
+ 0033           ;       lcd.Start(&lcd);
+ 0033 10                push X
+ 0034 5000              mov A,>_lcd
+ 0036 08                push A
+ 0037 5000              mov A,<_lcd
+ 0039 08                push A
+ 003A 62D000            mov REG[0xd0],>_lcd
+ 003D 5110              mov A,[_lcd+15+1]
+ 003F 08                push A
+ 0040 510F              mov A,[_lcd+15]
+ 0042 62D000            mov REG[0xd0],>__r0
+ 0045 5300              mov [__r0],A
+ 0047 18                pop A
+ 0048 5C                mov X,A
+ 0049 5100              mov A,[__r0]
+ 004B 7C0000            xcall __plcall
+ 004E 38FE              add SP,-2
+ 0050                   .dbline 23
+ 0050           ;       led.Start(&led,0, 0xaa);
+ 0050 50AA              mov A,-86
+ 0052 08                push A
+ 0053 5000              mov A,0
+ 0055 08                push A
+ 0056 5000              mov A,>_led
+ 0058 08                push A
+ 0059 5000              mov A,<_led
+ 005B 08                push A
+ 005C 62D000            mov REG[0xd0],>_led
+ 005F 510D              mov A,[_led+12+1]
+ 0061 08                push A
+ 0062 510C              mov A,[_led+12]
+ 0064 62D000            mov REG[0xd0],>__r0
+ 0067 5300              mov [__r0],A
+ 0069 18                pop A
+ 006A 5C                mov X,A
+ 006B 5100              mov A,[__r0]
+ 006D 7C0000            xcall __plcall
+ 0070 38FC              add SP,-4
+ 0072 20                pop X
+ 0073                   .dbline 24
+ 0073           ;       x = 0;
+ 0073 560100            mov [X+1],0
+ 0076 560000            mov [X+0],0
+ 0079                   .dbline 25
+ 0079           ;       y = 0;
+ 0079 560300            mov [X+3],0
+ 007C 560200            mov [X+2],0
+ 007F                   .dbline 26
+ 007F           ;       z = 0;
+ 007F 560500            mov [X+5],0
+ 0082 560400            mov [X+4],0
+ 0085                   .dbline 28
+ 0085           ; 
+ 0085           ;       lcd.Position(&lcd, 0, 0);
+ 0085 10                push X
+ 0086 5000              mov A,0
+ 0088 08                push A
+ 0089 08                push A
+ 008A 5000              mov A,>_lcd
+ 008C 08                push A
+ 008D 5000              mov A,<_lcd
+ 008F 08                push A
+ 0090 62D000            mov REG[0xd0],>_lcd
+ 0093 5112              mov A,[_lcd+17+1]
+ 0095 08                push A
+ 0096 5111              mov A,[_lcd+17]
+ 0098 62D000            mov REG[0xd0],>__r0
+ 009B 5300              mov [__r0],A
+ 009D 18                pop A
+ 009E 5C                mov X,A
+ 009F 5100              mov A,[__r0]
+ 00A1 7C0000            xcall __plcall
+ 00A4 38FC              add SP,-4
+ 00A6                   .dbline 29
+ 00A6           ;       lcd.PrCString(&lcd,"00 00 00");
+ 00A6 5000              mov A,>L6
+ 00A8 08                push A
+ 00A9 5000              mov A,<L6
+ 00AB 08                push A
+ 00AC 5000              mov A,>_lcd
+ 00AE 08                push A
+ 00AF 5000              mov A,<_lcd
+ 00B1 08                push A
+ 00B2 62D000            mov REG[0xd0],>_lcd
+ 00B5 511E              mov A,[_lcd+29+1]
+ 00B7 08                push A
+ 00B8 511D              mov A,[_lcd+29]
+ 00BA 62D000            mov REG[0xd0],>__r0
+ 00BD 5300              mov [__r0],A
+ 00BF 18                pop A
+ 00C0 5C                mov X,A
+ 00C1 5100              mov A,[__r0]
+ 00C3 7C0000            xcall __plcall
+ 00C6 38FC              add SP,-4
+ 00C8 62D000            mov REG[0xd0],>__r0
+ 00CB 20                pop X
+ 00CC 81D7              xjmp L8
+ 00CE           L7:
+ 00CE                   .dbline 30
+ 00CE           ;       while(1) {
+ 00CE                   .dbline 32
+ 00CE           ; 
+ 00CE           ;               bx = (x & 0x100) ? (x ^ 0xff) & 0xff : x & 0xff;
+ 00CE 62D000            mov REG[0xd0],>__r0
+ 00D1 5201              mov A,[X+1]
+ 00D3 2100              and A,0
+ 00D5 5300              mov [__r1],A
+ 00D7 5200              mov A,[X+0]
+ 00D9 2101              and A,1
+ 00DB 3900              cmp A,0
+ 00DD B006              jnz X1
+ 00DF 3C0000            cmp [__r1],0
+ 00E2 A00F              jz L11
+ 00E4           X1:
+ 00E4 62D000            mov REG[0xd0],>__r0
+ 00E7 5201              mov A,[X+1]
+ 00E9 31FF              xor A,-1
+ 00EB 540A              mov [X+10],A
+ 00ED 560900            mov [X+9],0
+ 00F0 8008              xjmp L12
+ 00F2           L11:
+ 00F2 5201              mov A,[X+1]
+ 00F4 540A              mov [X+10],A
+ 00F6 560900            mov [X+9],0
+ 00F9           L12:
+ 00F9 62D000            mov REG[0xd0],>__r0
+ 00FC 520A              mov A,[X+10]
+ 00FE 5406              mov [X+6],A
+ 0100                   .dbline 33
+ 0100           ;               by = (y & 0x100) ? (y ^ 0xff) & 0xff : y & 0xff;
+ 0100 5203              mov A,[X+3]
+ 0102 2100              and A,0
+ 0104 5300              mov [__r1],A
+ 0106 5202              mov A,[X+2]
+ 0108 2101              and A,1
+ 010A 3900              cmp A,0
+ 010C B006              jnz X2
+ 010E 3C0000            cmp [__r1],0
+ 0111 A00F              jz L14
+ 0113           X2:
+ 0113 62D000            mov REG[0xd0],>__r0
+ 0116 5203              mov A,[X+3]
+ 0118 31FF              xor A,-1
+ 011A 540C              mov [X+12],A
+ 011C 560B00            mov [X+11],0
+ 011F 8008              xjmp L15
+ 0121           L14:
+ 0121 5203              mov A,[X+3]
+ 0123 540C              mov [X+12],A
+ 0125 560B00            mov [X+11],0
+ 0128           L15:
+ 0128 62D000            mov REG[0xd0],>__r0
+ 012B 520C              mov A,[X+12]
+ 012D 5407              mov [X+7],A
+ 012F                   .dbline 34
+ 012F           ;               bz = (z & 0x100) ? (z ^ 0xff) & 0xff : z & 0xff;
+ 012F 5205              mov A,[X+5]
+ 0131 2100              and A,0
+ 0133 5300              mov [__r1],A
+ 0135 5204              mov A,[X+4]
+ 0137 2101              and A,1
+ 0139 3900              cmp A,0
+ 013B B006              jnz X3
+ 013D 3C0000            cmp [__r1],0
+ 0140 A00F              jz L17
+ 0142           X3:
+ 0142 62D000            mov REG[0xd0],>__r0
+ 0145 5205              mov A,[X+5]
+ 0147 31FF              xor A,-1
+ 0149 540E              mov [X+14],A
+ 014B 560D00            mov [X+13],0
+ 014E 8008              xjmp L18
+ 0150           L17:
+ 0150 5205              mov A,[X+5]
+ 0152 540E              mov [X+14],A
+ 0154 560D00            mov [X+13],0
+ 0157           L18:
+ 0157 520E              mov A,[X+14]
+ 0159 5408              mov [X+8],A
+ 015B                   .dbline 36
+ 015B           ; 
+ 015B           ;               lcd.Position(&lcd, 0, 0);
+ 015B 10                push X
+ 015C 5000              mov A,0
+ 015E 08                push A
+ 015F 08                push A
+ 0160 5000              mov A,>_lcd
+ 0162 08                push A
+ 0163 5000              mov A,<_lcd
+ 0165 08                push A
+ 0166 62D000            mov REG[0xd0],>_lcd
+ 0169 5112              mov A,[_lcd+17+1]
+ 016B 08                push A
+ 016C 5111              mov A,[_lcd+17]
+ 016E 62D000            mov REG[0xd0],>__r0
+ 0171 5300              mov [__r0],A
+ 0173 18                pop A
+ 0174 5C                mov X,A
+ 0175 5100              mov A,[__r0]
+ 0177 7C0000            xcall __plcall
+ 017A 38FC              add SP,-4
+ 017C 20                pop X
+ 017D                   .dbline 37
+ 017D           ;               lcd.PrHexByte(&lcd, bx);
+ 017D 10                push X
+ 017E 5206              mov A,[X+6]
+ 0180 08                push A
+ 0181 5000              mov A,>_lcd
+ 0183 08                push A
+ 0184 5000              mov A,<_lcd
+ 0186 08                push A
+ 0187 62D000            mov REG[0xd0],>_lcd
+ 018A 5118              mov A,[_lcd+23+1]
+ 018C 08                push A
+ 018D 5117              mov A,[_lcd+23]
+ 018F 62D000            mov REG[0xd0],>__r0
+ 0192 5300              mov [__r0],A
+ 0194 18                pop A
+ 0195 5C                mov X,A
+ 0196 5100              mov A,[__r0]
+ 0198 7C0000            xcall __plcall
+ 019B 38FD              add SP,-3
+ 019D                   .dbline 38
+ 019D           ;               lcd.Position(&lcd, 0, 3);
+ 019D 5003              mov A,3
+ 019F 08                push A
+ 01A0 5000              mov A,0
+ 01A2 08                push A
+ 01A3 5000              mov A,>_lcd
+ 01A5 08                push A
+ 01A6 5000              mov A,<_lcd
+ 01A8 08                push A
+ 01A9 62D000            mov REG[0xd0],>_lcd
+ 01AC 5112              mov A,[_lcd+17+1]
+ 01AE 08                push A
+ 01AF 5111              mov A,[_lcd+17]
+ 01B1 62D000            mov REG[0xd0],>__r0
+ 01B4 5300              mov [__r0],A
+ 01B6 18                pop A
+ 01B7 5C                mov X,A
+ 01B8 5100              mov A,[__r0]
+ 01BA 7C0000            xcall __plcall
+ 01BD 38FC              add SP,-4
+ 01BF 20                pop X
+ 01C0                   .dbline 39
+ 01C0           ;               lcd.PrHexByte(&lcd, by);
+ 01C0 10                push X
+ 01C1 5207              mov A,[X+7]
+ 01C3 08                push A
+ 01C4 5000              mov A,>_lcd
+ 01C6 08                push A
+ 01C7 5000              mov A,<_lcd
+ 01C9 08                push A
+ 01CA 62D000            mov REG[0xd0],>_lcd
+ 01CD 5118              mov A,[_lcd+23+1]
+ 01CF 08                push A
+ 01D0 5117              mov A,[_lcd+23]
+ 01D2 62D000            mov REG[0xd0],>__r0
+ 01D5 5300              mov [__r0],A
+ 01D7 18                pop A
+ 01D8 5C                mov X,A
+ 01D9 5100              mov A,[__r0]
+ 01DB 7C0000            xcall __plcall
+ 01DE 38FD              add SP,-3
+ 01E0                   .dbline 40
+ 01E0           ;               lcd.Position(&lcd, 0, 6);
+ 01E0 5006              mov A,6
+ 01E2 08                push A
+ 01E3 5000              mov A,0
+ 01E5 08                push A
+ 01E6 5000              mov A,>_lcd
+ 01E8 08                push A
+ 01E9 5000              mov A,<_lcd
+ 01EB 08                push A
+ 01EC 62D000            mov REG[0xd0],>_lcd
+ 01EF 5112              mov A,[_lcd+17+1]
+ 01F1 08                push A
+ 01F2 5111              mov A,[_lcd+17]
+ 01F4 62D000            mov REG[0xd0],>__r0
+ 01F7 5300              mov [__r0],A
+ 01F9 18                pop A
+ 01FA 5C                mov X,A
+ 01FB 5100              mov A,[__r0]
+ 01FD 7C0000            xcall __plcall
+ 0200 38FC              add SP,-4
+ 0202 20                pop X
+ 0203                   .dbline 41
+ 0203           ;               lcd.PrHexByte(&lcd, bz);
+ 0203 10                push X
+ 0204 5208              mov A,[X+8]
+ 0206 08                push A
+ 0207 5000              mov A,>_lcd
+ 0209 08                push A
+ 020A 5000              mov A,<_lcd
+ 020C 08                push A
+ 020D 62D000            mov REG[0xd0],>_lcd
+ 0210 5118              mov A,[_lcd+23+1]
+ 0212 08                push A
+ 0213 5117              mov A,[_lcd+23]
+ 0215 62D000            mov REG[0xd0],>__r0
+ 0218 5300              mov [__r0],A
+ 021A 18                pop A
+ 021B 5C                mov X,A
+ 021C 5100              mov A,[__r0]
+ 021E 7C0000            xcall __plcall
+ 0221 38FD              add SP,-3
+ 0223 20                pop X
+ 0224                   .dbline 43
+ 0224           ; 
+ 0224           ;               led.Bright(&led,0,bx);
+ 0224 10                push X
+ 0225 5206              mov A,[X+6]
+ 0227 08                push A
+ 0228 5000              mov A,0
+ 022A 08                push A
+ 022B 5000              mov A,>_led
+ 022D 08                push A
+ 022E 5000              mov A,<_led
+ 0230 08                push A
+ 0231 62D000            mov REG[0xd0],>_led
+ 0234 5113              mov A,[_led+18+1]
+ 0236 08                push A
+ 0237 5112              mov A,[_led+18]
+ 0239 62D000            mov REG[0xd0],>__r0
+ 023C 5300              mov [__r0],A
+ 023E 18                pop A
+ 023F 5C                mov X,A
+ 0240 5100              mov A,[__r0]
+ 0242 7C0000            xcall __plcall
+ 0245 38FC              add SP,-4
+ 0247 20                pop X
+ 0248                   .dbline 44
+ 0248           ;               led.Bright(&led,1,by);
+ 0248 10                push X
+ 0249 5207              mov A,[X+7]
+ 024B 08                push A
+ 024C 5001              mov A,1
+ 024E 08                push A
+ 024F 5000              mov A,>_led
+ 0251 08                push A
+ 0252 5000              mov A,<_led
+ 0254 08                push A
+ 0255 62D000            mov REG[0xd0],>_led
+ 0258 5113              mov A,[_led+18+1]
+ 025A 08                push A
+ 025B 5112              mov A,[_led+18]
+ 025D 62D000            mov REG[0xd0],>__r0
+ 0260 5300              mov [__r0],A
+ 0262 18                pop A
+ 0263 5C                mov X,A
+ 0264 5100              mov A,[__r0]
+ 0266 7C0000            xcall __plcall
+ 0269 38FC              add SP,-4
+ 026B 20                pop X
+ 026C                   .dbline 45
+ 026C           ;               led.Bright(&led,2,bz);
+ 026C 10                push X
+ 026D 5208              mov A,[X+8]
+ 026F 08                push A
+ 0270 5002              mov A,2
+ 0272 08                push A
+ 0273 5000              mov A,>_led
+ 0275 08                push A
+ 0276 5000              mov A,<_led
+ 0278 08                push A
+ 0279 62D000            mov REG[0xd0],>_led
+ 027C 5113              mov A,[_led+18+1]
+ 027E 08                push A
+ 027F 5112              mov A,[_led+18]
+ 0281 62D000            mov REG[0xd0],>__r0
+ 0284 5300              mov [__r0],A
+ 0286 18                pop A
+ 0287 5C                mov X,A
+ 0288 5100              mov A,[__r0]
+ 028A 7C0000            xcall __plcall
+ 028D 38FC              add SP,-4
+ 028F 62D000            mov REG[0xd0],>__r0
+ 0292 20                pop X
+ 0293                   .dbline 47
+ 0293           ; 
+ 0293           ;               x++;
+ 0293 7701              inc [X+1]
+ 0295 0F0000            adc [X+0],0
+ 0298                   .dbline 48
+ 0298           ;               y+=2;
+ 0298 070302            add [X+3],2
+ 029B 0F0200            adc [X+2],0
+ 029E                   .dbline 49
+ 029E           ;               z+=4;
+ 029E 070504            add [X+5],4
+ 02A1 0F0400            adc [X+4],0
+ 02A4                   .dbline 51
+ 02A4           ; //            MI2C_Waitms(200);
+ 02A4           ;       }
+ 02A4           L8:
+ 02A4                   .dbline 30
+ 02A4 8E29              xjmp L7
+ 02A6           X0:
+ 02A6                   .dbline -2
+ 02A6           L1:
+ 02A6 38F1              add SP,-15
+ 02A8 20                pop X
+ 02A9                   .dbline 0 ; func end
+ 02A9 8FFF              jmp .
+ 02AB                   .dbsym l bz 8 c
+ 02AB                   .dbsym l by 7 c
+ 02AB                   .dbsym l bx 6 c
+ 02AB                   .dbsym l z 4 s
+ 02AB                   .dbsym l y 2 s
+ 02AB                   .dbsym l x 0 s
+ 02AB                   .dbend
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V7\PSoC1\MODU~A51\MODU~A51\main.c
+ 0000           _led::
+ 0000 00000000000000000000      .word 0,0,0,0,0
+ 000A 00000000000000000000      .word 0,0,0,0,0
+ 0014 0000              .byte 0,0
+ 0016                   .dbstruct 0 12 MI2CADRS_STRUC
+ 0016                   .dbfield 0 BSW_ADRS c
+ 0016                   .dbfield 1 BSW_CH c
+ 0016                   .dbfield 2 DEV_ADRS c
+ 0016                   .dbfield 3 OPTION_1 c
+ 0016                   .dbfield 4 WriteBytes pfc
+ 0016                   .dbfield 6 WriteByte pfc
+ 0016                   .dbfield 8 ReadBytes pfc
+ 0016                   .dbfield 10 ReadByte pfc
+ 0016                   .dbend
+ 0016                   .dbstruct 0 22 PCA9632_STRUC
+ 0016                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 0016                   .dbfield 12 Start pfc
+ 0016                   .dbfield 14 DRVMode pfc
+ 0016                   .dbfield 16 LEDMode pfc
+ 0016                   .dbfield 18 Bright pfc
+ 0016                   .dbfield 20 DimmBlink pfc
+ 0016                   .dbend
+ 0016                   .dbsym e led _led S[PCA9632_STRUC]
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V7\PSoC1\MODU~A51\MODU~A51\main.c
+ 0000           _lcd::
+ 0000 00000000000000000000      .word 0,0,0,0,0
+ 000A 00000000000000000000      .word 0,0,0,0,0
+ 0014 00000000000000000000      .word 0,0,0,0,0
+ 001E 00                .byte 0
+ 001F                   .dbstruct 0 31 ACM1602_STRUC
+ 001F                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 001F                   .dbfield 12 Xpos c
+ 001F                   .dbfield 13 Ypos c
+ 001F                   .dbfield 14 DDRAM_Adrs c
+ 001F                   .dbfield 15 Start pfc
+ 001F                   .dbfield 17 Position pfV
+ 001F                   .dbfield 19 Clear pfc
+ 001F                   .dbfield 21 WriteData pfc
+ 001F                   .dbfield 23 PrHexByte pfc
+ 001F                   .dbfield 25 PrHexInt pfc
+ 001F                   .dbfield 27 PrString pfc
+ 001F                   .dbfield 29 PrCString pfc
+ 001F                   .dbend
+ 001F                   .dbsym e lcd _lcd S[ACM1602_STRUC]
+                        .area lit(rom, con, rel, lit)
+ 0000           L6:
+ 0000 303020303020303000        .byte 48,48,32,48,48,32,48,48,0

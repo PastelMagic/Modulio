@@ -1,0 +1,10 @@
+(module HOLE7MM (layer F.Cu) (tedit 521965E8)
+  (fp_text reference HOLE7MM (at 0 -7.00024) (layer F.SilkS) hide
+    (effects (font (thickness 0.3048)))
+  )
+  (fp_text value VAL** (at 0 7.00024) (layer F.SilkS) hide
+    (effects (font (thickness 0.3048)))
+  )
+  (fp_circle (center 0 0) (end 4.0005 1.524) (layer F.SilkS) (width 0.381))
+  (pad "" np_thru_hole circle (at 0 0) (size 7.00024 7.00024) (drill 7.00024) (layers))
+)

@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../../Modulio_Target.h
+
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/ACM1602.c
+Modulio.h
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/Modulio.h
+ACM1602.h
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/ACM1602.h
+
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/ACM1602.h
+
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/Modulio.h
+Modulio_Target.h
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/Modulio_Target.h
+Modulio_RPi.h
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/Modulio_RPi.h
+Modulio_RPico.h
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/Modulio_RPico.h
+Modulio_Common.h
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/Modulio_Common.h
+
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/Modulio_Common.h
+
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/Modulio_RPi.h
+
+/home/pastelmagic/tmp/TMP/Modulio/Proj/Modulio_Pico/RaspiPico/Lib_Modulio/Modulio_RPico.h
+

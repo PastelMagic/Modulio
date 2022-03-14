@@ -1,0 +1,42 @@
+Starting MAKE...
+creating project.mk 
+
+lib/i2chw_1common.asm
+
+lib/i2chw_1int.asm
+
+lib/i2chw_1mstr.asm
+
+lib/i2chw_1rsrcinits.asm
+
+lib/psocconfig.asm
+
+lib/psocconfigtbl.asm
+
+!W Z:\TMP\Modulio\Proj\V7\PSoC1\MODU~290\MODU~290\main.c(64):[warning] missing return value
+
+./boot.asm
+
+Linking..
+
+LMM info: area 'InterruptRAM' uses 9 bytes in SRAM bank 0
+
+LMM info: area 'data' item of 32 bytes allocated in SRAM page 0
+
+LMM info: area 'data' item of 31 bytes allocated in SRAM page 0
+
+LMM info: area 'data' item of 16 bytes allocated in SRAM page 0
+
+LMM info: area 'virtual_registers' uses 9 bytes in SRAM page 0
+
+idata dump at output/Modulio_LPS25H.idata
+
+  ROM 21% full. 6664 out of 32768 bytes used (does not include absolute areas).
+
+  RAM 6% full. 97 bytes used (does not include stack usage).
+
+Built with ICCM8C STD V7.05.00
+
+ 
+Modulio_LPS25H - 0 error(s) 1 warning(s) 12:11:27
+

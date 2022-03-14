@@ -1,0 +1,390 @@
+                        .module adxl345.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ..\..\lib_modulio\adxl345.c
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\lib_modulio\adxl345.c
+ 0000                   .dbfunc s ADXL345_Start _ADXL345_Start fc
+ 0000                   .dbstruct 0 12 MI2CADRS_STRUC
+ 0000                   .dbfield 0 BSW_ADRS c
+ 0000                   .dbfield 1 BSW_CH c
+ 0000                   .dbfield 2 DEV_ADRS c
+ 0000                   .dbfield 3 OPTION_1 c
+ 0000                   .dbfield 4 WriteBytes pfc
+ 0000                   .dbfield 6 WriteByte pfc
+ 0000                   .dbfield 8 ReadBytes pfc
+ 0000                   .dbfield 10 ReadByte pfc
+ 0000                   .dbend
+ 0000                   .dbstruct 0 25 ADXL345_STRUC
+ 0000                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 0000                   .dbfield 12 ID c
+ 0000                   .dbfield 13 xdat s
+ 0000                   .dbfield 15 ydat s
+ 0000                   .dbfield 17 zdat s
+ 0000                   .dbfield 19 Start pfc
+ 0000                   .dbfield 21 GetID pfc
+ 0000                   .dbfield 23 GetVal pfV
+ 0000                   .dbend
+ 0000           ;           stat -> X+0
+ 0000           ;              p -> X-5
+ 0000           _ADXL345_Start:
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 3801              add SP,1
+ 0004                   .dbline 16
+ 0004           ; //---------------------------------------
+ 0004           ; //- ADXL345 3-Axis AccSensor          -
+ 0004           ; //- ３軸加速度センサ                  -
+ 0004           ; //---------------------------------------
+ 0004           ; //
+ 0004           ; #define       EXTERN
+ 0004           ; #include "Modulio.h"
+ 0004           ; #undef EXTERN
+ 0004           ; #include "ADXL345.h"
+ 0004           ; 
+ 0004           ; //---------------------------------------
+ 0004           ; //--- Init Device
+ 0004           ; //--- デバイス初期化
+ 0004           ; //---------------------------------------
+ 0004           ; static UINT8 ADXL345_Start(ADXL345 *p)
+ 0004           ; {
+ 0004                   .dbline 18
+ 0004           ;       UINT8 stat;
+ 0004           ;       stat = (p->madrs).WriteByte(&(p->madrs), 0x2d, 0x08); // Start Measurement
+ 0004 10                push X
+ 0005 5008              mov A,8
+ 0007 08                push A
+ 0008 5000              mov A,0
+ 000A 08                push A
+ 000B 502D              mov A,45
+ 000D 08                push A
+ 000E 52FB              mov A,[X-5]
+ 0010 08                push A
+ 0011 52FC              mov A,[X-4]
+ 0013 08                push A
+ 0014 52FC              mov A,[X-4]
+ 0016 0106              add A,6
+ 0018 5300              mov [__r1],A
+ 001A 3E00              mvi A,[__r1]
+ 001C 5300              mov [__r0],A
+ 001E 3E00              mvi A,[__r1]
+ 0020 5C                mov X,A
+ 0021 5100              mov A,[__r0]
+ 0023 7C0000            xcall __plcall
+ 0026 38FB              add SP,-5
+ 0028 20                pop X
+ 0029 5400              mov [X+0],A
+ 002B                   .dbline 19
+ 002B           ;       return(stat);
+ 002B 5200              mov A,[X+0]
+ 002D                   .dbline -2
+ 002D           L1:
+ 002D 38FF              add SP,-1
+ 002F 20                pop X
+ 0030                   .dbline 0 ; func end
+ 0030 7F                ret
+ 0031                   .dbsym l stat 0 c
+ 0031                   .dbsym l p -5 pS[ADXL345_STRUC]
+ 0031                   .dbend
+ 0031                   .dbfunc s ADXL345_GetID _ADXL345_GetID fc
+ 0031           ;              p -> X-5
+ 0031           _ADXL345_GetID:
+ 0031                   .dbline -1
+ 0031 10                push X
+ 0032 4F                mov X,SP
+ 0033                   .dbline 28
+ 0033           ; }
+ 0033           ; 
+ 0033           ; //---------------------------------------
+ 0033           ; //--- Read ID Reg. (0xE5）
+ 0033           ; //--- IDレジスタ読み込み
+ 0033           ; //---------------------------------------
+ 0033           ; //
+ 0033           ; static UINT8 ADXL345_GetID(ADXL345 *p)
+ 0033           ; {
+ 0033                   .dbline 29
+ 0033           ;       return((p->madrs).ReadByte(&(p->madrs), 0, &p->ID));
+ 0033 52FC              mov A,[X-4]
+ 0035 010C              add A,12
+ 0037 5300              mov [__r1],A
+ 0039 52FB              mov A,[X-5]
+ 003B 0900              adc A,0
+ 003D 10                push X
+ 003E 08                push A
+ 003F 5100              mov A,[__r1]
+ 0041 08                push A
+ 0042 5000              mov A,0
+ 0044 08                push A
+ 0045 08                push A
+ 0046 52FB              mov A,[X-5]
+ 0048 08                push A
+ 0049 52FC              mov A,[X-4]
+ 004B 08                push A
+ 004C 52FC              mov A,[X-4]
+ 004E 010A              add A,10
+ 0050 5300              mov [__r1],A
+ 0052 3E00              mvi A,[__r1]
+ 0054 5300              mov [__r0],A
+ 0056 3E00              mvi A,[__r1]
+ 0058 5C                mov X,A
+ 0059 5100              mov A,[__r0]
+ 005B 7C0000            xcall __plcall
+ 005E 38FA              add SP,-6
+ 0060 20                pop X
+ 0061                   .dbline -2
+ 0061           L2:
+ 0061 20                pop X
+ 0062                   .dbline 0 ; func end
+ 0062 7F                ret
+ 0063                   .dbsym l p -5 pS[ADXL345_STRUC]
+ 0063                   .dbend
+ 0063                   .dbfunc s ADXL345_GetVal _ADXL345_GetVal fV
+ 0063           ;            buf -> X+0
+ 0063           ;              p -> X-5
+ 0063           _ADXL345_GetVal:
+ 0063                   .dbline -1
+ 0063 10                push X
+ 0064 4F                mov X,SP
+ 0065 3802              add SP,2
+ 0067                   .dbline 37
+ 0067           ; }
+ 0067           ; 
+ 0067           ; //---------------------------------------
+ 0067           ; //--- Read Accelero Data Reg.
+ 0067           ; //--- 加速度データレジスタ読み込み
+ 0067           ; //---------------------------------------
+ 0067           ; static void ADXL345_GetVal(ADXL345 *p)
+ 0067           ; {
+ 0067                   .dbline 39
+ 0067           ;       UINT8 buf[2];
+ 0067           ;       (p->madrs).ReadBytes(&(p->madrs), 0x32, buf,2);
+ 0067 10                push X
+ 0068 5002              mov A,2
+ 006A 08                push A
+ 006B 5100              mov A,[__r0]
+ 006D 08                push A
+ 006E 10                push X
+ 006F 5000              mov A,0
+ 0071 08                push A
+ 0072 5032              mov A,50
+ 0074 08                push A
+ 0075 52FB              mov A,[X-5]
+ 0077 08                push A
+ 0078 52FC              mov A,[X-4]
+ 007A 08                push A
+ 007B 52FC              mov A,[X-4]
+ 007D 0108              add A,8
+ 007F 5300              mov [__r1],A
+ 0081 3E00              mvi A,[__r1]
+ 0083 5300              mov [__r0],A
+ 0085 3E00              mvi A,[__r1]
+ 0087 5C                mov X,A
+ 0088 5100              mov A,[__r0]
+ 008A 7C0000            xcall __plcall
+ 008D 38F9              add SP,-7
+ 008F 20                pop X
+ 0090                   .dbline 40
+ 0090           ;       p->xdat = ((buf[1] & 0x3) << 8) | buf[0];
+ 0090 5201              mov A,[X+1]
+ 0092 2103              and A,3
+ 0094 5300              mov [__r0],A
+ 0096 5200              mov A,[X+0]
+ 0098 5300              mov [__r1],A
+ 009A 52FC              mov A,[X-4]
+ 009C 010D              add A,13
+ 009E 5300              mov [__r3],A
+ 00A0 5100              mov A,[__r0]
+ 00A2 3F00              mvi [__r3],A
+ 00A4 5100              mov A,[__r1]
+ 00A6 3F00              mvi [__r3],A
+ 00A8                   .dbline 41
+ 00A8           ;       (p->madrs).ReadBytes(&(p->madrs), 0x34,buf,2);
+ 00A8 10                push X
+ 00A9 5002              mov A,2
+ 00AB 08                push A
+ 00AC 5100              mov A,[__r0]
+ 00AE 08                push A
+ 00AF 10                push X
+ 00B0 5000              mov A,0
+ 00B2 08                push A
+ 00B3 5034              mov A,52
+ 00B5 08                push A
+ 00B6 52FB              mov A,[X-5]
+ 00B8 08                push A
+ 00B9 52FC              mov A,[X-4]
+ 00BB 08                push A
+ 00BC 52FC              mov A,[X-4]
+ 00BE 0108              add A,8
+ 00C0 5300              mov [__r1],A
+ 00C2 3E00              mvi A,[__r1]
+ 00C4 5300              mov [__r0],A
+ 00C6 3E00              mvi A,[__r1]
+ 00C8 5C                mov X,A
+ 00C9 5100              mov A,[__r0]
+ 00CB 7C0000            xcall __plcall
+ 00CE 38F9              add SP,-7
+ 00D0 20                pop X
+ 00D1                   .dbline 42
+ 00D1           ;       p->ydat = ((buf[1] & 0x3) << 8) | buf[0];
+ 00D1 5201              mov A,[X+1]
+ 00D3 2103              and A,3
+ 00D5 5300              mov [__r0],A
+ 00D7 5200              mov A,[X+0]
+ 00D9 5300              mov [__r1],A
+ 00DB 52FC              mov A,[X-4]
+ 00DD 010F              add A,15
+ 00DF 5300              mov [__r3],A
+ 00E1 5100              mov A,[__r0]
+ 00E3 3F00              mvi [__r3],A
+ 00E5 5100              mov A,[__r1]
+ 00E7 3F00              mvi [__r3],A
+ 00E9                   .dbline 43
+ 00E9           ;       (p->madrs).ReadBytes(&(p->madrs), 0x36,buf,2);
+ 00E9 10                push X
+ 00EA 5002              mov A,2
+ 00EC 08                push A
+ 00ED 5100              mov A,[__r0]
+ 00EF 08                push A
+ 00F0 10                push X
+ 00F1 5000              mov A,0
+ 00F3 08                push A
+ 00F4 5036              mov A,54
+ 00F6 08                push A
+ 00F7 52FB              mov A,[X-5]
+ 00F9 08                push A
+ 00FA 52FC              mov A,[X-4]
+ 00FC 08                push A
+ 00FD 52FC              mov A,[X-4]
+ 00FF 0108              add A,8
+ 0101 5300              mov [__r1],A
+ 0103 3E00              mvi A,[__r1]
+ 0105 5300              mov [__r0],A
+ 0107 3E00              mvi A,[__r1]
+ 0109 5C                mov X,A
+ 010A 5100              mov A,[__r0]
+ 010C 7C0000            xcall __plcall
+ 010F 38F9              add SP,-7
+ 0111 20                pop X
+ 0112                   .dbline 44
+ 0112           ;       p->zdat = ((buf[1] & 0x3) << 8) | buf[0];
+ 0112 5201              mov A,[X+1]
+ 0114 2103              and A,3
+ 0116 5300              mov [__r0],A
+ 0118 5200              mov A,[X+0]
+ 011A 5300              mov [__r1],A
+ 011C 52FC              mov A,[X-4]
+ 011E 0111              add A,17
+ 0120 5300              mov [__r3],A
+ 0122 5100              mov A,[__r0]
+ 0124 3F00              mvi [__r3],A
+ 0126 5100              mov A,[__r1]
+ 0128 3F00              mvi [__r3],A
+ 012A                   .dbline -2
+ 012A           L3:
+ 012A 38FE              add SP,-2
+ 012C 20                pop X
+ 012D                   .dbline 0 ; func end
+ 012D 7F                ret
+ 012E                   .dbsym l buf 0 A[2:2]c
+ 012E                   .dbsym l p -5 pS[ADXL345_STRUC]
+ 012E                   .dbend
+ 012E                   .dbfunc e ADXL345_Setup _ADXL345_Setup fV
+ 012E           ;         option -> X-9
+ 012E           ;        devadrs -> X-8
+ 012E           ;          bswch -> X-7
+ 012E           ;        bswadrs -> X-6
+ 012E           ;              p -> X-5
+ 012E           _ADXL345_Setup::
+ 012E                   .dbline -1
+ 012E 10                push X
+ 012F 4F                mov X,SP
+ 0130                   .dbline 53
+ 0130           ; }
+ 0130           ; 
+ 0130           ; void ADXL345_Setup(
+ 0130           ;               ADXL345 *p,
+ 0130           ;               UINT8 bswadrs,
+ 0130           ;               UINT8 bswch,
+ 0130           ;               UINT8 devadrs,
+ 0130           ;               UINT8 option)
+ 0130           ; {
+ 0130                   .dbline 55
+ 0130           ; 
+ 0130           ;       p->xdat = 0;
+ 0130 52FC              mov A,[X-4]
+ 0132 010D              add A,13
+ 0134 5300              mov [__r1],A
+ 0136 5000              mov A,0
+ 0138 3F00              mvi [__r1],A
+ 013A 3F00              mvi [__r1],A
+ 013C                   .dbline 56
+ 013C           ;       p->ydat = 0;
+ 013C 52FC              mov A,[X-4]
+ 013E 010F              add A,15
+ 0140 5300              mov [__r1],A
+ 0142 5000              mov A,0
+ 0144 3F00              mvi [__r1],A
+ 0146 3F00              mvi [__r1],A
+ 0148                   .dbline 57
+ 0148           ;       p->zdat = 0;
+ 0148 52FC              mov A,[X-4]
+ 014A 0111              add A,17
+ 014C 5300              mov [__r1],A
+ 014E 5000              mov A,0
+ 0150 3F00              mvi [__r1],A
+ 0152 3F00              mvi [__r1],A
+ 0154                   .dbline 58
+ 0154           ;       p->Start  = &ADXL345_Start;
+ 0154 52FC              mov A,[X-4]
+ 0156 0113              add A,19
+ 0158 74                inc A
+ 0159 5300              mov [__r1],A
+ 015B 5004              mov A,<PL_ADXL345_Start
+ 015D 3F00              mvi [__r1],A
+ 015F                   .dbline 59
+ 015F           ;       p->GetID  = &ADXL345_GetID;
+ 015F 52FC              mov A,[X-4]
+ 0161 0115              add A,21
+ 0163 74                inc A
+ 0164 5300              mov [__r1],A
+ 0166 5002              mov A,<PL_ADXL345_GetID
+ 0168 3F00              mvi [__r1],A
+ 016A                   .dbline 60
+ 016A           ;       p->GetVal = &ADXL345_GetVal;
+ 016A 52FC              mov A,[X-4]
+ 016C 0117              add A,23
+ 016E 74                inc A
+ 016F 5300              mov [__r1],A
+ 0171 5000              mov A,<PL_ADXL345_GetVal
+ 0173 3F00              mvi [__r1],A
+ 0175                   .dbline 62
+ 0175           ; 
+ 0175           ;       MI2C_Setup(&(p->madrs), bswadrs, bswch, devadrs, option);
+ 0175 52F7              mov A,[X-9]
+ 0177 08                push A
+ 0178 52F8              mov A,[X-8]
+ 017A 08                push A
+ 017B 52F9              mov A,[X-7]
+ 017D 08                push A
+ 017E 52FA              mov A,[X-6]
+ 0180 08                push A
+ 0181 52FB              mov A,[X-5]
+ 0183 08                push A
+ 0184 52FC              mov A,[X-4]
+ 0186 08                push A
+ 0187 7C0000            xcall _MI2C_Setup
+ 018A 38FA              add SP,-6
+ 018C                   .dbline -2
+ 018C           L7:
+ 018C 20                pop X
+ 018D                   .dbline 0 ; func end
+ 018D 7F                ret
+ 018E                   .dbsym l option -9 c
+ 018E                   .dbsym l devadrs -8 c
+ 018E                   .dbsym l bswch -7 c
+ 018E                   .dbsym l bswadrs -6 c
+ 018E                   .dbsym l p -5 pS[ADXL345_STRUC]
+ 018E                   .dbend
+                        .area func_lit(rom, con, rel, proclab)
+ 0000 0063      PL_ADXL345_GetVal:      .word _ADXL345_GetVal
+ 0002 0031      PL_ADXL345_GetID:       .word _ADXL345_GetID
+ 0004 0000      PL_ADXL345_Start:       .word _ADXL345_Start

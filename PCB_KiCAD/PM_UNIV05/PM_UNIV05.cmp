@@ -1,0 +1,31 @@
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 2015/03/17 21:59:37
+
+BeginCmp
+TimeStamp = /54951B11;
+Reference = C1;
+ValeurCmp = 0.1uF;
+IdModule  = SMT1608;
+EndCmp
+
+BeginCmp
+TimeStamp = /5507D7E6;
+Reference = J1;
+ValeurCmp = RJ12_NPTH;
+IdModule  = RJ12RT_65503_NPTH;
+EndCmp
+
+BeginCmp
+TimeStamp = /5495092D;
+Reference = P1;
+ValeurCmp = CONN_3X2;
+IdModule  = 6DIP100E;
+EndCmp
+
+BeginCmp
+TimeStamp = /5508240C;
+Reference = P2;
+ValeurCmp = CONN_6;
+IdModule  = 6SIP100E;
+EndCmp
+
+EndListe

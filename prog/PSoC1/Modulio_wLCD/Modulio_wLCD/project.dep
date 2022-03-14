@@ -1,0 +1,53 @@
+# DO NOT DELETE
+./obj/acm1602.o :  ../../LIB_MO~1/ACM1602.h ../../LIB_MO~1/Modulio.h\
+   ../../LIB_MO~1/MODULI~2.H ../../LIB_MO~1/MOB3E4~1.H ../../MODULI~1.H
+./obj/adxl345.o :  ../../LIB_MO~1/ADXL345.h ../../LIB_MO~1/Modulio.h\
+   ../../LIB_MO~1/MODULI~2.H ../../LIB_MO~1/MOB3E4~1.H ../../MODULI~1.H
+./obj/lps25h.o :  ../../LIB_MO~1/LPS25H.h ../../LIB_MO~1/Modulio.h\
+   ../../LIB_MO~1/MODULI~2.H ../../LIB_MO~1/MOB3E4~1.H ../../MODULI~1.H
+./obj/lps25h.o :  ../../LIB_MO~1/LPS25H.h ../../LIB_MO~1/Modulio.h\
+   ../../LIB_MO~1/MODULI~2.H ../../LIB_MO~1/MOB3E4~1.H ../../MODULI~1.H
+./obj/modulio_common.o :  ../../LIB_MO~1/Modulio.h ../../LIB_MO~1/MODULI~2.H\
+   ../../LIB_MO~1/MODULI~3.H ../../LIB_MO~1/MOB3E4~1.H ../../MODULI~1.H
+./obj/modulio_hal.o :  ../../LIB_MO~1/MBED_H~1.H ../../LIB_MO~1/Modulio.h\
+   ../../LIB_MO~1/MODULI~1.H ../../LIB_MO~1/MODULI~2.H\
+   ../../LIB_MO~1/MODULI~3.H ../../LIB_MO~1/MODULI~4.H\
+   ../../LIB_MO~1/MOA14F~1.H ../../LIB_MO~1/MOC8F5~1.H\
+   ../../LIB_MO~1/MOB3E4~1.H ../../MODULI~1.H ./lib/I2CHW_~1.H\
+   ./lib/I2CHW_~2.H ./lib/PSoCAPI.h ./lib/PSOCGP~1.H\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8c.h
+./obj/pca9632.o :  ../../LIB_MO~1/Modulio.h ../../LIB_MO~1/MODULI~2.H\
+   ../../LIB_MO~1/MOB3E4~1.H ../../LIB_MO~1/PCA9632.h ../../MODULI~1.H
+./obj/psoc1_delay.o : \
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8c.inc\
+   C:\PSOC1P~1\PSoC1\MO2920~1\MODULI~1\memory.inc
+./obj/boot.o : \
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8c.inc\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8ssc.inc\
+   C:\PSOC1P~1\PSoC1\MO2920~1\MODULI~1\lib\GLOBAL~1.INC\
+   C:\PSOC1P~1\PSoC1\MO2920~1\MODULI~1\memory.inc
+./obj/main.o :  ../../LIB_MO~1/ACM1602.h ../../LIB_MO~1/ADXL345.h\
+   ../../LIB_MO~1/LPS25H.h ../../LIB_MO~1/Modulio.h\
+   ../../LIB_MO~1/MODULI~2.H ../../LIB_MO~1/MOB3E4~1.H\
+   ../../LIB_MO~1/PCA9632.h ../../MODULI~1.H\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/_const.h\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/stdarg.h\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/stdio.h
+./lib/obj/i2chw_1common.o :  ./lib/I2CHW_~1.INC\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8c.inc\
+   C:\PSOC1P~1\PSoC1\MO2920~1\MODULI~1\memory.inc
+./lib/obj/i2chw_1int.o :  ./lib/I2CHW_~1.INC ./lib/I2CHW_~2.INC\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8c.inc\
+   C:\PSOC1P~1\PSoC1\MO2920~1\MODULI~1\memory.inc
+./lib/obj/i2chw_1mstr.o :  ./lib/I2CHW_~1.INC ./lib/I2CHW_~2.INC\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8c.inc\
+   C:\PSOC1P~1\PSoC1\MO2920~1\MODULI~1\memory.inc
+./lib/obj/i2chw_1rsrcinits.o :  ./lib/I2CHW_~1.INC ./lib/I2CHW_~2.INC\
+   ./lib/PSoCAPI.inc ./lib/PSOCGP~1.INC\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8c.inc\
+   C:\PSOC1P~1\PSoC1\MO2920~1\MODULI~1\memory.inc
+./lib/obj/psocconfig.o :  ./lib/GLOBAL~1.INC\
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8c.inc\
+   C:\PSOC1P~1\PSoC1\MO2920~1\MODULI~1\memory.inc
+./lib/obj/psocconfigtbl.o : \
+   C:/PROGRA~2/Cypress/PSOCDE~1/5.4/Common/CYPRES~1/tools/include/CY8C29~1/m8c.inc

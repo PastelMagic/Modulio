@@ -1,0 +1,152 @@
+EESchema Schematic File Version 2
+LIBS:PM_UNIV04
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:PM_UNIV04-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date "25 mar 2015"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L VDD #PWR01
+U 1 1 54950AFA
+P 4625 3475
+F 0 "#PWR01" H 4625 3575 30  0001 C CNN
+F 1 "VDD" H 4625 3585 30  0000 C CNN
+F 2 "" H 4625 3475 60  0000 C CNN
+F 3 "" H 4625 3475 60  0000 C CNN
+	1    4625 3475
+	1    0    0    -1  
+$EndComp
+$Comp
+L VDD #PWR02
+U 1 1 54950B24
+P 4900 2450
+F 0 "#PWR02" H 4900 2550 30  0001 C CNN
+F 1 "VDD" H 4900 2560 30  0000 C CNN
+F 2 "" H 4900 2450 60  0000 C CNN
+F 3 "" H 4900 2450 60  0000 C CNN
+	1    4900 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND-RESCUE-PM_UNIV03 #PWR03
+U 1 1 54950B33
+P 4900 3300
+F 0 "#PWR03" H 4900 3300 30  0001 C CNN
+F 1 "GND" H 4900 3230 30  0001 C CNN
+F 2 "" H 4900 3300 60  0000 C CNN
+F 3 "" H 4900 3300 60  0000 C CNN
+	1    4900 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L C-RESCUE-PM_UNIV03 C1
+U 1 1 54951B11
+P 4625 3750
+F 0 "C1" H 4625 3850 40  0000 L CNN
+F 1 "0.1uF" H 4631 3665 40  0000 L CNN
+F 2 "PM_UNIV04:SMT1608" H 4663 3600 30  0001 C CNN
+F 3 "~" H 4625 3750 60  0000 C CNN
+	1    4625 3750
+	-1   0    0    1   
+$EndComp
+$Comp
+L RJ12_NPTH J1
+U 1 1 5507D7E6
+P 5500 2850
+F 0 "J1" H 5700 3350 60  0000 C CNN
+F 1 "RJ12_NPTH" H 5350 3350 60  0000 C CNN
+F 2 "PM_UNIV04:RJ12_E5566-Q0LK22-L" H 5500 2850 60  0001 C CNN
+F 3 "" H 5500 2850 60  0000 C CNN
+	1    5500 2850
+	0    1    1    0   
+$EndComp
+$Comp
+L CONN_6 P1
+U 1 1 5508240C
+P 3525 2900
+F 0 "P1" V 3475 2900 60  0000 C CNN
+F 1 "CONN_6" V 3575 2900 60  0000 C CNN
+F 2 "PM_UNIV04:6SIP100E" H 3525 2900 60  0001 C CNN
+F 3 "" H 3525 2900 60  0000 C CNN
+	1    3525 2900
+	-1   0    0    -1  
+$EndComp
+Text Notes 6150 3100 0    60   ~ 0
+1:NC_X\n2:SCL\n3:VDD\n4:GND\n5:SDA\n6:NC_Y
+Text Notes 5150 2400 0    60   ~ 0
+RJ12 Connector\nPulse:E5566-Q0LK22-L\nDigiKey:553-2258-ND
+Text Notes 4850 3900 0    60   ~ 0
+Size:1608\nTDK:C1608X7R1E104K080AA\nDigiKey:445-1316-1-ND
+Wire Wire Line
+	3875 2950 5050 2950
+Wire Wire Line
+	4900 2950 4900 3300
+Wire Wire Line
+	3875 2850 5050 2850
+Wire Wire Line
+	4900 2850 4900 2450
+Wire Wire Line
+	3875 2650 5050 2650
+Wire Wire Line
+	5050 2750 3875 2750
+Connection ~ 4900 2850
+Connection ~ 4900 2950
+Wire Wire Line
+	5050 3050 3875 3050
+Wire Wire Line
+	3875 3150 5050 3150
+$Comp
+L GND-RESCUE-PM_UNIV03 #PWR04
+U 1 1 584BDD23
+P 4625 4050
+F 0 "#PWR04" H 4625 4050 30  0001 C CNN
+F 1 "GND-RESCUE-PM_UNIV03" H 4625 3980 30  0001 C CNN
+F 2 "" H 4625 4050 60  0000 C CNN
+F 3 "" H 4625 4050 60  0000 C CNN
+	1    4625 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4625 3550 4625 3475
+Wire Wire Line
+	4625 3950 4625 4050
+$EndSCHEMATC

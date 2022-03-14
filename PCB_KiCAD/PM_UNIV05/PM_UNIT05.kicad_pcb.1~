@@ -1,0 +1,1741 @@
+(kicad_pcb (version 4) (host pcbnew 4.0.4-stable)
+
+  (general
+    (links 11)
+    (no_connects 0)
+    (area 139.599999 76.099999 165.200001 124.560001)
+    (thickness 1.6)
+    (drawings 28)
+    (tracks 34)
+    (zones 0)
+    (modules 123)
+    (nets 7)
+  )
+
+  (page A4)
+  (layers
+    (0 F.Cu signal)
+    (31 B.Cu signal)
+    (32 B.Adhes user)
+    (33 F.Adhes user)
+    (34 B.Paste user)
+    (35 F.Paste user)
+    (36 B.SilkS user)
+    (37 F.SilkS user)
+    (38 B.Mask user)
+    (39 F.Mask user)
+    (40 Dwgs.User user)
+    (41 Cmts.User user)
+    (42 Eco1.User user)
+    (43 Eco2.User user)
+    (44 Edge.Cuts user)
+  )
+
+  (setup
+    (last_trace_width 0.254)
+    (user_trace_width 0.127)
+    (user_trace_width 0.3)
+    (user_trace_width 0.5)
+    (trace_clearance 0.16)
+    (zone_clearance 0.508)
+    (zone_45_only no)
+    (trace_min 0.127)
+    (segment_width 0.2)
+    (edge_width 0.1)
+    (via_size 0.889)
+    (via_drill 0.635)
+    (via_min_size 0.889)
+    (via_min_drill 0.508)
+    (uvia_size 0.508)
+    (uvia_drill 0.127)
+    (uvias_allowed no)
+    (uvia_min_size 0.508)
+    (uvia_min_drill 0.127)
+    (pcb_text_width 0.3)
+    (pcb_text_size 1.5 1.5)
+    (mod_edge_width 0.15)
+    (mod_text_size 1 1)
+    (mod_text_width 0.15)
+    (pad_size 2.2 2.2)
+    (pad_drill 2.2)
+    (pad_to_mask_clearance 0.2)
+    (solder_mask_min_width 0.2)
+    (aux_axis_origin 139.7 76.2)
+    (visible_elements 7FFFFF3F)
+    (pcbplotparams
+      (layerselection 0x010e0_80000001)
+      (usegerberextensions false)
+      (excludeedgelayer true)
+      (linewidth 0.150000)
+      (plotframeref false)
+      (viasonmask false)
+      (mode 1)
+      (useauxorigin true)
+      (hpglpennumber 1)
+      (hpglpenspeed 20)
+      (hpglpendiameter 15)
+      (hpglpenoverlay 2)
+      (psnegative false)
+      (psa4output false)
+      (plotreference true)
+      (plotvalue false)
+      (plotinvisibletext false)
+      (padsonsilk false)
+      (subtractmaskfromsilk true)
+      (outputformat 1)
+      (mirror false)
+      (drillshape 0)
+      (scaleselection 1)
+      (outputdirectory ""))
+  )
+
+  (net 0 "")
+  (net 1 GND)
+  (net 2 VDD)
+  (net 3 "Net-(J1-Pad1)")
+  (net 4 "Net-(J1-Pad2)")
+  (net 5 "Net-(J1-Pad5)")
+  (net 6 "Net-(J1-Pad6)")
+
+  (net_class Default "これは標準のネット クラスです。"
+    (clearance 0.16)
+    (trace_width 0.254)
+    (via_dia 0.889)
+    (via_drill 0.635)
+    (uvia_dia 0.508)
+    (uvia_drill 0.127)
+    (add_net GND)
+    (add_net "Net-(J1-Pad1)")
+    (add_net "Net-(J1-Pad2)")
+    (add_net "Net-(J1-Pad5)")
+    (add_net "Net-(J1-Pad6)")
+    (add_net VDD)
+  )
+
+  (module PM_UNIV04:RJ12_E5566-Q0LK22-L (layer F.Cu) (tedit 584CF431) (tstamp 584A9969)
+    (at 152.4 80.01 180)
+    (path /5507D7E6)
+    (fp_text reference J1 (at -7.62 -3.81 180) (layer F.SilkS)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value RJ12_NPTH (at 0 7.62 180) (layer F.Fab) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_line (start -6.35 6.35) (end 6.35 6.35) (layer F.SilkS) (width 0.15))
+    (fp_line (start 6.35 6.35) (end 6.35 -7.62) (layer F.SilkS) (width 0.15))
+    (fp_line (start 6.35 -7.62) (end -6.35 -7.62) (layer F.SilkS) (width 0.15))
+    (fp_line (start -6.35 -7.62) (end -6.35 6.35) (layer F.SilkS) (width 0.15))
+    (pad 1 thru_hole circle (at 2.55 -4.84 180) (size 1.4 1.4) (drill 0.9) (layers *.Cu *.Mask F.SilkS)
+      (net 3 "Net-(J1-Pad1)"))
+    (pad 2 thru_hole circle (at 1.53 -2.3 180) (size 1.4 1.4) (drill 0.9) (layers *.Cu *.Mask F.SilkS)
+      (net 4 "Net-(J1-Pad2)"))
+    (pad 3 thru_hole circle (at 0.51 -4.84 180) (size 1.4 1.4) (drill 0.9) (layers *.Cu *.Mask F.SilkS)
+      (net 2 VDD))
+    (pad 4 thru_hole circle (at -0.51 -2.3 180) (size 1.4 1.4) (drill 0.9) (layers *.Cu *.Mask F.SilkS)
+      (net 1 GND))
+    (pad 5 thru_hole circle (at -1.53 -4.84 180) (size 1.4 1.4) (drill 0.9) (layers *.Cu *.Mask F.SilkS)
+      (net 5 "Net-(J1-Pad5)"))
+    (pad 6 thru_hole circle (at -2.55 -2.3 180) (size 1.4 1.4) (drill 0.9) (layers *.Cu *.Mask F.SilkS)
+      (net 6 "Net-(J1-Pad6)"))
+    (pad "" np_thru_hole circle (at 6 0 180) (size 3.4 3.4) (drill 2.4) (layers))
+    (pad "" np_thru_hole circle (at -6 0 180) (size 3.4 3.4) (drill 2.4) (layers))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BC36) (tstamp 5496C211)
+    (at 162.56 91.44)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask)
+      (net 2 VDD))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1F9)
+    (at 162.56 109.22)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1F5)
+    (at 152.4 109.22)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1F1)
+    (at 154.94 109.22)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1ED)
+    (at 160.02 109.22)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1E9)
+    (at 157.48 109.22)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1E5)
+    (at 147.32 109.22)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1E1)
+    (at 149.86 109.22)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1DD)
+    (at 144.78 109.22)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1D9)
+    (at 142.24 109.22)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1D5)
+    (at 142.24 114.3)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1D1)
+    (at 144.78 114.3)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1CD)
+    (at 149.86 114.3)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1C9)
+    (at 147.32 114.3)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1C5)
+    (at 157.48 114.3)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1C1)
+    (at 160.02 114.3)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1BD)
+    (at 154.94 114.3)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1B9)
+    (at 152.4 114.3)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1B5)
+    (at 162.56 114.3)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1B1)
+    (at 162.56 111.76)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1AD)
+    (at 152.4 111.76)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1A9)
+    (at 154.94 111.76)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1A5)
+    (at 160.02 111.76)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C1A1)
+    (at 157.48 111.76)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C19D)
+    (at 147.32 111.76)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C199)
+    (at 149.86 111.76)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C195)
+    (at 144.78 111.76)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C191)
+    (at 142.24 111.76)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C18D)
+    (at 142.24 104.14)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C189)
+    (at 144.78 104.14)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C185)
+    (at 149.86 104.14)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C181)
+    (at 147.32 104.14)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C17D)
+    (at 157.48 104.14)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C179)
+    (at 160.02 104.14)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C175)
+    (at 154.94 104.14)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C171)
+    (at 152.4 104.14)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C16D)
+    (at 162.56 104.14)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C169)
+    (at 162.56 106.68)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C165)
+    (at 152.4 106.68)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C161)
+    (at 154.94 106.68)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C15D)
+    (at 160.02 106.68)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C159)
+    (at 157.48 106.68)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C155)
+    (at 147.32 106.68)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C151)
+    (at 149.86 106.68)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C14D)
+    (at 144.78 106.68)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C149)
+    (at 142.24 106.68)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C145)
+    (at 142.24 101.6)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C141)
+    (at 144.78 101.6)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C13D)
+    (at 149.86 101.6)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C139)
+    (at 147.32 101.6)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C135)
+    (at 157.48 101.6)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C131)
+    (at 160.02 101.6)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C12D)
+    (at 154.94 101.6)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C129)
+    (at 152.4 101.6)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C125)
+    (at 162.56 101.6)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 584BD778) (tstamp 5496C209)
+    (at 160.02 91.44)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 584BD77D) (tstamp 5496C205)
+    (at 160.02 93.98)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C120)
+    (at 162.56 96.52)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 54A3A7C1) (tstamp 5496C11C)
+    (at 152.4 96.52)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 54A3A7C7) (tstamp 5496C118)
+    (at 154.94 96.52)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C114)
+    (at 160.02 96.52)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 54A3A7CE) (tstamp 5496C110)
+    (at 157.48 96.52)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 54A3A79E) (tstamp 5496C10C)
+    (at 147.32 96.52)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 54A3A7A5) (tstamp 5496C108)
+    (at 149.86 96.52)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496BA13) (tstamp 5496C100)
+    (at 142.24 96.52)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 584BDDAD) (tstamp 5495FEBE)
+    (at 142.24 91.44)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask)
+      (net 1 GND))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 584BDBE1) (tstamp 5495FEA2)
+    (at 142.24 93.98)
+    (fp_text reference "" (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value "" (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55081E05)
+    (at 144.78 116.84)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55081E0E)
+    (at 147.32 116.84)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55081E17)
+    (at 149.86 116.84)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55081E20)
+    (at 152.4 116.84)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55081E29)
+    (at 154.94 116.84)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55081E32)
+    (at 157.48 116.84)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55081E3B)
+    (at 160.02 116.84)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55994A04)
+    (at 142.24 116.84)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55994A0D)
+    (at 144.78 119.38)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55994A16)
+    (at 147.32 119.38)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55994A1F)
+    (at 149.86 119.38)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55994A28)
+    (at 152.4 119.38)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55994A31)
+    (at 154.94 119.38)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55994A3A)
+    (at 157.48 119.38)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55994A43)
+    (at 160.02 119.38)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 55994A4C)
+    (at 162.56 116.84)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 559A0C63)
+    (at 142.24 119.38)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 559A0C6C)
+    (at 144.78 121.92)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 559A0C75)
+    (at 147.32 121.92)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 559A0C7E)
+    (at 149.86 121.92)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 559A0C87)
+    (at 152.4 121.92)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 559A0C90)
+    (at 154.94 121.92)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 559A0C99)
+    (at 157.48 121.92)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 559A0CA2)
+    (at 160.02 121.92)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 559A0CAB)
+    (at 162.56 119.38)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584AACAF)
+    (at 142.24 99.06)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584AACB8)
+    (at 144.78 99.06)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584AACC1)
+    (at 147.32 99.06)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584AACCA)
+    (at 149.86 99.06)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584AACD3)
+    (at 152.4 99.06)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584AACDC)
+    (at 154.94 99.06)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584AACE5)
+    (at 157.48 99.06)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584AACEE)
+    (at 160.02 99.06)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584AACF7)
+    (at 162.56 99.06)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDCED)
+    (at 144.78 93.98)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDCF6)
+    (at 147.32 93.98)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDCFF)
+    (at 149.86 93.98)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD08)
+    (at 152.4 93.98)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD11)
+    (at 154.94 93.98)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD1A)
+    (at 157.48 93.98)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD23)
+    (at 160.02 93.98)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 584BDDC7) (tstamp 584BDD2C)
+    (at 160.02 91.44)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask)
+      (net 1 GND))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD35)
+    (at 162.56 93.98)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD3E)
+    (at 144.78 96.52)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD47)
+    (at 147.32 96.52)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD50)
+    (at 149.86 96.52)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD59)
+    (at 152.4 96.52)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD62)
+    (at 154.94 96.52)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:THOLE1mm (layer F.Cu) (tedit 5496B82C) (tstamp 584BDD6B)
+    (at 157.48 96.52)
+    (fp_text reference THOLE1mm (at 0 -2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value VAL** (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad 1 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask))
+  )
+
+  (module PM_UNIV04:SMT1608 (layer B.Cu) (tedit 5477210B) (tstamp 584BE551)
+    (at 152.4 78.74 180)
+    (path /54951B11)
+    (fp_text reference C1 (at 0 1.524 180) (layer B.SilkS)
+      (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
+    )
+    (fp_text value 0.1uF (at 0.254 -2.286 180) (layer B.SilkS) hide
+      (effects (font (thickness 0.3048)) (justify mirror))
+    )
+    (fp_line (start 1.397 0.762) (end 1.651 0.762) (layer B.SilkS) (width 0.15))
+    (fp_line (start 1.651 0.762) (end 1.651 -0.762) (layer B.SilkS) (width 0.15))
+    (fp_line (start 1.651 -0.762) (end 1.397 -0.762) (layer B.SilkS) (width 0.15))
+    (fp_line (start -1.397 0.762) (end -1.651 0.762) (layer B.SilkS) (width 0.15))
+    (fp_line (start -1.651 0.762) (end -1.651 -0.762) (layer B.SilkS) (width 0.15))
+    (fp_line (start -1.651 -0.762) (end -1.397 -0.762) (layer B.SilkS) (width 0.15))
+    (pad 1 smd rect (at -0.8128 0 180) (size 0.889 0.762) (layers B.Cu B.Paste B.Mask)
+      (net 1 GND))
+    (pad 2 smd rect (at 0.8128 0 180) (size 0.889 0.762) (layers B.Cu B.Paste B.Mask)
+      (net 2 VDD))
+    (model userpackage/SMT1608.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
+  )
+
+  (module PM_UNIV04:6SIP100E (layer F.Cu) (tedit 584CF3EB) (tstamp 584BE55C)
+    (at 149.86 91.44)
+    (path /5508240C)
+    (fp_text reference P1 (at -5.08 -2.032) (layer F.SilkS)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value CONN_6 (at 0 2.54) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_line (start -6.35 -1.27) (end 8.89 -1.27) (layer F.SilkS) (width 0.15))
+    (fp_line (start 8.89 -1.27) (end 8.89 1.27) (layer F.SilkS) (width 0.15))
+    (fp_line (start 8.89 1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.15))
+    (fp_line (start -6.35 -1.27) (end -6.985 -1.27) (layer F.SilkS) (width 0.15))
+    (fp_line (start -6.985 -1.27) (end -6.985 1.27) (layer F.SilkS) (width 0.15))
+    (fp_line (start -6.985 1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.15))
+    (fp_line (start -6.35 -1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.15))
+    (pad 1 thru_hole rect (at -5.08 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask F.SilkS)
+      (net 3 "Net-(J1-Pad1)"))
+    (pad 2 thru_hole circle (at -2.54 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask F.SilkS)
+      (net 4 "Net-(J1-Pad2)"))
+    (pad 3 thru_hole circle (at 0 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask F.SilkS)
+      (net 2 VDD))
+    (pad 4 thru_hole circle (at 2.54 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask F.SilkS)
+      (net 1 GND))
+    (pad 5 thru_hole circle (at 5.08 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask F.SilkS)
+      (net 5 "Net-(J1-Pad5)"))
+    (pad 6 thru_hole circle (at 7.62 0) (size 1.5 1.5) (drill 1) (layers *.Cu *.Mask F.SilkS)
+      (net 6 "Net-(J1-Pad6)"))
+  )
+
+  (module PM_UNIV04:HOLE2_2MM (layer F.Cu) (tedit 5855EC5E) (tstamp 5507A550)
+    (at 142.24 78.74)
+    (fp_text reference HOLE2_2MM (at 0 -3.048) (layer F.SilkS) hide
+      (effects (font (thickness 0.3048)))
+    )
+    (fp_text value VAL** (at 0 3.048) (layer F.SilkS) hide
+      (effects (font (thickness 0.3048)))
+    )
+    (fp_circle (center 0 0) (end 2.54 0.635) (layer F.SilkS) (width 0.15))
+    (pad "" np_thru_hole circle (at 0 0) (size 2.2 2.2) (drill 2.2) (layers *.Cu)
+      (clearance 0.9))
+  )
+
+  (module PM_UNIV04:HOLE2_2MM (layer F.Cu) (tedit 5855EC5E) (tstamp 5507A55B)
+    (at 162.56 78.74)
+    (fp_text reference HOLE2_2MM (at 0 -3.048) (layer F.SilkS) hide
+      (effects (font (thickness 0.3048)))
+    )
+    (fp_text value VAL** (at 0 3.048) (layer F.SilkS) hide
+      (effects (font (thickness 0.3048)))
+    )
+    (fp_circle (center 0 0) (end 2.54 0.635) (layer F.SilkS) (width 0.15))
+    (pad "" np_thru_hole circle (at 0 0) (size 2.2 2.2) (drill 2.2) (layers *.Cu)
+      (clearance 0.9))
+  )
+
+  (module PM_UNIV04:HOLE2_2MM (layer F.Cu) (tedit 5855FCF5) (tstamp 550C9F42)
+    (at 142.24 121.92)
+    (fp_text reference HOLE2_2MM (at 0 -3.048) (layer F.SilkS) hide
+      (effects (font (thickness 0.3048)))
+    )
+    (fp_text value VAL** (at 0 3.048) (layer F.SilkS) hide
+      (effects (font (thickness 0.3048)))
+    )
+    (fp_circle (center 0 0) (end 2.54 0.635) (layer F.SilkS) (width 0.15))
+    (pad "" np_thru_hole circle (at 0 0) (size 2.2 2.2) (drill 2.2) (layers *.Cu))
+  )
+
+  (module PM_UNIV04:HOLE2_2MM (layer F.Cu) (tedit 5855FCFC) (tstamp 550C9F4D)
+    (at 162.56 121.92)
+    (fp_text reference HOLE2_2MM (at 0 -3.048) (layer F.SilkS) hide
+      (effects (font (thickness 0.3048)))
+    )
+    (fp_text value VAL** (at 0 3.048) (layer F.SilkS) hide
+      (effects (font (thickness 0.3048)))
+    )
+    (fp_circle (center 0 0) (end 2.54 0.635) (layer F.SilkS) (width 0.15))
+    (pad "" np_thru_hole circle (at 0 0) (size 2.2 2.2) (drill 2.2) (layers *.Cu))
+  )
+
+  (gr_text 5 (at 159.385 86.995) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text 2 (at 145.415 83.82) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_line (start 161.29 90.17) (end 161.29 92.71) (angle 90) (layer F.SilkS) (width 0.2))
+  (gr_line (start 140.97 90.17) (end 143.51 90.17) (angle 90) (layer F.SilkS) (width 0.2))
+  (gr_line (start 140.97 92.71) (end 140.97 90.17) (angle 90) (layer F.SilkS) (width 0.2))
+  (gr_line (start 143.51 92.71) (end 140.97 92.71) (angle 90) (layer F.SilkS) (width 0.2))
+  (gr_line (start 163.83 90.17) (end 158.75 90.17) (angle 90) (layer F.SilkS) (width 0.2))
+  (gr_line (start 163.83 92.71) (end 163.83 90.17) (angle 90) (layer F.SilkS) (width 0.2))
+  (gr_line (start 158.75 92.71) (end 163.83 92.71) (angle 90) (layer F.SilkS) (width 0.2))
+  (gr_text G (at 160.02 89.535) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_line (start 165.1 124.46) (end 165.1 76.2) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 139.7 124.46) (end 165.1 124.46) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 139.7 76.2) (end 139.7 124.46) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 143.51 90.17) (end 146.05 90.17) (angle 90) (layer F.SilkS) (width 0.2))
+  (gr_text 6 (at 159.385 83.82) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text 1 (at 145.415 86.36) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text "2:C\n3:V\n4:G\n5:D\n" (at 142.24 85.09) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text X (at 146.05 93.472) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_line (start 139.7 124.46) (end 165.1 124.46) (angle 90) (layer Edge.Cuts) (width 0.2))
+  (gr_line (start 139.7 76.2) (end 165.1 76.2) (angle 90) (layer Edge.Cuts) (width 0.2))
+  (gr_text Modulio (at 162.56 85.09 90) (layer F.SilkS)
+    (effects (font (size 1.2 1.2) (thickness 0.25) italic))
+  )
+  (gr_text V (at 151.13 93.472) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text Y (at 158.75 93.472) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text C (at 148.59 93.472) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text D (at 156.21 93.472) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text G (at 153.67 93.472) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text V (at 162.56 89.535) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text G (at 142.24 89.535) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+
+  (segment (start 146.558 88.011) (end 143.637 88.011) (width 0.5) (layer B.Cu) (net 1))
+  (via (at 146.558 88.011) (size 0.889) (drill 0.635) (layers F.Cu B.Cu) (net 1))
+  (segment (start 149.733 88.011) (end 146.558 88.011) (width 0.5) (layer F.Cu) (net 1) (tstamp 584C0DB4))
+  (via (at 149.733 88.011) (size 0.889) (drill 0.635) (layers F.Cu B.Cu) (net 1))
+  (segment (start 142.24 89.408) (end 142.24 91.44) (width 0.5) (layer B.Cu) (net 1))
+  (segment (start 143.637 88.011) (end 142.24 89.408) (width 0.5) (layer B.Cu) (net 1) (tstamp 584C0E69))
+  (segment (start 152.4 91.44) (end 152.4 90.17) (width 0.5) (layer B.Cu) (net 1))
+  (segment (start 152.4 90.17) (end 152.146 89.916) (width 0.5) (layer B.Cu) (net 1) (tstamp 584C0E0E))
+  (segment (start 160.02 91.44) (end 160.02 89.535) (width 0.5) (layer B.Cu) (net 1))
+  (segment (start 151.5872 78.74) (end 150.368 78.74) (width 0.254) (layer B.Cu) (net 2))
+  (via (at 150.368 78.74) (size 0.889) (drill 0.635) (layers F.Cu B.Cu) (net 2))
+  (segment (start 149.86 91.44) (end 149.86 90.297) (width 0.5) (layer F.Cu) (net 2))
+  (via (at 156.464 88.9) (size 0.889) (drill 0.635) (layers F.Cu B.Cu) (net 2))
+  (segment (start 152.781 88.9) (end 156.464 88.9) (width 0.5) (layer B.Cu) (net 2) (tstamp 584C0D7C))
+  (via (at 152.781 88.9) (size 0.889) (drill 0.635) (layers F.Cu B.Cu) (net 2))
+  (segment (start 151.257 88.9) (end 152.781 88.9) (width 0.5) (layer F.Cu) (net 2) (tstamp 584C0D76))
+  (segment (start 149.86 90.297) (end 151.257 88.9) (width 0.5) (layer F.Cu) (net 2) (tstamp 584C0D72))
+  (segment (start 162.56 91.44) (end 162.56 89.662) (width 0.5) (layer F.Cu) (net 2))
+  (segment (start 147.701 88.646) (end 147.701 84.836) (width 0.254) (layer B.Cu) (net 3))
+  (segment (start 144.907 91.44) (end 147.701 88.646) (width 0.254) (layer B.Cu) (net 3) (tstamp 584BDAED))
+  (segment (start 147.715 84.85) (end 149.85 84.85) (width 0.254) (layer F.Cu) (net 3) (tstamp 585570F6))
+  (segment (start 147.701 84.836) (end 147.715 84.85) (width 0.254) (layer F.Cu) (net 3) (tstamp 585570F5))
+  (via (at 147.701 84.836) (size 0.889) (drill 0.635) (layers F.Cu B.Cu) (net 3))
+  (segment (start 144.907 91.44) (end 144.78 91.44) (width 0.254) (layer B.Cu) (net 3) (tstamp 584BDAEE))
+  (segment (start 147.32 91.44) (end 147.32 90.043) (width 0.254) (layer B.Cu) (net 4))
+  (segment (start 149.338 82.31) (end 150.87 82.31) (width 0.254) (layer B.Cu) (net 4) (tstamp 5855ED1C))
+  (segment (start 148.59 83.058) (end 149.338 82.31) (width 0.254) (layer B.Cu) (net 4) (tstamp 5855ED1A))
+  (segment (start 148.59 88.773) (end 148.59 83.058) (width 0.254) (layer B.Cu) (net 4) (tstamp 5855ED14))
+  (segment (start 147.32 90.043) (end 148.59 88.773) (width 0.254) (layer B.Cu) (net 4) (tstamp 5855ED10))
+  (segment (start 153.93 84.85) (end 153.93 88.906) (width 0.254) (layer F.Cu) (net 5))
+  (segment (start 153.93 88.906) (end 154.94 89.916) (width 0.254) (layer F.Cu) (net 5) (tstamp 584BDAF1))
+  (segment (start 154.94 89.916) (end 154.94 91.44) (width 0.254) (layer F.Cu) (net 5) (tstamp 584BDAF2))
+  (segment (start 154.95 82.31) (end 154.95 88.91) (width 0.254) (layer F.Cu) (net 6))
+  (segment (start 154.95 88.91) (end 157.48 91.44) (width 0.254) (layer F.Cu) (net 6) (tstamp 584BDAF5))
+
+  (zone (net 1) (net_name GND) (layer B.Cu) (tstamp 550F9646) (hatch edge 0.508)
+    (connect_pads (clearance 0.508))
+    (min_thickness 0.12954)
+    (fill yes (arc_segments 16) (thermal_gap 0.508) (thermal_bridge_width 0.5))
+    (polygon
+      (pts
+        (xy 140.97 90.17) (xy 163.83 90.17) (xy 163.83 77.47) (xy 140.97 77.47)
+      )
+    )
+    (filled_polygon
+      (pts
+        (xy 160.810594 77.568875) (xy 160.495589 78.32749) (xy 160.494873 79.148906) (xy 160.808553 79.90807) (xy 161.388875 80.489406)
+        (xy 162.14749 80.804411) (xy 162.968906 80.805127) (xy 163.72807 80.491447) (xy 163.76523 80.454352) (xy 163.76523 90.10523)
+        (xy 160.176383 90.10523) (xy 160.151748 90.097766) (xy 160.076222 90.10523) (xy 152.556383 90.10523) (xy 152.531748 90.097766)
+        (xy 152.456222 90.10523) (xy 148.247394 90.10523) (xy 149.084812 89.267812) (xy 149.195965 89.10146) (xy 151.763554 89.10146)
+        (xy 151.918098 89.475484) (xy 152.204011 89.761896) (xy 152.577765 89.917093) (xy 152.98246 89.917446) (xy 153.356484 89.762902)
+        (xy 153.396686 89.72277) (xy 155.847953 89.72277) (xy 155.887011 89.761896) (xy 156.260765 89.917093) (xy 156.66546 89.917446)
+        (xy 157.039484 89.762902) (xy 157.325896 89.476989) (xy 157.481093 89.103235) (xy 157.481446 88.69854) (xy 157.326902 88.324516)
+        (xy 157.040989 88.038104) (xy 156.667235 87.882907) (xy 156.26254 87.882554) (xy 155.888516 88.037098) (xy 155.848314 88.07723)
+        (xy 153.397047 88.07723) (xy 153.357989 88.038104) (xy 152.984235 87.882907) (xy 152.57954 87.882554) (xy 152.205516 88.037098)
+        (xy 151.919104 88.323011) (xy 151.763907 88.696765) (xy 151.763554 89.10146) (xy 149.195965 89.10146) (xy 149.236503 89.040791)
+        (xy 149.28977 88.773) (xy 149.28977 85.995508) (xy 149.59572 86.122549) (xy 150.102059 86.12299) (xy 150.570024 85.929631)
+        (xy 150.87021 85.62997) (xy 151.168092 85.928373) (xy 151.63572 86.122549) (xy 152.142059 86.12299) (xy 152.610024 85.929631)
+        (xy 152.91021 85.62997) (xy 153.208092 85.928373) (xy 153.67572 86.122549) (xy 154.182059 86.12299) (xy 154.650024 85.929631)
+        (xy 155.008373 85.571908) (xy 155.202549 85.10428) (xy 155.20299 84.597941) (xy 155.009631 84.129976) (xy 154.651908 83.771627)
+        (xy 154.18428 83.577451) (xy 153.677941 83.57701) (xy 153.209976 83.770369) (xy 152.90979 84.07003) (xy 152.611908 83.771627)
+        (xy 152.14428 83.577451) (xy 151.637941 83.57701) (xy 151.169976 83.770369) (xy 150.86979 84.07003) (xy 150.571908 83.771627)
+        (xy 150.10428 83.577451) (xy 149.597941 83.57701) (xy 149.28977 83.704344) (xy 149.28977 83.347854) (xy 149.627854 83.00977)
+        (xy 149.782 83.00977) (xy 149.790369 83.030024) (xy 150.148092 83.388373) (xy 150.61572 83.582549) (xy 151.122059 83.58299)
+        (xy 151.590024 83.389631) (xy 151.733139 83.246766) (xy 152.235189 83.246766) (xy 152.304893 83.457991) (xy 152.790271 83.60217)
+        (xy 153.293877 83.549627) (xy 153.515107 83.457991) (xy 153.584811 83.246766) (xy 152.91 82.571955) (xy 152.235189 83.246766)
+        (xy 151.733139 83.246766) (xy 151.948373 83.031908) (xy 151.968569 82.983271) (xy 151.973234 82.984811) (xy 152.648045 82.31)
+        (xy 153.171955 82.31) (xy 153.846766 82.984811) (xy 153.851097 82.983382) (xy 153.870369 83.030024) (xy 154.228092 83.388373)
+        (xy 154.69572 83.582549) (xy 155.202059 83.58299) (xy 155.670024 83.389631) (xy 156.028373 83.031908) (xy 156.222549 82.56428)
+        (xy 156.22299 82.057941) (xy 156.029631 81.589976) (xy 155.671908 81.231627) (xy 155.20428 81.037451) (xy 154.697941 81.03701)
+        (xy 154.229976 81.230369) (xy 153.871627 81.588092) (xy 153.851431 81.636729) (xy 153.846766 81.635189) (xy 153.171955 82.31)
+        (xy 152.648045 82.31) (xy 151.973234 81.635189) (xy 151.968903 81.636618) (xy 151.949631 81.589976) (xy 151.733268 81.373234)
+        (xy 152.235189 81.373234) (xy 152.91 82.048045) (xy 153.584811 81.373234) (xy 153.515107 81.162009) (xy 153.029729 81.01783)
+        (xy 152.526123 81.070373) (xy 152.304893 81.162009) (xy 152.235189 81.373234) (xy 151.733268 81.373234) (xy 151.591908 81.231627)
+        (xy 151.12428 81.037451) (xy 150.617941 81.03701) (xy 150.149976 81.230369) (xy 149.791627 81.588092) (xy 149.782435 81.61023)
+        (xy 149.338 81.61023) (xy 149.07021 81.663497) (xy 148.843188 81.815188) (xy 148.095188 82.563188) (xy 147.943497 82.790209)
+        (xy 147.943497 82.79021) (xy 147.89023 83.058) (xy 147.89023 83.818895) (xy 147.49954 83.818554) (xy 147.125516 83.973098)
+        (xy 146.839104 84.259011) (xy 146.683907 84.632765) (xy 146.683554 85.03746) (xy 146.838098 85.411484) (xy 147.00123 85.574901)
+        (xy 147.00123 88.356146) (xy 145.252146 90.10523) (xy 142.396383 90.10523) (xy 142.371748 90.097766) (xy 142.296222 90.10523)
+        (xy 141.03477 90.10523) (xy 141.03477 80.455241) (xy 141.068875 80.489406) (xy 141.82749 80.804411) (xy 142.648906 80.805127)
+        (xy 143.40807 80.491447) (xy 143.538665 80.361079) (xy 144.626923 80.361079) (xy 144.896242 81.012882) (xy 145.394495 81.512005)
+        (xy 146.045827 81.782462) (xy 146.751079 81.783077) (xy 147.402882 81.513758) (xy 147.902005 81.015505) (xy 148.172462 80.364173)
+        (xy 148.172464 80.361079) (xy 156.626923 80.361079) (xy 156.896242 81.012882) (xy 157.394495 81.512005) (xy 158.045827 81.782462)
+        (xy 158.751079 81.783077) (xy 159.402882 81.513758) (xy 159.902005 81.015505) (xy 160.172462 80.364173) (xy 160.173077 79.658921)
+        (xy 159.903758 79.007118) (xy 159.405505 78.507995) (xy 158.754173 78.237538) (xy 158.048921 78.236923) (xy 157.397118 78.506242)
+        (xy 156.897995 79.004495) (xy 156.627538 79.655827) (xy 156.626923 80.361079) (xy 148.172464 80.361079) (xy 148.173077 79.658921)
+        (xy 147.903758 79.007118) (xy 147.838215 78.94146) (xy 149.350554 78.94146) (xy 149.505098 79.315484) (xy 149.791011 79.601896)
+        (xy 150.164765 79.757093) (xy 150.56946 79.757446) (xy 150.874897 79.631242) (xy 150.915495 79.658981) (xy 151.1427 79.704991)
+        (xy 152.0317 79.704991) (xy 152.243956 79.665052) (xy 152.401169 79.563888) (xy 152.443852 79.606571) (xy 152.654369 79.69377)
+        (xy 152.884378 79.69377) (xy 153.02757 79.550578) (xy 153.02757 78.92523) (xy 153.39803 78.92523) (xy 153.39803 79.550578)
+        (xy 153.541222 79.69377) (xy 153.771231 79.69377) (xy 153.981748 79.606571) (xy 154.142871 79.445448) (xy 154.23007 79.234931)
+        (xy 154.23007 79.068422) (xy 154.086878 78.92523) (xy 153.39803 78.92523) (xy 153.02757 78.92523) (xy 153.00757 78.92523)
+        (xy 153.00757 78.55477) (xy 153.02757 78.55477) (xy 153.02757 77.929422) (xy 153.39803 77.929422) (xy 153.39803 78.55477)
+        (xy 154.086878 78.55477) (xy 154.23007 78.411578) (xy 154.23007 78.245069) (xy 154.142871 78.034552) (xy 153.981748 77.873429)
+        (xy 153.771231 77.78623) (xy 153.541222 77.78623) (xy 153.39803 77.929422) (xy 153.02757 77.929422) (xy 152.884378 77.78623)
+        (xy 152.654369 77.78623) (xy 152.443852 77.873429) (xy 152.399914 77.917367) (xy 152.258905 77.821019) (xy 152.0317 77.775009)
+        (xy 151.1427 77.775009) (xy 150.930444 77.814948) (xy 150.876496 77.849663) (xy 150.571235 77.722907) (xy 150.16654 77.722554)
+        (xy 149.792516 77.877098) (xy 149.506104 78.163011) (xy 149.350907 78.536765) (xy 149.350554 78.94146) (xy 147.838215 78.94146)
+        (xy 147.405505 78.507995) (xy 146.754173 78.237538) (xy 146.048921 78.236923) (xy 145.397118 78.506242) (xy 144.897995 79.004495)
+        (xy 144.627538 79.655827) (xy 144.626923 80.361079) (xy 143.538665 80.361079) (xy 143.989406 79.911125) (xy 144.304411 79.15251)
+        (xy 144.305127 78.331094) (xy 143.991447 77.57193) (xy 143.954352 77.53477) (xy 160.844759 77.53477)
+      )
+    )
+  )
+  (zone (net 2) (net_name VDD) (layer F.Cu) (tstamp 550F968C) (hatch edge 0.508)
+    (connect_pads (clearance 0.508))
+    (min_thickness 0.12954)
+    (fill yes (arc_segments 16) (thermal_gap 0.508) (thermal_bridge_width 0.5))
+    (polygon
+      (pts
+        (xy 140.97 77.47) (xy 140.97 90.17) (xy 163.83 90.17) (xy 163.83 77.47)
+      )
+    )
+    (filled_polygon
+      (pts
+        (xy 160.810594 77.568875) (xy 160.495589 78.32749) (xy 160.494873 79.148906) (xy 160.808553 79.90807) (xy 161.388875 80.489406)
+        (xy 162.14749 80.804411) (xy 162.968906 80.805127) (xy 163.72807 80.491447) (xy 163.76523 80.454352) (xy 163.76523 90.10523)
+        (xy 162.716383 90.10523) (xy 162.691748 90.097766) (xy 162.616222 90.10523) (xy 157.134854 90.10523) (xy 155.64977 88.620146)
+        (xy 155.64977 83.398) (xy 155.670024 83.389631) (xy 156.028373 83.031908) (xy 156.222549 82.56428) (xy 156.22299 82.057941)
+        (xy 156.029631 81.589976) (xy 155.671908 81.231627) (xy 155.20428 81.037451) (xy 154.697941 81.03701) (xy 154.229976 81.230369)
+        (xy 153.92979 81.53003) (xy 153.631908 81.231627) (xy 153.16428 81.037451) (xy 152.657941 81.03701) (xy 152.189976 81.230369)
+        (xy 151.88979 81.53003) (xy 151.591908 81.231627) (xy 151.12428 81.037451) (xy 150.617941 81.03701) (xy 150.149976 81.230369)
+        (xy 149.791627 81.588092) (xy 149.597451 82.05572) (xy 149.59701 82.562059) (xy 149.790369 83.030024) (xy 150.148092 83.388373)
+        (xy 150.61572 83.582549) (xy 151.122059 83.58299) (xy 151.590024 83.389631) (xy 151.89021 83.08997) (xy 152.188092 83.388373)
+        (xy 152.65572 83.582549) (xy 153.162059 83.58299) (xy 153.630024 83.389631) (xy 153.93021 83.08997) (xy 154.228092 83.388373)
+        (xy 154.25023 83.397565) (xy 154.25023 83.604836) (xy 154.18428 83.577451) (xy 153.677941 83.57701) (xy 153.209976 83.770369)
+        (xy 152.851627 84.128092) (xy 152.831431 84.176729) (xy 152.826766 84.175189) (xy 152.151955 84.85) (xy 152.826766 85.524811)
+        (xy 152.831097 85.523382) (xy 152.850369 85.570024) (xy 153.208092 85.928373) (xy 153.23023 85.937565) (xy 153.23023 88.906)
+        (xy 153.283497 89.173791) (xy 153.435188 89.400812) (xy 154.139606 90.10523) (xy 150.016383 90.10523) (xy 149.991748 90.097766)
+        (xy 149.916222 90.10523) (xy 141.03477 90.10523) (xy 141.03477 88.21246) (xy 145.540554 88.21246) (xy 145.695098 88.586484)
+        (xy 145.981011 88.872896) (xy 146.354765 89.028093) (xy 146.75946 89.028446) (xy 147.133484 88.873902) (xy 147.173686 88.83377)
+        (xy 149.116953 88.83377) (xy 149.156011 88.872896) (xy 149.529765 89.028093) (xy 149.93446 89.028446) (xy 150.308484 88.873902)
+        (xy 150.594896 88.587989) (xy 150.750093 88.214235) (xy 150.750446 87.80954) (xy 150.595902 87.435516) (xy 150.309989 87.149104)
+        (xy 149.936235 86.993907) (xy 149.53154 86.993554) (xy 149.157516 87.148098) (xy 149.117314 87.18823) (xy 147.174047 87.18823)
+        (xy 147.134989 87.149104) (xy 146.761235 86.993907) (xy 146.35654 86.993554) (xy 145.982516 87.148098) (xy 145.696104 87.434011)
+        (xy 145.540907 87.807765) (xy 145.540554 88.21246) (xy 141.03477 88.21246) (xy 141.03477 85.03746) (xy 146.683554 85.03746)
+        (xy 146.838098 85.411484) (xy 147.124011 85.697896) (xy 147.497765 85.853093) (xy 147.90246 85.853446) (xy 148.276484 85.698902)
+        (xy 148.425876 85.54977) (xy 148.762 85.54977) (xy 148.770369 85.570024) (xy 149.128092 85.928373) (xy 149.59572 86.122549)
+        (xy 150.102059 86.12299) (xy 150.570024 85.929631) (xy 150.713139 85.786766) (xy 151.215189 85.786766) (xy 151.284893 85.997991)
+        (xy 151.770271 86.14217) (xy 152.273877 86.089627) (xy 152.495107 85.997991) (xy 152.564811 85.786766) (xy 151.89 85.111955)
+        (xy 151.215189 85.786766) (xy 150.713139 85.786766) (xy 150.928373 85.571908) (xy 150.948569 85.523271) (xy 150.953234 85.524811)
+        (xy 151.628045 84.85) (xy 150.953234 84.175189) (xy 150.948903 84.176618) (xy 150.929631 84.129976) (xy 150.713268 83.913234)
+        (xy 151.215189 83.913234) (xy 151.89 84.588045) (xy 152.564811 83.913234) (xy 152.495107 83.702009) (xy 152.009729 83.55783)
+        (xy 151.506123 83.610373) (xy 151.284893 83.702009) (xy 151.215189 83.913234) (xy 150.713268 83.913234) (xy 150.571908 83.771627)
+        (xy 150.10428 83.577451) (xy 149.597941 83.57701) (xy 149.129976 83.770369) (xy 148.771627 84.128092) (xy 148.762435 84.15023)
+        (xy 148.453808 84.15023) (xy 148.277989 83.974104) (xy 147.904235 83.818907) (xy 147.49954 83.818554) (xy 147.125516 83.973098)
+        (xy 146.839104 84.259011) (xy 146.683907 84.632765) (xy 146.683554 85.03746) (xy 141.03477 85.03746) (xy 141.03477 80.455241)
+        (xy 141.068875 80.489406) (xy 141.82749 80.804411) (xy 142.648906 80.805127) (xy 143.40807 80.491447) (xy 143.538665 80.361079)
+        (xy 144.626923 80.361079) (xy 144.896242 81.012882) (xy 145.394495 81.512005) (xy 146.045827 81.782462) (xy 146.751079 81.783077)
+        (xy 147.402882 81.513758) (xy 147.902005 81.015505) (xy 148.172462 80.364173) (xy 148.172464 80.361079) (xy 156.626923 80.361079)
+        (xy 156.896242 81.012882) (xy 157.394495 81.512005) (xy 158.045827 81.782462) (xy 158.751079 81.783077) (xy 159.402882 81.513758)
+        (xy 159.902005 81.015505) (xy 160.172462 80.364173) (xy 160.173077 79.658921) (xy 159.903758 79.007118) (xy 159.405505 78.507995)
+        (xy 158.754173 78.237538) (xy 158.048921 78.236923) (xy 157.397118 78.506242) (xy 156.897995 79.004495) (xy 156.627538 79.655827)
+        (xy 156.626923 80.361079) (xy 148.172464 80.361079) (xy 148.173077 79.658921) (xy 147.903758 79.007118) (xy 147.405505 78.507995)
+        (xy 146.754173 78.237538) (xy 146.048921 78.236923) (xy 145.397118 78.506242) (xy 144.897995 79.004495) (xy 144.627538 79.655827)
+        (xy 144.626923 80.361079) (xy 143.538665 80.361079) (xy 143.989406 79.911125) (xy 144.304411 79.15251) (xy 144.305127 78.331094)
+        (xy 143.991447 77.57193) (xy 143.954352 77.53477) (xy 160.844759 77.53477)
+      )
+    )
+  )
+)

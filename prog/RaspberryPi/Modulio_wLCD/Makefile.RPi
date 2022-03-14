@@ -1,0 +1,17 @@
+.SUFFIXES: .o .c .s
+INCLUDE=-I../Lib_Modulio -I../
+VPATH=src:../Lib_Modulio
+BIN=test_wLCD
+OBJS=main.o Modulio_RPi.o ACM1602.o ADXL345.o PCA9632.o LPS25H.o
+
+CC=gcc
+
+CFLAGS =-lwiringPi -O1
+
+${BIN}.: ${OBJS}
+	${CC} -o ${BIN} ${CFLAGS} $^
+.c.o:
+	${CC} ${CFLAGS} ${INCLUDE} -c $< -o $@
+
+clean:
+	rm -f ${BIN}.o ${OBJS}

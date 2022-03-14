@@ -1,0 +1,27 @@
+Drill report for Z:\TMP\KiCAD\Modulio\Rev4\PM_BSW04\PM_BSW04.kicad_pcb
+Created on 2017/01/17 23:30:26
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'Z:PM_BSW04.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.30mm  0.012"  (50 holes)
+    T2  0.90mm  0.035"  (30 holes)
+    T3  1.00mm  0.039"  (41 holes)
+
+    Total plated holes count 121
+
+
+Drill file 'Z:PM_BSW04-NPTH.drl' contains
+    unplated through holes:
+    =============================================================
+    T1  1.10mm  0.043"  (1 hole)
+    T2  2.20mm  0.087"  (12 holes)
+    T3  2.40mm  0.094"  (10 holes)
+
+    Total unplated holes count 23

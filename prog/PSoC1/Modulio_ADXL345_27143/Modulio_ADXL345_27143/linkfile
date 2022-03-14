@@ -1,0 +1,5 @@
+-F0x30 -g -blit:0x1a0.0x3fff 
+ -bdata:0.0xFF -rwh:SSCParmBlk:0x00F7.0x00FF   
+ -o"output/Modulio_ADXL345_27143" 
+obj/acm1602.o obj/adxl345.o obj/main.o obj/modulio_common.o obj/modulio_hal.o obj/psoc1_delay.o 	
+ ./lib/libPSoc.a -LC:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/lib/SMM C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/lib/CY8C27100B/cms.a C:/PROGRA~1/Cypress/PSOCDE~1/5.4/Common/CY3E64~1/tools/lib/SMM/UASW/MAC/arith.a  

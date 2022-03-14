@@ -1,0 +1,1132 @@
+                        .module acm1602.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ..\..\lib_modulio\acm1602.c
+ 0000                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\lib_modulio\acm1602.c
+ 0000                   .dbfunc s ACM1602_Start _ACM1602_Start fc
+ 0000                   .dbstruct 0 12 MI2CADRS_STRUC
+ 0000                   .dbfield 0 BSW_ADRS c
+ 0000                   .dbfield 1 BSW_CH c
+ 0000                   .dbfield 2 DEV_ADRS c
+ 0000                   .dbfield 3 OPTION_1 c
+ 0000                   .dbfield 4 WriteBytes pfc
+ 0000                   .dbfield 6 WriteByte pfc
+ 0000                   .dbfield 8 ReadBytes pfc
+ 0000                   .dbfield 10 ReadByte pfc
+ 0000                   .dbend
+ 0000                   .dbstruct 0 31 ACM1602_STRUC
+ 0000                   .dbfield 0 madrs S[MI2CADRS_STRUC]
+ 0000                   .dbfield 12 Xpos c
+ 0000                   .dbfield 13 Ypos c
+ 0000                   .dbfield 14 DDRAM_Adrs c
+ 0000                   .dbfield 15 Start pfc
+ 0000                   .dbfield 17 Position pfV
+ 0000                   .dbfield 19 Clear pfc
+ 0000                   .dbfield 21 WriteData pfc
+ 0000                   .dbfield 23 PrHexByte pfc
+ 0000                   .dbfield 25 PrHexInt pfc
+ 0000                   .dbfield 27 PrString pfc
+ 0000                   .dbfield 29 PrCString pfc
+ 0000                   .dbend
+ 0000           ;           stat -> X+0
+ 0000           ;              p -> X-5
+ 0000           _ACM1602_Start:
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 3801              add SP,1
+ 0004                   .dbline 13
+ 0004           ; //---------------------------------------
+ 0004           ; //- ACM1602 16x2 Character Display    -
+ 0004           ; //-                                   -
+ 0004           ; //---------------------------------------
+ 0004           ; //
+ 0004           ; #define       EXTERN
+ 0004           ; #include "Modulio.h"
+ 0004           ; #undef EXTERN
+ 0004           ; #include "ACM1602.h"
+ 0004           ; 
+ 0004           ; 
+ 0004           ; static UINT8 ACM1602_Start(ACM1602 *p)
+ 0004           ; {
+ 0004                   .dbline 15
+ 0004           ;       UINT8 stat;
+ 0004           ;       MI2C_Waitms(15);
+ 0004 5000              mov A,0
+ 0006 08                push A
+ 0007 500F              mov A,15
+ 0009 08                push A
+ 000A 7C0000            xcall _MI2C_Waitms
+ 000D 38FE              add SP,-2
+ 000F           L2:
+ 000F                   .dbline 16
+ 000F           ;       do {
+ 000F                   .dbline 17
+ 000F           ;               stat = (p->madrs).WriteByte(&(p->madrs), 0, 0x38);
+ 000F 10                push X
+ 0010 5038              mov A,56
+ 0012 08                push A
+ 0013 5000              mov A,0
+ 0015 08                push A
+ 0016 08                push A
+ 0017 52FB              mov A,[X-5]
+ 0019 08                push A
+ 001A 52FC              mov A,[X-4]
+ 001C 08                push A
+ 001D 52FC              mov A,[X-4]
+ 001F 0106              add A,6
+ 0021 5300              mov [__r1],A
+ 0023 3E00              mvi A,[__r1]
+ 0025 5300              mov [__r0],A
+ 0027 3E00              mvi A,[__r1]
+ 0029 5C                mov X,A
+ 002A 5100              mov A,[__r0]
+ 002C 7C0000            xcall __plcall
+ 002F 38FB              add SP,-5
+ 0031 20                pop X
+ 0032 5400              mov [X+0],A
+ 0034                   .dbline 18
+ 0034           ;               if (stat == MI2C_WRITE_ERR)
+ 0034 3D00FF            cmp [X+0],-1
+ 0037 B003              jnz L5
+ 0039                   .dbline 19
+ 0039           ;                       break;
+ 0039 80CF              xjmp L4
+ 003B           L5:
+ 003B                   .dbline 20
+ 003B           ;               MI2C_Waitms(5);
+ 003B 5000              mov A,0
+ 003D 08                push A
+ 003E 5005              mov A,5
+ 0040 08                push A
+ 0041 7C0000            xcall _MI2C_Waitms
+ 0044 38FE              add SP,-2
+ 0046                   .dbline 21
+ 0046           ;               stat = (p->madrs).WriteByte(&(p->madrs), 0, 0x0c);
+ 0046 10                push X
+ 0047 500C              mov A,12
+ 0049 08                push A
+ 004A 5000              mov A,0
+ 004C 08                push A
+ 004D 08                push A
+ 004E 52FB              mov A,[X-5]
+ 0050 08                push A
+ 0051 52FC              mov A,[X-4]
+ 0053 08                push A
+ 0054 52FC              mov A,[X-4]
+ 0056 0106              add A,6
+ 0058 5300              mov [__r1],A
+ 005A 3E00              mvi A,[__r1]
+ 005C 5300              mov [__r0],A
+ 005E 3E00              mvi A,[__r1]
+ 0060 5C                mov X,A
+ 0061 5100              mov A,[__r0]
+ 0063 7C0000            xcall __plcall
+ 0066 38FB              add SP,-5
+ 0068 20                pop X
+ 0069 5400              mov [X+0],A
+ 006B                   .dbline 22
+ 006B           ;               if (stat == MI2C_WRITE_ERR)
+ 006B 3D00FF            cmp [X+0],-1
+ 006E B003              jnz L7
+ 0070                   .dbline 23
+ 0070           ;                       break;
+ 0070 8098              xjmp L4
+ 0072           L7:
+ 0072                   .dbline 24
+ 0072           ;               MI2C_Waitms(5);
+ 0072 5000              mov A,0
+ 0074 08                push A
+ 0075 5005              mov A,5
+ 0077 08                push A
+ 0078 7C0000            xcall _MI2C_Waitms
+ 007B 38FE              add SP,-2
+ 007D                   .dbline 25
+ 007D           ;               stat = (p->madrs).WriteByte(&(p->madrs), 0, 0x01);
+ 007D 10                push X
+ 007E 5001              mov A,1
+ 0080 08                push A
+ 0081 5000              mov A,0
+ 0083 08                push A
+ 0084 08                push A
+ 0085 52FB              mov A,[X-5]
+ 0087 08                push A
+ 0088 52FC              mov A,[X-4]
+ 008A 08                push A
+ 008B 52FC              mov A,[X-4]
+ 008D 0106              add A,6
+ 008F 5300              mov [__r1],A
+ 0091 3E00              mvi A,[__r1]
+ 0093 5300              mov [__r0],A
+ 0095 3E00              mvi A,[__r1]
+ 0097 5C                mov X,A
+ 0098 5100              mov A,[__r0]
+ 009A 7C0000            xcall __plcall
+ 009D 38FB              add SP,-5
+ 009F 20                pop X
+ 00A0 5400              mov [X+0],A
+ 00A2                   .dbline 26
+ 00A2           ;               if (stat == MI2C_WRITE_ERR)
+ 00A2 3D00FF            cmp [X+0],-1
+ 00A5 B003              jnz L9
+ 00A7                   .dbline 27
+ 00A7           ;                       break;
+ 00A7 8061              xjmp L4
+ 00A9           L9:
+ 00A9                   .dbline 28
+ 00A9           ;               MI2C_Waitms(5);
+ 00A9 5000              mov A,0
+ 00AB 08                push A
+ 00AC 5005              mov A,5
+ 00AE 08                push A
+ 00AF 7C0000            xcall _MI2C_Waitms
+ 00B2 38FE              add SP,-2
+ 00B4                   .dbline 29
+ 00B4           ;               stat = (p->madrs).WriteByte(&(p->madrs), 0, 0x02);
+ 00B4 10                push X
+ 00B5 5002              mov A,2
+ 00B7 08                push A
+ 00B8 5000              mov A,0
+ 00BA 08                push A
+ 00BB 08                push A
+ 00BC 52FB              mov A,[X-5]
+ 00BE 08                push A
+ 00BF 52FC              mov A,[X-4]
+ 00C1 08                push A
+ 00C2 52FC              mov A,[X-4]
+ 00C4 0106              add A,6
+ 00C6 5300              mov [__r1],A
+ 00C8 3E00              mvi A,[__r1]
+ 00CA 5300              mov [__r0],A
+ 00CC 3E00              mvi A,[__r1]
+ 00CE 5C                mov X,A
+ 00CF 5100              mov A,[__r0]
+ 00D1 7C0000            xcall __plcall
+ 00D4 38FB              add SP,-5
+ 00D6 20                pop X
+ 00D7 5400              mov [X+0],A
+ 00D9                   .dbline 30
+ 00D9           ;               if (stat == MI2C_WRITE_ERR)
+ 00D9 3D00FF            cmp [X+0],-1
+ 00DC B003              jnz L11
+ 00DE                   .dbline 31
+ 00DE           ;                       break;
+ 00DE 802A              xjmp L4
+ 00E0           L11:
+ 00E0                   .dbline 32
+ 00E0           ;               MI2C_Waitms(5);
+ 00E0 5000              mov A,0
+ 00E2 08                push A
+ 00E3 5005              mov A,5
+ 00E5 08                push A
+ 00E6 7C0000            xcall _MI2C_Waitms
+ 00E9 38FE              add SP,-2
+ 00EB                   .dbline 33
+ 00EB           ;               stat = p->Clear(p);
+ 00EB 10                push X
+ 00EC 52FB              mov A,[X-5]
+ 00EE 08                push A
+ 00EF 52FC              mov A,[X-4]
+ 00F1 08                push A
+ 00F2 52FC              mov A,[X-4]
+ 00F4 0113              add A,19
+ 00F6 5300              mov [__r1],A
+ 00F8 3E00              mvi A,[__r1]
+ 00FA 5300              mov [__r0],A
+ 00FC 3E00              mvi A,[__r1]
+ 00FE 5C                mov X,A
+ 00FF 5100              mov A,[__r0]
+ 0101 7C0000            xcall __plcall
+ 0104 38FE              add SP,-2
+ 0106 20                pop X
+ 0107 5400              mov [X+0],A
+ 0109                   .dbline 34
+ 0109           ;       } while(0);
+ 0109           L3:
+ 0109                   .dbline 34
+ 0109           L4:
+ 0109                   .dbline 35
+ 0109           ;       return(stat);
+ 0109 5200              mov A,[X+0]
+ 010B                   .dbline -2
+ 010B           L1:
+ 010B 38FF              add SP,-1
+ 010D 20                pop X
+ 010E                   .dbline 0 ; func end
+ 010E 7F                ret
+ 010F                   .dbsym l stat 0 c
+ 010F                   .dbsym l p -5 pS[ACM1602_STRUC]
+ 010F                   .dbend
+ 010F                   .dbfunc s ACM1602_Position _ACM1602_Position fV
+ 010F           ;              x -> X-7
+ 010F           ;              y -> X-6
+ 010F           ;              p -> X-5
+ 010F           _ACM1602_Position:
+ 010F                   .dbline -1
+ 010F 10                push X
+ 0110 4F                mov X,SP
+ 0111                   .dbline 40
+ 0111           ; }
+ 0111           ; 
+ 0111           ; 
+ 0111           ; static void ACM1602_Position(ACM1602 *p, UINT8 y, UINT8 x)
+ 0111           ; {
+ 0111                   .dbline 41
+ 0111           ;       p->Xpos = x & 0xf;
+ 0111 52F9              mov A,[X-7]
+ 0113 210F              and A,15
+ 0115 5300              mov [__r0],A
+ 0117 52FC              mov A,[X-4]
+ 0119 010C              add A,12
+ 011B 5300              mov [__r3],A
+ 011D 5100              mov A,[__r0]
+ 011F 3F00              mvi [__r3],A
+ 0121                   .dbline 42
+ 0121           ;       p->Ypos = y & 1;
+ 0121 52FA              mov A,[X-6]
+ 0123 2101              and A,1
+ 0125 5300              mov [__r0],A
+ 0127 52FC              mov A,[X-4]
+ 0129 010D              add A,13
+ 012B 5300              mov [__r3],A
+ 012D 5100              mov A,[__r0]
+ 012F 3F00              mvi [__r3],A
+ 0131                   .dbline 43
+ 0131           ;       if (p->Ypos == 0)
+ 0131 52FC              mov A,[X-4]
+ 0133 010D              add A,13
+ 0135 5300              mov [__r1],A
+ 0137 3E00              mvi A,[__r1]
+ 0139 B00D              jnz L14
+ 013B                   .dbline 44
+ 013B           ;               p->DDRAM_Adrs = 0x00;
+ 013B 52FC              mov A,[X-4]
+ 013D 010E              add A,14
+ 013F 5300              mov [__r1],A
+ 0141 5000              mov A,0
+ 0143 3F00              mvi [__r1],A
+ 0145 800B              xjmp L15
+ 0147           L14:
+ 0147                   .dbline 45
+ 0147           ;       else    p->DDRAM_Adrs = 0x40;
+ 0147 52FC              mov A,[X-4]
+ 0149 010E              add A,14
+ 014B 5300              mov [__r1],A
+ 014D 5040              mov A,64
+ 014F 3F00              mvi [__r1],A
+ 0151           L15:
+ 0151                   .dbline 46
+ 0151           ;       p->DDRAM_Adrs |= p->Xpos;
+ 0151 52FC              mov A,[X-4]
+ 0153 010E              add A,14
+ 0155 5300              mov [__r1],A
+ 0157 52FB              mov A,[X-5]
+ 0159 0900              adc A,0
+ 015B 5300              mov [__r0],A
+ 015D 52FC              mov A,[X-4]
+ 015F 010C              add A,12
+ 0161 5300              mov [__r3],A
+ 0163 3E00              mvi A,[__r3]
+ 0165 5300              mov [__r2],A
+ 0167 3E00              mvi A,[__r1]
+ 0169 7A00              dec [__r1]
+ 016B 2A00              or A,[__r2]
+ 016D 3F00              mvi [__r1],A
+ 016F                   .dbline -2
+ 016F           L13:
+ 016F 20                pop X
+ 0170                   .dbline 0 ; func end
+ 0170 7F                ret
+ 0171                   .dbsym l x -7 c
+ 0171                   .dbsym l y -6 c
+ 0171                   .dbsym l p -5 pS[ACM1602_STRUC]
+ 0171                   .dbend
+ 0171                   .dbfunc s ACM1602_Clear _ACM1602_Clear fc
+ 0171           ;           stat -> X+0
+ 0171           ;              p -> X-5
+ 0171           _ACM1602_Clear:
+ 0171                   .dbline -1
+ 0171 10                push X
+ 0172 4F                mov X,SP
+ 0173 3801              add SP,1
+ 0175                   .dbline 50
+ 0175           ; }
+ 0175           ; 
+ 0175           ; static UINT8 ACM1602_Clear(ACM1602 *p)
+ 0175           ; {
+ 0175                   .dbline 52
+ 0175           ;       UINT8 stat;
+ 0175           ;       stat = (p->madrs).WriteByte(&(p->madrs), 0, 0x01);
+ 0175 10                push X
+ 0176 5001              mov A,1
+ 0178 08                push A
+ 0179 5000              mov A,0
+ 017B 08                push A
+ 017C 08                push A
+ 017D 52FB              mov A,[X-5]
+ 017F 08                push A
+ 0180 52FC              mov A,[X-4]
+ 0182 08                push A
+ 0183 52FC              mov A,[X-4]
+ 0185 0106              add A,6
+ 0187 5300              mov [__r1],A
+ 0189 3E00              mvi A,[__r1]
+ 018B 5300              mov [__r0],A
+ 018D 3E00              mvi A,[__r1]
+ 018F 5C                mov X,A
+ 0190 5100              mov A,[__r0]
+ 0192 7C0000            xcall __plcall
+ 0195 38FB              add SP,-5
+ 0197 20                pop X
+ 0198 5400              mov [X+0],A
+ 019A                   .dbline 53
+ 019A           ;       if (stat == MI2C_WRITE_ERR)
+ 019A 3D00FF            cmp [X+0],-1
+ 019D B005              jnz L17
+ 019F                   .dbline 54
+ 019F           ;               return(stat);
+ 019F 5200              mov A,[X+0]
+ 01A1 802E              xjmp L16
+ 01A3           L17:
+ 01A3                   .dbline 55
+ 01A3           ;       MI2C_Waitms(5);
+ 01A3 5000              mov A,0
+ 01A5 08                push A
+ 01A6 5005              mov A,5
+ 01A8 08                push A
+ 01A9 7C0000            xcall _MI2C_Waitms
+ 01AC 38FE              add SP,-2
+ 01AE                   .dbline 56
+ 01AE           ;       (p->Position)(p, 0,0);
+ 01AE 10                push X
+ 01AF 5000              mov A,0
+ 01B1 08                push A
+ 01B2 08                push A
+ 01B3 52FB              mov A,[X-5]
+ 01B5 08                push A
+ 01B6 52FC              mov A,[X-4]
+ 01B8 08                push A
+ 01B9 52FC              mov A,[X-4]
+ 01BB 0111              add A,17
+ 01BD 5300              mov [__r1],A
+ 01BF 3E00              mvi A,[__r1]
+ 01C1 5300              mov [__r0],A
+ 01C3 3E00              mvi A,[__r1]
+ 01C5 5C                mov X,A
+ 01C6 5100              mov A,[__r0]
+ 01C8 7C0000            xcall __plcall
+ 01CB 38FC              add SP,-4
+ 01CD 20                pop X
+ 01CE                   .dbline 57
+ 01CE           ;       return(stat);
+ 01CE 5200              mov A,[X+0]
+ 01D0                   .dbline -2
+ 01D0           L16:
+ 01D0 38FF              add SP,-1
+ 01D2 20                pop X
+ 01D3                   .dbline 0 ; func end
+ 01D3 7F                ret
+ 01D4                   .dbsym l stat 0 c
+ 01D4                   .dbsym l p -5 pS[ACM1602_STRUC]
+ 01D4                   .dbend
+ 01D4                   .dbfunc s ACM1602_WriteData _ACM1602_WriteData fc
+ 01D4           ;           stat -> X+0
+ 01D4           ;            dat -> X-6
+ 01D4           ;              p -> X-5
+ 01D4           _ACM1602_WriteData:
+ 01D4                   .dbline -1
+ 01D4 10                push X
+ 01D5 4F                mov X,SP
+ 01D6 3803              add SP,3
+ 01D8                   .dbline 62
+ 01D8           ; 
+ 01D8           ; }
+ 01D8           ; 
+ 01D8           ; static UINT8 ACM1602_WriteData(ACM1602 *p, UINT8 dat)
+ 01D8           ; {
+ 01D8                   .dbline 64
+ 01D8           ;       UINT8 stat;
+ 01D8           ;       stat = MI2C_ACKslave;
+ 01D8 560000            mov [X+0],0
+ 01DB                   .dbline 65
+ 01DB           ;       switch(dat) {
+ 01DB 52FA              mov A,[X-6]
+ 01DD 5402              mov [X+2],A
+ 01DF 560100            mov [X+1],0
+ 01E2 3D0100            cmp [X+1],0
+ 01E5 B006              jnz X0
+ 01E7 3D020A            cmp [X+2],10
+ 01EA A025              jz L24
+ 01EC           X0:
+ 01EC 3D0100            cmp [X+1],0
+ 01EF B006              jnz X1
+ 01F1 3D020D            cmp [X+2],13
+ 01F4 A003              jz L23
+ 01F6           X1:
+ 01F6 8033              xjmp L20
+ 01F8           L23:
+ 01F8                   .dbline 67
+ 01F8           ;               case    '\r':
+ 01F8           ;                       ACM1602_Position(p, p->Ypos, 0);
+ 01F8 5000              mov A,0
+ 01FA 08                push A
+ 01FB 52FC              mov A,[X-4]
+ 01FD 010D              add A,13
+ 01FF 5300              mov [__r1],A
+ 0201 3E00              mvi A,[__r1]
+ 0203 08                push A
+ 0204 52FB              mov A,[X-5]
+ 0206 08                push A
+ 0207 52FC              mov A,[X-4]
+ 0209 08                push A
+ 020A 9F03              xcall _ACM1602_Position
+ 020C 38FC              add SP,-4
+ 020E                   .dbline 68
+ 020E           ;                       break;
+ 020E 80A4              xjmp L21
+ 0210           L24:
+ 0210                   .dbline 70
+ 0210           ;               case    '\n':
+ 0210           ;                       ACM1602_Position(p, (p->Ypos)+1, 0);
+ 0210 5000              mov A,0
+ 0212 08                push A
+ 0213 52FC              mov A,[X-4]
+ 0215 010D              add A,13
+ 0217 5300              mov [__r1],A
+ 0219 3E00              mvi A,[__r1]
+ 021B 0101              add A,1
+ 021D 08                push A
+ 021E 52FB              mov A,[X-5]
+ 0220 08                push A
+ 0221 52FC              mov A,[X-4]
+ 0223 08                push A
+ 0224 9EE9              xcall _ACM1602_Position
+ 0226 38FC              add SP,-4
+ 0228                   .dbline 71
+ 0228           ;                       break;
+ 0228 808A              xjmp L21
+ 022A           L20:
+ 022A                   .dbline 73
+ 022A           ;               default:
+ 022A           ;                       stat = (p->madrs).WriteByte(&(p->madrs), 0, 0x80 | p->DDRAM_Adrs);
+ 022A 52FC              mov A,[X-4]
+ 022C 010E              add A,14
+ 022E 5300              mov [__r1],A
+ 0230 3E00              mvi A,[__r1]
+ 0232 2980              or A,-128
+ 0234 10                push X
+ 0235 08                push A
+ 0236 5000              mov A,0
+ 0238 08                push A
+ 0239 08                push A
+ 023A 52FB              mov A,[X-5]
+ 023C 08                push A
+ 023D 52FC              mov A,[X-4]
+ 023F 08                push A
+ 0240 52FC              mov A,[X-4]
+ 0242 0106              add A,6
+ 0244 5300              mov [__r1],A
+ 0246 3E00              mvi A,[__r1]
+ 0248 5300              mov [__r0],A
+ 024A 3E00              mvi A,[__r1]
+ 024C 5C                mov X,A
+ 024D 5100              mov A,[__r0]
+ 024F 7C0000            xcall __plcall
+ 0252 38FB              add SP,-5
+ 0254 20                pop X
+ 0255 5400              mov [X+0],A
+ 0257                   .dbline 74
+ 0257           ;                       if (stat == MI2C_WRITE_ERR)
+ 0257 3D00FF            cmp [X+0],-1
+ 025A                   .dbline 75
+ 025A           ;                               break;
+ 025A A058              jz L21
+ 025C           L25:
+ 025C                   .dbline 76
+ 025C           ;                       stat = (p->madrs).WriteByte(&(p->madrs), 0x80, dat);
+ 025C 10                push X
+ 025D 52FA              mov A,[X-6]
+ 025F 08                push A
+ 0260 5000              mov A,0
+ 0262 08                push A
+ 0263 5080              mov A,-128
+ 0265 08                push A
+ 0266 52FB              mov A,[X-5]
+ 0268 08                push A
+ 0269 52FC              mov A,[X-4]
+ 026B 08                push A
+ 026C 52FC              mov A,[X-4]
+ 026E 0106              add A,6
+ 0270 5300              mov [__r1],A
+ 0272 3E00              mvi A,[__r1]
+ 0274 5300              mov [__r0],A
+ 0276 3E00              mvi A,[__r1]
+ 0278 5C                mov X,A
+ 0279 5100              mov A,[__r0]
+ 027B 7C0000            xcall __plcall
+ 027E 38FB              add SP,-5
+ 0280 20                pop X
+ 0281 5400              mov [X+0],A
+ 0283                   .dbline 77
+ 0283           ;                       (p->Position)(p, p->Ypos, p->Xpos+1);
+ 0283 52FC              mov A,[X-4]
+ 0285 010C              add A,12
+ 0287 5300              mov [__r1],A
+ 0289 3E00              mvi A,[__r1]
+ 028B 0101              add A,1
+ 028D 10                push X
+ 028E 08                push A
+ 028F 52FC              mov A,[X-4]
+ 0291 010D              add A,13
+ 0293 5300              mov [__r1],A
+ 0295 3E00              mvi A,[__r1]
+ 0297 08                push A
+ 0298 52FB              mov A,[X-5]
+ 029A 08                push A
+ 029B 52FC              mov A,[X-4]
+ 029D 08                push A
+ 029E 52FC              mov A,[X-4]
+ 02A0 0111              add A,17
+ 02A2 5300              mov [__r1],A
+ 02A4 3E00              mvi A,[__r1]
+ 02A6 5300              mov [__r0],A
+ 02A8 3E00              mvi A,[__r1]
+ 02AA 5C                mov X,A
+ 02AB 5100              mov A,[__r0]
+ 02AD 7C0000            xcall __plcall
+ 02B0 38FC              add SP,-4
+ 02B2 20                pop X
+ 02B3                   .dbline 78
+ 02B3           ;                       break;
+ 02B3           L21:
+ 02B3                   .dbline 80
+ 02B3           ;       }
+ 02B3           ;       return(stat);
+ 02B3 5200              mov A,[X+0]
+ 02B5                   .dbline -2
+ 02B5           L19:
+ 02B5 38FD              add SP,-3
+ 02B7 20                pop X
+ 02B8                   .dbline 0 ; func end
+ 02B8 7F                ret
+ 02B9                   .dbsym l stat 0 c
+ 02B9                   .dbsym l dat -6 c
+ 02B9                   .dbsym l p -5 pS[ACM1602_STRUC]
+ 02B9                   .dbend
+                        .area lit(rom, con, rel, lit)
+ 0000           _HexDat:
+ 0000 3031              .byte 48,49
+ 0002 3233              .byte 50,51
+ 0004 3435              .byte 52,53
+ 0006 3637              .byte 54,55
+ 0008 3839              .byte 56,57
+ 000A 4142              .byte 'A,'B
+ 000C 4344              .byte 'C,'D
+ 000E 4546              .byte 'E,'F
+ 0010                   .dbsym s HexDat _HexDat A[16:16]kc
+                        .area text(rom, con, rel)
+ 02B9                   .dbfile Z:\TMP\Modulio\Proj\V8\PSoC1\lib_modulio\acm1602.c
+ 02B9                   .dbfunc s ACM1602_PrHexByte _ACM1602_PrHexByte fc
+ 02B9           ;              c -> X+1
+ 02B9           ;           stat -> X+0
+ 02B9           ;            dat -> X-6
+ 02B9           ;              p -> X-5
+ 02B9           _ACM1602_PrHexByte:
+ 02B9                   .dbline -1
+ 02B9 10                push X
+ 02BA 4F                mov X,SP
+ 02BB 3802              add SP,2
+ 02BD                   .dbline 85
+ 02BD           ; }
+ 02BD           ; 
+ 02BD           ; static const UINT8 HexDat[] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+ 02BD           ; static UINT8 ACM1602_PrHexByte(ACM1602 *p, UINT8 dat)
+ 02BD           ; {
+ 02BD                   .dbline 87
+ 02BD           ;       UINT8 stat, c;
+ 02BD           ;       c = (dat >> 4) & 0xf;
+ 02BD 52FA              mov A,[X-6]
+ 02BF 67                asr A
+ 02C0 67                asr A
+ 02C1 67                asr A
+ 02C2 67                asr A
+ 02C3 210F              and A,15
+ 02C5 5401              mov [X+1],A
+ 02C7                   .dbline 88
+ 02C7           ;       stat = (p->WriteData)(p, HexDat[c]);
+ 02C7 5201              mov A,[X+1]
+ 02C9 5300              mov [__r1],A
+ 02CB 550000            mov [__r0],0
+ 02CE 060000            add [__r1],<_HexDat
+ 02D1 0E0000            adc [__r0],>_HexDat
+ 02D4 5100              mov A,[__r0]
+ 02D6 10                push X
+ 02D7 5800              mov X,[__r1]
+ 02D9 28                romx
+ 02DA 20                pop X
+ 02DB 10                push X
+ 02DC 08                push A
+ 02DD 52FB              mov A,[X-5]
+ 02DF 08                push A
+ 02E0 52FC              mov A,[X-4]
+ 02E2 08                push A
+ 02E3 52FC              mov A,[X-4]
+ 02E5 0115              add A,21
+ 02E7 5300              mov [__r1],A
+ 02E9 3E00              mvi A,[__r1]
+ 02EB 5300              mov [__r0],A
+ 02ED 3E00              mvi A,[__r1]
+ 02EF 5C                mov X,A
+ 02F0 5100              mov A,[__r0]
+ 02F2 7C0000            xcall __plcall
+ 02F5 38FD              add SP,-3
+ 02F7 20                pop X
+ 02F8 5400              mov [X+0],A
+ 02FA                   .dbline 89
+ 02FA           ;       if (stat != MI2C_WRITE_ERR) {
+ 02FA 3D00FF            cmp [X+0],-1
+ 02FD A03A              jz L28
+ 02FF                   .dbline 90
+ 02FF           ;               c = dat & 0xf;
+ 02FF                   .dbline 90
+ 02FF 52FA              mov A,[X-6]
+ 0301 210F              and A,15
+ 0303 5401              mov [X+1],A
+ 0305                   .dbline 91
+ 0305           ;               stat = (p->WriteData)(p, HexDat[c]);
+ 0305 5201              mov A,[X+1]
+ 0307 5300              mov [__r1],A
+ 0309 550000            mov [__r0],0
+ 030C 060000            add [__r1],<_HexDat
+ 030F 0E0000            adc [__r0],>_HexDat
+ 0312 5100              mov A,[__r0]
+ 0314 10                push X
+ 0315 5800              mov X,[__r1]
+ 0317 28                romx
+ 0318 20                pop X
+ 0319 10                push X
+ 031A 08                push A
+ 031B 52FB              mov A,[X-5]
+ 031D 08                push A
+ 031E 52FC              mov A,[X-4]
+ 0320 08                push A
+ 0321 52FC              mov A,[X-4]
+ 0323 0115              add A,21
+ 0325 5300              mov [__r1],A
+ 0327 3E00              mvi A,[__r1]
+ 0329 5300              mov [__r0],A
+ 032B 3E00              mvi A,[__r1]
+ 032D 5C                mov X,A
+ 032E 5100              mov A,[__r0]
+ 0330 7C0000            xcall __plcall
+ 0333 38FD              add SP,-3
+ 0335 20                pop X
+ 0336 5400              mov [X+0],A
+ 0338                   .dbline 92
+ 0338           ;       }
+ 0338           L28:
+ 0338                   .dbline 93
+ 0338           ;       return(stat);
+ 0338 5200              mov A,[X+0]
+ 033A                   .dbline -2
+ 033A           L27:
+ 033A 38FE              add SP,-2
+ 033C 20                pop X
+ 033D                   .dbline 0 ; func end
+ 033D 7F                ret
+ 033E                   .dbsym l c 1 c
+ 033E                   .dbsym l stat 0 c
+ 033E                   .dbsym l dat -6 c
+ 033E                   .dbsym l p -5 pS[ACM1602_STRUC]
+ 033E                   .dbend
+ 033E                   .dbfunc s ACM1602_PrHexInt _ACM1602_PrHexInt fc
+ 033E           ;           stat -> X+0
+ 033E           ;            dat -> X-7
+ 033E           ;              p -> X-5
+ 033E           _ACM1602_PrHexInt:
+ 033E                   .dbline -1
+ 033E 10                push X
+ 033F 4F                mov X,SP
+ 0340 3801              add SP,1
+ 0342                   .dbline 97
+ 0342           ; }
+ 0342           ; 
+ 0342           ; static UINT8 ACM1602_PrHexInt(ACM1602 *p, UINT16 dat)
+ 0342           ; {
+ 0342                   .dbline 99
+ 0342           ;       UINT8 stat;
+ 0342           ;       stat = (p->PrHexByte)(p, (dat >> 8) & 0xff);
+ 0342 52F9              mov A,[X-7]
+ 0344 10                push X
+ 0345 08                push A
+ 0346 52FB              mov A,[X-5]
+ 0348 08                push A
+ 0349 52FC              mov A,[X-4]
+ 034B 08                push A
+ 034C 52FC              mov A,[X-4]
+ 034E 0117              add A,23
+ 0350 5300              mov [__r1],A
+ 0352 3E00              mvi A,[__r1]
+ 0354 5300              mov [__r0],A
+ 0356 3E00              mvi A,[__r1]
+ 0358 5C                mov X,A
+ 0359 5100              mov A,[__r0]
+ 035B 7C0000            xcall __plcall
+ 035E 38FD              add SP,-3
+ 0360 20                pop X
+ 0361 5400              mov [X+0],A
+ 0363                   .dbline 100
+ 0363           ;       if (stat != MI2C_WRITE_ERR) {
+ 0363 3D00FF            cmp [X+0],-1
+ 0366 A022              jz L31
+ 0368                   .dbline 101
+ 0368           ;               stat = (p->PrHexByte)(p, dat& 0xff);
+ 0368                   .dbline 101
+ 0368 52FA              mov A,[X-6]
+ 036A 10                push X
+ 036B 08                push A
+ 036C 52FB              mov A,[X-5]
+ 036E 08                push A
+ 036F 52FC              mov A,[X-4]
+ 0371 08                push A
+ 0372 52FC              mov A,[X-4]
+ 0374 0117              add A,23
+ 0376 5300              mov [__r1],A
+ 0378 3E00              mvi A,[__r1]
+ 037A 5300              mov [__r0],A
+ 037C 3E00              mvi A,[__r1]
+ 037E 5C                mov X,A
+ 037F 5100              mov A,[__r0]
+ 0381 7C0000            xcall __plcall
+ 0384 38FD              add SP,-3
+ 0386 20                pop X
+ 0387 5400              mov [X+0],A
+ 0389                   .dbline 102
+ 0389           ;       }
+ 0389           L31:
+ 0389                   .dbline 103
+ 0389           ;       return(stat);
+ 0389 5200              mov A,[X+0]
+ 038B                   .dbline -2
+ 038B           L30:
+ 038B 38FF              add SP,-1
+ 038D 20                pop X
+ 038E                   .dbline 0 ; func end
+ 038E 7F                ret
+ 038F                   .dbsym l stat 0 c
+ 038F                   .dbsym l dat -7 s
+ 038F                   .dbsym l p -5 pS[ACM1602_STRUC]
+ 038F                   .dbend
+ 038F                   .dbfunc s ACM1602_PrString _ACM1602_PrString fc
+ 038F           ;              c -> X+1
+ 038F           ;           stat -> X+0
+ 038F           ;     sRamString -> X-7
+ 038F           ;              p -> X-5
+ 038F           _ACM1602_PrString:
+ 038F                   .dbline -1
+ 038F 10                push X
+ 0390 4F                mov X,SP
+ 0391 3802              add SP,2
+ 0393                   .dbline 107
+ 0393           ; }
+ 0393           ; 
+ 0393           ; static UINT8 ACM1602_PrString(ACM1602 *p, char *sRamString)
+ 0393           ; {
+ 0393                   .dbline 109
+ 0393           ;       UINT8 stat,c;
+ 0393           ;       stat = !MI2C_WRITE_ERR;
+ 0393 560000            mov [X+0],0
+ 0396 8029              xjmp L35
+ 0398           L34:
+ 0398                   .dbline 110
+ 0398           ;       while ((c = *sRamString++) != '\0') {
+ 0398                   .dbline 111
+ 0398           ;               stat = (p->WriteData)(p,c);
+ 0398 10                push X
+ 0399 5201              mov A,[X+1]
+ 039B 08                push A
+ 039C 52FB              mov A,[X-5]
+ 039E 08                push A
+ 039F 52FC              mov A,[X-4]
+ 03A1 08                push A
+ 03A2 52FC              mov A,[X-4]
+ 03A4 0115              add A,21
+ 03A6 5300              mov [__r1],A
+ 03A8 3E00              mvi A,[__r1]
+ 03AA 5300              mov [__r0],A
+ 03AC 3E00              mvi A,[__r1]
+ 03AE 5C                mov X,A
+ 03AF 5100              mov A,[__r0]
+ 03B1 7C0000            xcall __plcall
+ 03B4 38FD              add SP,-3
+ 03B6 20                pop X
+ 03B7 5400              mov [X+0],A
+ 03B9                   .dbline 112
+ 03B9           ;               if (stat == MI2C_WRITE_ERR)
+ 03B9 3D00FF            cmp [X+0],-1
+ 03BC B003              jnz L37
+ 03BE                   .dbline 113
+ 03BE           ;                       break;
+ 03BE 8021              xjmp L36
+ 03C0           L37:
+ 03C0                   .dbline 114
+ 03C0           ;       }
+ 03C0           L35:
+ 03C0                   .dbline 110
+ 03C0 52FA              mov A,[X-6]
+ 03C2 5300              mov [__r1],A
+ 03C4 52F9              mov A,[X-7]
+ 03C6 5300              mov [__r0],A
+ 03C8 5100              mov A,[__r1]
+ 03CA 0101              add A,1
+ 03CC 54FA              mov [X-6],A
+ 03CE 5100              mov A,[__r0]
+ 03D0 0900              adc A,0
+ 03D2 54F9              mov [X-7],A
+ 03D4 3E00              mvi A,[__r1]
+ 03D6 7A00              dec [__r1]
+ 03D8 5300              mov [__r0],A
+ 03DA 5401              mov [X+1],A
+ 03DC 3900              cmp A,0
+ 03DE BFB9              jnz L34
+ 03E0           L36:
+ 03E0                   .dbline 115
+ 03E0           ;       return(stat);
+ 03E0 5200              mov A,[X+0]
+ 03E2                   .dbline -2
+ 03E2           L33:
+ 03E2 38FE              add SP,-2
+ 03E4 20                pop X
+ 03E5                   .dbline 0 ; func end
+ 03E5 7F                ret
+ 03E6                   .dbsym l c 1 c
+ 03E6                   .dbsym l stat 0 c
+ 03E6                   .dbsym l sRamString -7 pc
+ 03E6                   .dbsym l p -5 pS[ACM1602_STRUC]
+ 03E6                   .dbend
+ 03E6                   .dbfunc s ACM1602_PrCString _ACM1602_PrCString fc
+ 03E6           ;              c -> X+1
+ 03E6           ;           stat -> X+0
+ 03E6           ;     sRomString -> X-7
+ 03E6           ;              p -> X-5
+ 03E6           _ACM1602_PrCString:
+ 03E6                   .dbline -1
+ 03E6 10                push X
+ 03E7 4F                mov X,SP
+ 03E8 3802              add SP,2
+ 03EA                   .dbline 119
+ 03EA           ; }
+ 03EA           ; 
+ 03EA           ; static UINT8 ACM1602_PrCString(ACM1602 *p, const char *sRomString)
+ 03EA           ; {
+ 03EA                   .dbline 121
+ 03EA           ;       UINT8 stat,c;
+ 03EA           ;       stat = !MI2C_WRITE_ERR;
+ 03EA 560000            mov [X+0],0
+ 03ED 8029              xjmp L41
+ 03EF           L40:
+ 03EF                   .dbline 122
+ 03EF           ;       while ((c = *sRomString++) != '\0') {
+ 03EF                   .dbline 123
+ 03EF           ;               stat = (p->WriteData)(p,c);
+ 03EF 10                push X
+ 03F0 5201              mov A,[X+1]
+ 03F2 08                push A
+ 03F3 52FB              mov A,[X-5]
+ 03F5 08                push A
+ 03F6 52FC              mov A,[X-4]
+ 03F8 08                push A
+ 03F9 52FC              mov A,[X-4]
+ 03FB 0115              add A,21
+ 03FD 5300              mov [__r1],A
+ 03FF 3E00              mvi A,[__r1]
+ 0401 5300              mov [__r0],A
+ 0403 3E00              mvi A,[__r1]
+ 0405 5C                mov X,A
+ 0406 5100              mov A,[__r0]
+ 0408 7C0000            xcall __plcall
+ 040B 38FD              add SP,-3
+ 040D 20                pop X
+ 040E 5400              mov [X+0],A
+ 0410                   .dbline 124
+ 0410           ;               if (stat == MI2C_WRITE_ERR)
+ 0410 3D00FF            cmp [X+0],-1
+ 0413 B003              jnz L43
+ 0415                   .dbline 125
+ 0415           ;                       break;
+ 0415 8024              xjmp L42
+ 0417           L43:
+ 0417                   .dbline 126
+ 0417           ;       }
+ 0417           L41:
+ 0417                   .dbline 122
+ 0417 52FA              mov A,[X-6]
+ 0419 5300              mov [__r1],A
+ 041B 52F9              mov A,[X-7]
+ 041D 5300              mov [__r0],A
+ 041F 5100              mov A,[__r1]
+ 0421 0101              add A,1
+ 0423 54FA              mov [X-6],A
+ 0425 5100              mov A,[__r0]
+ 0427 0900              adc A,0
+ 0429 54F9              mov [X-7],A
+ 042B 5100              mov A,[__r0]
+ 042D 10                push X
+ 042E 5800              mov X,[__r1]
+ 0430 28                romx
+ 0431 20                pop X
+ 0432 5300              mov [__r0],A
+ 0434 5401              mov [X+1],A
+ 0436 3900              cmp A,0
+ 0438 BFB6              jnz L40
+ 043A           L42:
+ 043A                   .dbline 127
+ 043A           ;       return(stat);
+ 043A 5200              mov A,[X+0]
+ 043C                   .dbline -2
+ 043C           L39:
+ 043C 38FE              add SP,-2
+ 043E 20                pop X
+ 043F                   .dbline 0 ; func end
+ 043F 7F                ret
+ 0440                   .dbsym l c 1 c
+ 0440                   .dbsym l stat 0 c
+ 0440                   .dbsym l sRomString -7 pkc
+ 0440                   .dbsym l p -5 pS[ACM1602_STRUC]
+ 0440                   .dbend
+ 0440                   .dbfunc e ACM1602_Setup _ACM1602_Setup fV
+ 0440           ;         option -> X-9
+ 0440           ;        devadrs -> X-8
+ 0440           ;          bswch -> X-7
+ 0440           ;        bswadrs -> X-6
+ 0440           ;              p -> X-5
+ 0440           _ACM1602_Setup::
+ 0440                   .dbline -1
+ 0440 10                push X
+ 0441 4F                mov X,SP
+ 0442                   .dbline 138
+ 0442           ; }
+ 0442           ; 
+ 0442           ; 
+ 0442           ; 
+ 0442           ; void ACM1602_Setup(
+ 0442           ;               ACM1602 *p,
+ 0442           ;               UINT8 bswadrs,
+ 0442           ;               UINT8 bswch,
+ 0442           ;               UINT8 devadrs,
+ 0442           ;               UINT8 option)
+ 0442           ; {
+ 0442                   .dbline 139
+ 0442           ;       p->Xpos = 0;
+ 0442 52FC              mov A,[X-4]
+ 0444 010C              add A,12
+ 0446 5300              mov [__r1],A
+ 0448 5000              mov A,0
+ 044A 3F00              mvi [__r1],A
+ 044C                   .dbline 140
+ 044C           ;       p->Ypos = 0;
+ 044C 52FC              mov A,[X-4]
+ 044E 010D              add A,13
+ 0450 5300              mov [__r1],A
+ 0452 5000              mov A,0
+ 0454 3F00              mvi [__r1],A
+ 0456                   .dbline 141
+ 0456           ;       p->Start = &ACM1602_Start;
+ 0456 52FC              mov A,[X-4]
+ 0458 010F              add A,15
+ 045A 74                inc A
+ 045B 5300              mov [__r1],A
+ 045D 500E              mov A,<PL_ACM1602_Start
+ 045F 3F00              mvi [__r1],A
+ 0461                   .dbline 142
+ 0461           ;       p->Position = &ACM1602_Position;
+ 0461 52FC              mov A,[X-4]
+ 0463 0111              add A,17
+ 0465 74                inc A
+ 0466 5300              mov [__r1],A
+ 0468 500C              mov A,<PL_ACM1602_Position
+ 046A 3F00              mvi [__r1],A
+ 046C                   .dbline 143
+ 046C           ;       p->Clear = &ACM1602_Clear;
+ 046C 52FC              mov A,[X-4]
+ 046E 0113              add A,19
+ 0470 74                inc A
+ 0471 5300              mov [__r1],A
+ 0473 500A              mov A,<PL_ACM1602_Clear
+ 0475 3F00              mvi [__r1],A
+ 0477                   .dbline 144
+ 0477           ;       p->WriteData = &ACM1602_WriteData;
+ 0477 52FC              mov A,[X-4]
+ 0479 0115              add A,21
+ 047B 74                inc A
+ 047C 5300              mov [__r1],A
+ 047E 5008              mov A,<PL_ACM1602_WriteData
+ 0480 3F00              mvi [__r1],A
+ 0482                   .dbline 145
+ 0482           ;       p->PrHexByte = &ACM1602_PrHexByte;
+ 0482 52FC              mov A,[X-4]
+ 0484 0117              add A,23
+ 0486 74                inc A
+ 0487 5300              mov [__r1],A
+ 0489 5006              mov A,<PL_ACM1602_PrHexByte
+ 048B 3F00              mvi [__r1],A
+ 048D                   .dbline 146
+ 048D           ;       p->PrHexInt = &ACM1602_PrHexInt;
+ 048D 52FC              mov A,[X-4]
+ 048F 0119              add A,25
+ 0491 74                inc A
+ 0492 5300              mov [__r1],A
+ 0494 5004              mov A,<PL_ACM1602_PrHexInt
+ 0496 3F00              mvi [__r1],A
+ 0498                   .dbline 147
+ 0498           ;       p->PrString = &ACM1602_PrString;
+ 0498 52FC              mov A,[X-4]
+ 049A 011B              add A,27
+ 049C 74                inc A
+ 049D 5300              mov [__r1],A
+ 049F 5002              mov A,<PL_ACM1602_PrString
+ 04A1 3F00              mvi [__r1],A
+ 04A3                   .dbline 148
+ 04A3           ;       p->PrCString = &ACM1602_PrCString;
+ 04A3 52FC              mov A,[X-4]
+ 04A5 011D              add A,29
+ 04A7 74                inc A
+ 04A8 5300              mov [__r1],A
+ 04AA 5000              mov A,<PL_ACM1602_PrCString
+ 04AC 3F00              mvi [__r1],A
+ 04AE                   .dbline 150
+ 04AE           ; 
+ 04AE           ;       MI2C_Setup(&(p->madrs), bswadrs, bswch, devadrs, option);
+ 04AE 52F7              mov A,[X-9]
+ 04B0 08                push A
+ 04B1 52F8              mov A,[X-8]
+ 04B3 08                push A
+ 04B4 52F9              mov A,[X-7]
+ 04B6 08                push A
+ 04B7 52FA              mov A,[X-6]
+ 04B9 08                push A
+ 04BA 52FB              mov A,[X-5]
+ 04BC 08                push A
+ 04BD 52FC              mov A,[X-4]
+ 04BF 08                push A
+ 04C0 7C0000            xcall _MI2C_Setup
+ 04C3 38FA              add SP,-6
+ 04C5                   .dbline -2
+ 04C5           L45:
+ 04C5 20                pop X
+ 04C6                   .dbline 0 ; func end
+ 04C6 7F                ret
+ 04C7                   .dbsym l option -9 c
+ 04C7                   .dbsym l devadrs -8 c
+ 04C7                   .dbsym l bswch -7 c
+ 04C7                   .dbsym l bswadrs -6 c
+ 04C7                   .dbsym l p -5 pS[ACM1602_STRUC]
+ 04C7                   .dbend
+                        .area func_lit(rom, con, rel, proclab)
+ 0000 03E6      PL_ACM1602_PrCString:   .word _ACM1602_PrCString
+ 0002 038F      PL_ACM1602_PrString:    .word _ACM1602_PrString
+ 0004 033E      PL_ACM1602_PrHexInt:    .word _ACM1602_PrHexInt
+ 0006 02B9      PL_ACM1602_PrHexByte:   .word _ACM1602_PrHexByte
+ 0008 01D4      PL_ACM1602_WriteData:   .word _ACM1602_WriteData
+ 000A 0171      PL_ACM1602_Clear:       .word _ACM1602_Clear
+ 000C 010F      PL_ACM1602_Position:    .word _ACM1602_Position
+ 000E 0000      PL_ACM1602_Start:       .word _ACM1602_Start

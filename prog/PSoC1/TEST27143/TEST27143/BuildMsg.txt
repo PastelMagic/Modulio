@@ -1,0 +1,12 @@
+Starting MAKE...
+creating project.mk 
+
+CAUTION there are no library files
+
+!E Z:\TMP\Modulio\Proj\V8\PSoC1\TEST~411\TEST~411\main.c(6): cannot include source file "PSoCAPI.h"; file not found
+
+make: *** [obj/main.o] Error 1
+
+ 
+TEST27143 - 2 error(s) 0 warning(s) 16:28:22
+
